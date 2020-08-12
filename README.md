@@ -14,8 +14,7 @@ In deep documentation could be found [here](https://fieldengineering.gitbook.io/
 ### Linux (python >3.6 required)
 - run `pip install -r requirements` (to install all the dependencies)
 - create an env var with your API key called `SCALE_API_KEY`, like this `SCALE_API_KEY=live_xxxx`
-- Update the script `aeye/create_task.py`
-- Done, now you can run the script with `python3 aeye/create_task.py`
+- Done, now you can run any script with `python3 [script name]`
 
 ### Extra requirements:
 If not nstalled already, AWS-CLI installed  - [Manual AWS-CLI installation](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)

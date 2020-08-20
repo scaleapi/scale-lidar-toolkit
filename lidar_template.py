@@ -137,6 +137,7 @@ def load_scene(base_path, frames=None):
 
         # you can apply each pose in here or on the final stage
         # scene.get_frame(frame_id).apply_transform(pose)
+
         points = read_lidar(frame_id)
         scene.get_frame(frame_id).add_points(points)    # add points to the frame, you can also do `add_points(points, transform=[new_transform])`
 

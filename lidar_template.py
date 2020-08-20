@@ -8,9 +8,15 @@ from glob import glob
 """
 Documentation for this file is in :
 https://fieldengineering.gitbook.io/lidar-conversion/load-raw-lidar-data/intro
-
-Login with the email fieldengineering@scale.com
 """
+
+###############
+## CHANGE ME ##
+###############
+LOCAL_INPUT_PATH = ''
+DATA_PATH = ''
+S3_BUCKET = ''
+S3_BUCKET_PATH = ''
 
 CAMERAS = [
         'fisheye_camera',
@@ -40,7 +46,7 @@ def load_scene(base_path, frames=None):
     os.chdir(base_path)
 
     """
-    Definition Stage: Limit de data by frames + get source files
+    Definition Stage: Limit the data by frames + get source files
     """
     # read files
     files = glob('lidar:vls128/*.*', recursive=True)    # lidar files path
@@ -73,7 +79,7 @@ def load_scene(base_path, frames=None):
     #  poses = [pose @ imu_to_lidar.inverse for pose in poses]
 
     """
-    Add and calibrate each camera (there are multiple option to calibrate the camera, check this method on the camera class)
+    Add and calibrate each camera (there are multiple options to calibrate the camera, check this method on the camera class)
     """
     for camera_id in CAMERAS:
         calib = json.load(open(f'{camera_id}/camera_{camera_id}_transforms_small.txt'))
@@ -81,29 +87,8 @@ def load_scene(base_path, frames=None):
             K=np.array(calib['intrinsics']),
             pose=Transform(np.array(calib['transform'])),
         )
-    #  # First example
-    #  # example with lidar to cam transformation
-    #  calib_cam_to_cam = read_calib_file('calib_cam_to_cam.txt')
-    #  calib_lidar_to_cam = read_calib_file('calib_lidar_to_cam.txt')
-    #  lidar_to_cam = Transform.from_Rt(
-            #  calib_lidar_to_cam['R'].reshape(3, 3),
-            #  calib_lidar_to_cam['T'],
-            #  )
-    #  scene.get_camera(0).calibrate(
-            #  pose=lidar_to_cam.inverse,
-            #  K=calib_cam_to_cam['K_00'].reshape(3, 3) / (calib_cam_to_cam['S_00'][0] / 2896),
-            #  D=calib_cam_to_cam['D_00'],
-            #  )
-    #  # Second example
-    #  scene.get_camera(camera.name).calibrate(
-            #  world_transform=Transform(camera.extrinsic.transform),
-            #  fx=camera.intrinsic[0],
-            #  fy=camera.intrinsic[1],
-            #  cx=camera.intrinsic[2],
-            #  cy=camera.intrinsic[3],
-            #  )
-    #  # Third example
-    #  # example hardcoded values (this may work as an examply of the values that we are specting)
+
+    #  # First example: hardcoded values
     #  scene.get_camera('rgb').calibrate(
             #  pose=Transform.from_Rt(
                 #  R=np.array([
@@ -119,6 +104,28 @@ def load_scene(base_path, frames=None):
                 #  [0.0, 1880.14865, 1045.725],
                 #  [0.0, 0.0, 1.0]
                 #  ])
+            #  )
+
+    #  # Second example: lidar to cam transformation
+    #  calib_cam_to_cam = read_calib_file('calib_cam_to_cam.txt')
+    #  calib_lidar_to_cam = read_calib_file('calib_lidar_to_cam.txt')
+    #  lidar_to_cam = Transform.from_Rt(
+            #  calib_lidar_to_cam['R'].reshape(3, 3),
+            #  calib_lidar_to_cam['T'],
+            #  )
+    #  scene.get_camera(0).calibrate(
+            #  pose=lidar_to_cam.inverse,
+            #  K=calib_cam_to_cam['K_00'].reshape(3, 3) / (calib_cam_to_cam['S_00'][0] / 2896),
+            #  D=calib_cam_to_cam['D_00'],
+            #  )
+
+    #  # Third example: extrinsics matrix + intrinsic focal lengths & principal point
+    #  scene.get_camera(camera.name).calibrate(
+            #  world_transform=Transform(camera.extrinsic.transform),
+            #  fx=camera.intrinsic[0],
+            #  fy=camera.intrinsic[1],
+            #  cx=camera.intrinsic[2],
+            #  cy=camera.intrinsic[3],
             #  )
 
     """
@@ -155,12 +162,12 @@ def load_scene(base_path, frames=None):
 
 
 if __name__ == '__main__':
-    s = load_scene('/Users/ivanroumec/data/src/customer_name', frames=range(0,20)) # load data and limit the frames to load
+    s = load_scene(LOCAL_INPUT_PATH, frames=range(0,20)) # load data and limit the frames to load
     s.get_frame(0).add_debug_lines()    # add lines using the camera position and heading
     #  s.get_frame(0).get_projected_image(CAMERAS_ONE).save(f'{DATA_PATH}/debug_{frame_id}.png')
     #  s.get_frame(0).save(f'{DATA_PATH}/')
 
     s.preview() # preview task
 
-    #  s.s3_upload('scaleapi-cust-lidar', path='doordash/lss/2020-04-17')   # store the jsons and images on s3 bucket
-    #  s.create_task().publish()    # publich the task using a template payload
+    #  s.s3_upload(bucket=S3_BUCKET, path=S3_BUCKET_PATH)   # store the jsons and images on s3 bucket
+    #  s.create_task().publish()    # publish the task using a template payload

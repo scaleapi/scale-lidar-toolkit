@@ -12,7 +12,9 @@ from PIL import Image
 
 from scale_lidar_io_debug import LidarScene, Transform
 
-
+###############
+## CHANGE ME ##
+###############
 S3_BUCKET = 'test-bucket'
 
 def create_scene(seq, frames):
@@ -48,6 +50,11 @@ def create_scene(seq, frames):
                     R=Quaternion(np.array(list(seq.lidar.poses[frame]['heading'].values()))),
                     t=list(seq.lidar.poses[frame]['position'].values())
                     )
+
+        # Why we remove the world component from cameras and points:
+        #     The lidar toolkit will apply the pose to cameras and points when it generates the output jsons,
+        #     so we add all the data in ego coords + the poses in each frame
+        #     and leave the ego2world conversion to the lidar toolkit
         scene.get_frame(frame).add_points(points, transform=pose.inverse)   # remove the world component from the points
         scene.get_frame(frame).transform = pose # set the pose as frame pose
         for camera in seq.camera.keys():
@@ -57,13 +64,6 @@ def create_scene(seq, frames):
 
     return scene
 
-
-'''
-Why we remove the world component from cameras and points:
-    The lidar toolkit will apply the pose to cameras and points when it generates the output jsons,
-    so we add all the data in ego coords + the poses in each frame
-    and leave the ego2world conversion to the lidar toolkit
-'''
 if __name__ == '__main__':
     dataset = DataSet('/data/src/pandaset')
     print(dataset.sequences())

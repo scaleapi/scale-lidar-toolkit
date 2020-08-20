@@ -1,0 +1,14 @@
+attachment_type: json
+callback_url: http://example.com/callback
+project: default_project
+instruction: Please label the objects on the scene
+labels:
+- car
+- truck
+- bus
+- bicycle
+- motorbike
+- towed_object
+- person
+max_distance_meters: 20
+meters_per_unit: 1

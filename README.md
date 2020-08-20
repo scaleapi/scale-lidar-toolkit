@@ -2,7 +2,7 @@
 Repository with Scale lidar toolkit examples
 
 ## Lidar toolkit documentation:
-In deep documentation could be found [here](https://fieldengineering.gitbook.io/lidar-conversion/load-raw-lidar-data/intro). This documentation uses the file `lidar_template.py` as a base.
+In depth documentation could be found [here](https://fieldengineering.gitbook.io/lidar-conversion/load-raw-lidar-data/intro). This documentation uses the file `lidar_template.py` as a base.
 
 ## Setup
 ### OSX

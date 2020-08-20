@@ -1,6 +1,6 @@
 from scale_lidar_io_debug import LidarScene, Transform
 import os
-
+import json
 import yaml
 import numpy as np
 from glob import glob
@@ -137,13 +137,12 @@ def load_scene(base_path, frames=None):
 
         # you can apply each pose in here or on the final stage
         # scene.get_frame(frame_id).apply_transform(pose)
-
+        points = read_lidar(frame_id)
         scene.get_frame(frame_id).add_points(points)    # add points to the frame, you can also do `add_points(points, transform=[new_transform])`
 
         #  # alternative
         #  # if points are already in world coordinates but the cameras are not, you will need to apply the inverse of the pose to the points (turning them into ego),
         #  # so, when we create the scene, we will apply the pose to everything and points will get back to world coordinates
-        #  points = read_lidar(frame_id)
         #  scene.get_frame(frame_id).add_points(points, transform=pose[index].inverse)
 
         # Load frame image per camera

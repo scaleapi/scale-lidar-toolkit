@@ -164,7 +164,7 @@ def load_scene(base_path, frames=None):
 if __name__ == '__main__':
     s = load_scene(LOCAL_INPUT_PATH, frames=range(0,20)) # load data and limit the frames to load
     s.get_frame(0).add_debug_lines()    # add lines using the camera position and heading
-    #  s.get_frame(0).get_projected_image(CAMERAS_ONE).save(f'{DATA_PATH}/debug_{frame_id}.png')
+    #  s.get_projected_image(CAMERAS_ONE).save(f'{DATA_PATH}/debug_{frame_id}.png')
     #  s.get_frame(0).save(f'{DATA_PATH}/')
 
     s.preview() # preview task

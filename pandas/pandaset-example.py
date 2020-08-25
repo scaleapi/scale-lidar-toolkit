@@ -76,7 +76,7 @@ if __name__ == '__main__':
     )
 
     # Debugging methods
-    #  scene.get_frame(0).get_projected_image("front_camera").save(f'/data/pandas.png')
+    #  scene.get_projected_image("front_camera").save(f'/data/pandas.png')
     #  scene.get_frame(index=1).add_debug_lines()
     #  scene.preview()
 

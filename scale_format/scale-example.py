@@ -61,6 +61,7 @@ def create_scene(base_path, frames):
             # if points are in world coordinates you should do this
             #  scene.get_frame(frame).add_points(np.asarray(pcd.points), transform=pose.inverse)
 
+            # uncomment the following lines in order to add radar points to the scene
             # radar_points = load_radar_points(f"./radar_points/{frame}.txt")
             # scene.get_frame(frame).add_radar_points(radar_points)
 

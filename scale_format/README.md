@@ -18,6 +18,9 @@ Data used for this example code is in `data` folder
 		- [X].ply/pcd (X -> frame number)
 - poses:
 		- [X].yaml (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
+- radar_points:
+		- [X].txt (X -> frame number) (each line should be a point following this format position_x, position_y, position_z, direction_x, direction_y, direction_z, size)
+
 ```
 
 Please notice that:

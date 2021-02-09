@@ -8,6 +8,16 @@ from scale_lidar_io_debug import LidarScene, Transform
 S3_BUCKET = 'test-bucket'
 TEMPLATE = yaml.load(open('template.yml'), Loader=yaml.FullLoader)
 
+def load_radar_points(file):
+    Lines = open(file, 'r').readlines()
+
+    points = []
+    for line in Lines:
+        point = line.split(',')
+        points.append([list(map(float, point[0:3])),list(map(float, point[3:6])),list(map(float, [point[6]]))])
+    return points
+
+
 def create_scene(base_path, frames):
     os.chdir(base_path)
 
@@ -51,6 +61,10 @@ def create_scene(base_path, frames):
             # if points are in world coordinates you should do this
             #  scene.get_frame(frame).add_points(np.asarray(pcd.points), transform=pose.inverse)
 
+            # radar_points = load_radar_points(f"./radar_points/{frame}.txt")
+            # scene.get_frame(frame).add_radar_points(radar_points)
+
+
             scene.get_frame(frame).apply_transform(pose)    # set the pose as frame pose
             for camera in cameras:  # load camera images
                 scene.get_frame(frame).get_image(camera).load_file(f"./cameras/{camera}/{frame}.jpg")
@@ -74,7 +88,8 @@ Data structure:
         - [X].ply/pcd (X -> frame number)
     - poses:
         - [X].yaml (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
-
+    - radar_points:
+        - [X].txt (X -> frame number) (each line should be a point following this format position_x, position_y, position_z, direction_x, direction_y, direction_z, size)
 
 """
 if __name__ == '__main__':

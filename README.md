@@ -25,3 +25,9 @@ aws_access_key_id = XFSERSDFSS...
 aws_secret_access_key = Asjwje1A.....
 ```
 AWS credentials needs to have permissions to upload files to the `BUCKET` specified on the script.
+
+### New release 
+## [0.1.0] - 2021-02-04
+- Add support for frame radar points (add_radar_point).
+- Add support for frame points colors (add_colors).
+

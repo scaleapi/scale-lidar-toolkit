@@ -7,17 +7,17 @@ Data used for this example code is in `data` folder
 - cameras:
 		- camera_one:
 				- [X].jpg/png (X -> frame number)
-				- extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])
-				- intrinsics.yaml (fx,fy,cx,cy)
+				- extrinsics.json (heading: [w,x,y,z], position: [x,y,z])
+				- intrinsics.json (fx,fy,cx,cy)
 		- camera_two:
 				- [X].jpg/png (X -> frame number)
-				- extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])
-				- intrinsics.yaml (fx,fy,cx,cy)
+				- extrinsics.json (heading: [w,x,y,z], position: [x,y,z])
+				- intrinsics.json (fx,fy,cx,cy)
 		- ... more cameras
 - pointcloud:
 		- [X].ply/pcd (X -> frame number)
 - poses:
-		- [X].yaml (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
+		- [X].json (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
 - radar_points:
 		- [X].txt (X -> frame number) (each line should be a point following this format position_x, position_y, position_z, direction_x, direction_y, direction_z, size)
 

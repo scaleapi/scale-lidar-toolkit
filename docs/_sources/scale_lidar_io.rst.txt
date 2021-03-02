@@ -1,0 +1,58 @@
+scale\_lidar\_io
+========================
+
+scale_lidar_io.scene.LidarScene
+----------------------------------------------------------
+
+.. autoclass:: scale_lidar_io.scene.LidarScene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scale_lidar_io.frame.LidarFrame
+----------------------------------------------------------
+
+.. autoclass:: scale_lidar_io.frame.LidarFrame
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scale_lidar_io.camera.LidarCamera
+----------------------------------------------------------
+
+.. autoclass:: scale_lidar_io.camera.LidarCamera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scale_lidar_io.image.LidarImage
+----------------------------------------------------------
+
+.. autoclass:: scale_lidar_io.image.LidarImage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scale_lidar_io.transform.Transform
+----------------------------------------------------------
+
+.. autoclass:: scale_lidar_io.transform.Transform
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scale_lidar_io.connectors.Importer
+----------------------------------------------------------
+
+.. autoclass:: scale_lidar_io.connectors.Importer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Tasks
+----------------------------
+
+.. automodule:: scale_lidar_io.task
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -47,11 +47,11 @@ Do ensure your AWS credentials have permissions to upload files to the `BUCKET` 
 
 ## [0.1.1] - 2021-03-02
 
-# Fixed
+### Fixed
 
 - k3-k6 distortion values issue
 
-# Added
+### Added
 
 - Better comment on the code
 - Handle better distortion values + set default to [k1,k2,p1,p2,k3,k4]

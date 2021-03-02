@@ -648,7 +648,7 @@
 <li><p>pose: Camera pose/extrinsic, type: Transform</p></li>
 <li><p>world_poses: World poses, this will make the camera ignore the frame poses, type: list(Transform)</p></li>
 <li><p>K: Intrinsic matrix</p></li>
-<li><p>D: Camera distortion coefficients, openCV standard</p></li>
+<li><p>D: Camera distortion coefficients [k1,k2,p1,p2,k3,k4], default all set to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
 <li><p>model: Camera model, default <code class="docutils literal notranslate"><span class="pre">brown_conrady</span></code></p></li>
 <li><p>scale_factor: Camera scale factor, default <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
 <li><p>skew: Camera scale factor, default <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
@@ -827,15 +827,31 @@
 <li><p><strong>position</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Camera position [x, y, z]</p></li>
 <li><p><strong>rotation</strong> (<em>rotation matrix</em>) – Camera rotation/heading</p></li>
 <li><p><strong>pose</strong> (<a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a>) – Camera pose (position + rotation)</p></li>
-<li><p><strong>extrinsic_matrix</strong> – extrinsic 4x4 matrix (world to camera transform) (pose = Transform(matrix).inverse)</p></li>
-<li><p><strong>projection_matrix</strong> – 3x4 projection matrix (K, R, t, _, _, _, _ = cv2.decomposeProjectionMatrix(projection_matrix))</p></li>
-<li><p><strong>K</strong> – intrinsic 3x3 matrix</p></li>
-<li><p><strong>D</strong> (<em>list</em><em>(</em><em>double</em><em>)</em>) – distortion values</p></li>
-<li><p><strong>model</strong> (<em>str</em>) – camera model</p></li>
-<li><p><strong>scale_factor</strong> (<em>int</em>) – image scale_factor</p></li>
-<li><p><strong>skew</strong> (<em>int</em>) – camera skew coefficient</p></li>
-<li><p><strong>world_transform</strong> (<a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a>) – overwrite camera pose with the world transform (pose = transform &#64; world2cam)</p></li>
+<li><p><strong>extrinsic_matrix</strong> (<em>matrix 4x4</em>) – Extrinsic 4x4 matrix (world to camera transform) (pose = Transform(matrix).inverse)</p></li>
+<li><p><strong>projection_matrix</strong> (<em>matrix 3x4</em>) – 3x4 projection matrix (K, R, t, _, _, _, _ = cv2.decomposeProjectionMatrix(projection_matrix))</p></li>
+<li><p><strong>K</strong> (<em>matrix 3x3</em>) – Intrinsic 3x3 matrix</p></li>
+<li><p><strong>D</strong> (<em>list</em><em>(</em><em>double</em><em>)</em>) – Distortion values following this order: [k1,k2,p1,p2,k3,k4,k5,k6], required [k1,k2,p1,p2,k3,k4]</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – Camera model</p></li>
+<li><p><strong>scale_factor</strong> (<em>int</em>) – Image scale_factor</p></li>
+<li><p><strong>skew</strong> (<em>int</em>) – Camera skew coefficient</p></li>
+<li><p><strong>world_transform</strong> (<a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a>) – Overwrite camera pose with the world transform (pose = transform &#64; world2cam)</p></li>
 <li><p><strong>world_poses</strong> (<em>list</em><em>(</em><a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a><em>)</em>) – World poses, this will make the camera ignore the frame poses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>fx</strong> (<em>str</em>) – Focal length in X</p></li>
+<li><p><strong>fy</strong> (<em>str</em>) – Focal length in Y</p></li>
+<li><p><strong>cx</strong> (<em>str</em>) – Center point in X</p></li>
+<li><p><strong>cy</strong> (<em>str</em>) – Center point in Y</p></li>
+<li><p><strong>k1</strong> (<em>double</em>) – Distortion value k1</p></li>
+<li><p><strong>k2</strong> (<em>double</em>) – Distortion value k2</p></li>
+<li><p><strong>k3</strong> (<em>double</em>) – Distortion value k3</p></li>
+<li><p><strong>k4</strong> (<em>double</em>) – Distortion value k4</p></li>
+<li><p><strong>k5</strong> (<em>double</em>) – Distortion value k5</p></li>
+<li><p><strong>k6</strong> (<em>double</em>) – Distortion value k6</p></li>
+<li><p><strong>p1</strong> (<em>double</em>) – Distortion value p1</p></li>
+<li><p><strong>p2</strong> (<em>double</em>) – Distortion value p2</p></li>
 </ul>
 </dd>
 </dl>

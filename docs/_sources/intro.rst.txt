@@ -17,7 +17,7 @@ Next,
 
 
 =================
-Optional Setup:
+Optional Setup
 =================
 
 We recommend using AWS S3 to host your Lidar files.

@@ -1,22 +1,14 @@
 import os
-import yaml
 import numpy as np
 from pyquaternion import Quaternion
 import open3d as o3d
 from scale_lidar_io_debug import LidarScene, Transform
+import json
+
 
 S3_BUCKET = 'test-bucket'
-TEMPLATE = yaml.load(open('template.yml'), Loader=yaml.FullLoader)
-
-def load_radar_points(file):
-    Lines = open(file, 'r').readlines()
-
-    points = []
-    for line in Lines:
-        point = line.split(',')
-        points.append([list(map(float, point[0:3])),list(map(float, point[3:6])),list(map(float, [point[6]]))])
-    return points
-
+with open('template.json') as json_file:
+    TEMPLATE = json.load(json_file)
 
 def create_scene(base_path, frames):
     os.chdir(base_path)
@@ -25,10 +17,10 @@ def create_scene(base_path, frames):
     cameras = [name for name in os.listdir("./cameras/") if os.path.isdir(os.path.join("./cameras/", name))]  # get cameras names
 
     for camera in cameras:
-        with open(f"./cameras/{camera}/extrinsics.yaml", 'r') as extrinsic_file:
-            camera_extrinsic = yaml.safe_load(extrinsic_file)
-        with open(f"./cameras/{camera}/intrinsics.yaml", 'r') as intrinsic_file:
-            camera_intrinsic = yaml.safe_load(intrinsic_file)
+        with open(f"./cameras/{camera}/extrinsics.json") as extrinsic_file:
+            camera_extrinsic = json.load(extrinsic_file)
+        with open(f"./cameras/{camera}/intrinsics.json") as intrinsic_file:
+            camera_intrinsic = json.load(intrinsic_file)
 
         scene.get_camera(camera).calibrate(
                 pose=Transform().from_Rt(
@@ -36,8 +28,8 @@ def create_scene(base_path, frames):
                     t=np.array(camera_extrinsic['position'])
                     ),
                 K=np.array([
-                    [camera_intrinsic['fx'][0], 0, camera_intrinsic['cx'][0]],
-                    [0,camera_intrinsic['fy'][0], camera_intrinsic['cy'][0]],
+                    [camera_intrinsic['fx'], 0, camera_intrinsic['cx']],
+                    [0,camera_intrinsic['fy'], camera_intrinsic['cy']],
                     [0,0,1],
                     ])
                 # you can set here camera model if it's not 'brown_conrady' model
@@ -50,8 +42,8 @@ def create_scene(base_path, frames):
         # read pointcloud data in ego coordinates
         # point can be a [x,3] or [x,4] shape (intensityj)
         pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")
-        with open(f"./poses/{frame}.yaml", 'r') as pose_file:   # load frame pose
-            device_pose = yaml.safe_load(pose_file)
+        with open(f"./poses/{frame}.json", 'r') as pose_file:   # load frame pose
+            device_pose = json.load(pose_file)
             pose = Transform().from_Rt(
                         R=Quaternion(np.array(device_pose['heading'])),
                         t=device_pose['position']
@@ -60,11 +52,6 @@ def create_scene(base_path, frames):
             scene.get_frame(frame).add_points(points)
             # if points are in world coordinates you should do this
             #  scene.get_frame(frame).add_points(np.asarray(pcd.points), transform=pose.inverse)
-
-            # uncomment the following lines in order to add radar points to the scene
-            # radar_points = load_radar_points(f"./radar_points/{frame}.txt")
-            # scene.get_frame(frame).add_radar_points(radar_points)
-
 
             scene.get_frame(frame).apply_transform(pose)    # set the pose as frame pose
             for camera in cameras:  # load camera images
@@ -79,18 +66,17 @@ Data structure:
     - cameras:
         - camera_one:
             - [X].jpg/png (X -> frame number)
-            - extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])
-            - intrinsics.yaml (fx,fy,cx,cy)
+            - extrinsics.json (heading: [w,x,y,z], position: [x,y,z])
+            - intrinsics.json (fx,fy,cx,cy)
         - camera_two:
             - [X].jpg/png (X -> frame number)
-            - extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])
-            - intrinsics.yaml (fx,fy,cx,cy)
+            - extrinsics.json (heading: [w,x,y,z], position: [x,y,z])
+            - intrinsics.json (fx,fy,cx,cy)
     - pointcloud:
         - [X].ply/pcd (X -> frame number)
     - poses:
-        - [X].yaml (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
-    - radar_points:
-        - [X].txt (X -> frame number) (each line should be a point following this format position_x, position_y, position_z, direction_x, direction_y, direction_z, size)
+        - [X].json (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
+
 
 """
 if __name__ == '__main__':
@@ -100,8 +86,8 @@ if __name__ == '__main__':
             )
 
     # Debugging methods
-    #  scene.get_frame(index=1).add_debug_lines()
-    #  scene.preview()
+    # scene.get_frame(index=1).add_debug_lines()
+    # scene.preview()
 
     # Upload data to S3 bucket
     scene.s3_upload(S3_BUCKET, path='test-scale')

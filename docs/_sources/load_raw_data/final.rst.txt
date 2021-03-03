@@ -33,7 +33,7 @@ My Data Still Looks Bad
 ****************************
 
 In the section `Lidar toolkit In depth / Troubleshooting your
-data <#page29>`__ we have more cases of how to debug and load your data
+data <https://scaleapi.github.io/scale-lidar-toolkit/in_depth/intro.html>`__ we have more cases of how to debug and load your data
 into the lidar toolkit. When in doubt, reach out to your Scale
 Engagement Manager.
 

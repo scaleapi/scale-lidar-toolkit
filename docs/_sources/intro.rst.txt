@@ -20,14 +20,14 @@ Scale's platform.
 
 A step-by-step guide for
 `scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
-can be found in the `Load Raw Lidar Data <#page4>`__ section.
+can be found in the `Load Raw Lidar Data <https://scaleapi.github.io/scale-lidar-toolkit/load_raw_data/preparing.html>`__ section.
 
-`To learn more about advanced topics, please see Lidar Toolkit in Depth
-/ Troubleshooting <#page29>`__ `Your Data. <#page29>`__
+To learn more about advanced topics, please see `Lidar Toolkit in Depth
+/ Troubleshooting Your Data. <https://scaleapi.github.io/scale-lidar-toolkit/in_depth/intro.html>`__
 
 **Debugging Your Data**
 
 The Lidar Toolkit also provides useful debugging tools to help you
 visualize and understand your data. You can learn more about them in
-`Debugging Lidar Data. <#page11>`__
+`Debugging Lidar Data. <https://scaleapi.github.io/scale-lidar-toolkit/debugging/lidar.html>`__
 

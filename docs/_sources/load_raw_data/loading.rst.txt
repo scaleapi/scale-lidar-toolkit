@@ -136,5 +136,5 @@ before adding it to the frame.
   ])
   scene.get_frame(frame).add_radar_points(radar_points)
 
-More about `radar points here. <radar_points.rst>`__
+More about `radar points here. <https://scaleapi.github.io/scale-lidar-toolkit/in_depth/radar_points.html>`__
 

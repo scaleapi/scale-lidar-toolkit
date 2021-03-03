@@ -28,7 +28,7 @@ data!
 Validate your data
 ###################
 
-Scale's `lidar debugger <debugging/lidar.rst>`__ also allows you to validate your
+Scale's `lidar debugger <https://scaleapi.github.io/scale-lidar-toolkit/debugging/lidar.html>`__ also allows you to validate your
 data. To use the debugger, uncomment lines 8 and 9 shown below. You can
 comment out lines 12 and 14 to avoid creating a task when debugging.
 

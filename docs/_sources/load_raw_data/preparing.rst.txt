@@ -1,0 +1,46 @@
+Preparing Your Data
+=====================
+
+Do you have your data ready?
+#############################
+
+**Point Cloud Data [Required]**
+
+Scale's platform expects at least one point cloud per frame (the full
+sweep). If you have multiple lidar sensors, you will want to combine
+those into a singular point cloud.
+
+The format of these files will vary, common examples include ``.pcd`` ,
+``.json`` , ``.bin`` .
+
+**Lidar Sensor Calibrations [Required]**
+
+Scale's platform expects a calibration file, which is used to calculate
+your device's heading.
+
+You will also need to provide an "ego2world" or "poses" file which is
+used to calculate your device's location in the point cloud.
+
+It is **strongly** advised that your data is submitted in a static /
+world-frame of reference such that the ego device moves throughout the
+scene, as opposed to an "ego-only" coordinate system, in which the
+device remains centered and the scene moves around the device.
+
+**Camera Images and Associated Camera Calibrations [Optional, but very
+helpful]**
+
+Scale's platform expects images to be in a browser-viewable format such
+as ``jpg`` or ``png`` .
+
+For each camera, you will need to provide the *extrinsic* and
+*intrinsic* calibration matrices, which are used for features such as
+cuboid projections and point projections (see
+`reference docs, "Camera Image"
+object. <https://private-docs.scale.com/#data-types-and-the-frame-objects>`__ )
+
+**Other Calibration and Transformation Data [Optional]**
+
+You may also include calibration data such as ``lidar2Cam`` ,
+``world2Lidar`` , etc. You will need to adjust the script to include and
+use them.
+

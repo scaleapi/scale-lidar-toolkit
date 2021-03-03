@@ -1,0 +1,140 @@
+Loading Your Data
+=================
+
+Create Scene Function
+######################
+
+The function **create_scene(base_path, frames)** in
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+loads data and creates a LidarScene object. The base_path is directory
+where all your data is stored. The frames is a list of file names that
+you wish to load/process into the lidar toolkit.
+
+
+.. code-block:: python
+
+  if __name__ == '__main__':
+      scene = create_scene(
+              base_path='data/', # <-- path that holds your data
+              frames=range(1,6) # <-- list of filenames for each frame
+              )
+
+Loading and Calibrating Cameras
+###############################
+
+Each camera's position will be calibrated using its rotation matrix and
+translation vector. Each camera will also be calibrated using the
+K-matrix or intrinsic matrix. Read more about camera intrinsics
+`here <http://ksimek.github.io/2013/08/13/intrinsic/>`__!
+
+.. code-block:: python
+
+  camera_skew = 0
+  scene.get_camera(camera).calibrate(
+      pose=Transform().from_Rt(
+          R=Quaternion(np.array(camera_extrinsic['heading'])),
+          t=np.array(camera_extrinsic['position'])
+          ),
+      K=np.array([
+          [camera_intrinsic['fx'][0], camera_skew, camera_intrinsic['cx'][0]],
+          [0,camera_intrinsic['fy'][0], camera_intrinsic['cy'][0]],
+          [0,0,1],
+      ])
+  )
+
+Setting up Device Poses
+#########################
+
+Use the device_pose file's rotation matrix and translation vector to
+calibrate the device heading and position. Apply the transformation of
+the pose to the frame.
+
+.. code-block:: python
+
+  with open(f"./poses/{frame}.json", 'r') as pose_file:   # load frame pose
+      device_pose = json.load(pose_file)
+      pose = Transform().from_Rt(
+          R=Quaternion(np.array(device_pose['heading'])),
+          t=device_pose['position']
+      )
+      scene.get_frame(frame).apply_transform(pose)
+
+Loading Point Clouds
+#####################
+
+Scale's lidar toolkit uses
+`Open3D <http://www.open3d.org/docs/release/index.html>`__ to read and
+load point cloud data. Read more about supported point cloud formats and
+filetypes
+`here <http://www.open3d.org/docs/release/tutorial/geometry/file_io.html>`__.
+
+Convert the points of the point cloud into a `numpy
+array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+before adding it to the frame.
+
+Ego Coordinates
+****************
+
+For ego coordinates, the process is straightforward.
+
+.. code-block:: python
+
+  pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")
+  points = np.asarray(pcd.points)
+  scene.get_frame(frame).add_points(points)
+
+
+World Coordinates
+*******************
+
+If your point cloud data is in world coordinates, you should transform
+the points using the pose's inverse before adding the points to the
+frame. The inverse is subtracting the pose from the point cloud (moves
+from world to ego coordinates).
+
+The lidar toolkit expects data in ego coordinates. It will automatically
+transform the data to world coordinates later in the script before task
+creation.
+
+.. code-block:: python
+
+  pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")
+  points = np.asarray(pcd.points)
+  scene.get_frame(frame).add_points(points, transform=pose.inverse)
+
+Transform All Frames Relative to First Frame
+*********************************************
+
+After data for every frame is added to the LidarScene, make all frame
+poses relative to the first frame and set the first frame's position as
+(0,0,0). This method is usually called outside of the loop that adds all
+the point cloud data. This method handles all of that:
+
+
+.. code-block:: python
+
+  scene.make_transforms_relative()
+
+Radar Points
+#############
+
+Scale's platform also supports adding radar points. To add radar points
+to your lidar scene, convert radar points into a `numpy
+array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+before adding it to the frame.
+
+.. code-block:: python
+
+  # Example radar_points numpy array structure
+  radar_points = np.array([  
+    [
+    [0.30694541, 0.27853175, 0.51152715],    // position - x,y,z
+    [0.80424087, 0.24164057, 0.45256181],    // direction - x,y,z
+    [0.73596422]    // size
+    ],
+    ...
+  ])
+  scene.get_frame(frame).add_radar_points(radar_points)
+
+More about `radar points here. <radar_points.rst>`__
+

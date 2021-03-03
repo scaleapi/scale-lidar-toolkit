@@ -1,0 +1,1700 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Scale AI Lidar Toolkit &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="scale_lidar_io" href="scale_lidar_io.html" />
+    <link rel="prev" title="Intro" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Space:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Scale AI Lidar Toolkit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="scale-ai-lidar-toolkit">
+<h1>Scale AI Lidar Toolkit<a class="headerlink" href="#scale-ai-lidar-toolkit" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to Scale’s Lidar Toolkit</p>
+<p>This document is a step-by-step guide on how to use the Lidar Toolkit to
+convert raw lidar scenes into label-able Scale tasks.</p>
+<p><a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit">Please clone the scale-lidar-toolkit repo before
+proceeding:</a></p>
+<p><a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit">https://github.com/scaleapi/scale-lidar-toolkit</a></p>
+<p><strong>Scale Format</strong></p>
+<p>In this documentation, we will simplify the data conversion by following
+the <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format">Scale
+Format</a>.
+The format uses <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">this example
+script</a>
+to demonstrate how to load and debug your data, and create tasks on
+Scale’s platform.</p>
+<p>A step-by-step guide for
+<a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">scale-example.py</a>
+can be found in the <a class="reference external" href="#page4">Load Raw Lidar Data</a> section.</p>
+<p><a class="reference external" href="#page29">To learn more about advanced topics, please see Lidar Toolkit in Depth
+/ Troubleshooting</a> <a class="reference external" href="#page29">Your Data.</a></p>
+<p><strong>Debugging Your Data</strong></p>
+<p>The Lidar Toolkit also provides useful debugging tools to help you
+visualize and understand your data. You can learn more about them in
+<a class="reference external" href="#page11">Debugging Lidar Data.</a></p>
+<p>Load raw Lidar data</p>
+<p>Preparing Your Data</p>
+<p><strong>Do you have your data ready?</strong></p>
+<p><strong>Point Cloud Data [Required]</strong></p>
+<p>Scale’s platform expects at least one point cloud per frame (the full
+sweep). If you have multiple lidar sensors, you will want to combine
+those into a singular point cloud.</p>
+<a class="reference internal image-reference" href="media/image1.png"><img alt="media/image1.png" src="media/image1.png" style="width: 1.6875in; height: 0.29167in;" /></a>
+<p>The format of these files will vary, common examples include <strong>.pcd</strong> ,
+<strong>.json</strong> , <strong>.bin</strong> .</p>
+<p><strong>Lidar Sensor Calibrations [Required]</strong></p>
+<p>Scale’s platform expects a calibration file, which is used to calculate
+your device’s heading.</p>
+<p>You will also need to provide an “ego2world” or “poses” file which is
+used to calculate your device’s location in the point cloud.</p>
+<p>It is <strong>strongly</strong> advised that your data is submitted in a static /
+world-frame of reference such that the ego device moves throughout the
+scene, as opposed to an “ego-only” coordinate system, in which the
+device remains centered and the scene moves around the device.</p>
+<p><strong>Camera Images and Associated Camera Calibrations [Optional, but very
+helpful]</strong></p>
+<a class="reference internal image-reference" href="media/image2.png"><img alt="media/image2.png" src="media/image2.png" style="width: 1in; height: 0.29167in;" /></a>
+<p>Scale’s platform expects images to be in a browser-viewable format such
+as <strong>jpg</strong> or <strong>png</strong> .</p>
+<p>For each camera, you will need to provide the <em>extrinsic</em> and
+<em>intrinsic</em> calibration matrices, <a class="reference external" href="https://private-docs.scale.com/#data-types-and-the-frame-objects">which are used for features such as
+cuboid projections and point projections (see
+reference</a>
+<a class="reference external" href="https://private-docs.scale.com/#data-types-and-the-frame-objects">docs, “Camera Image”
+object).</a></p>
+<p><strong>Other Calibration and Transformation Data [Optional]</strong></p>
+<a class="reference internal image-reference" href="media/image3.png"><img alt="media/image3.png" src="media/image3.png" style="width: 2.01042in; height: 0.29167in;" /></a>
+<p>You may also include calibration data such as <strong>lidar2Cam</strong> ,
+<strong>world2Lidar</strong> , etc. You will need to adjust the script to include and
+use them.</p>
+<p>Data Structure</p>
+<p>In order to use the scale-example python script, you will need to store
+your data following this structure:</p>
+<a class="reference internal image-reference" href="media/image4.png"><img alt="media/image4.png" src="media/image4.png" style="width: 6.70833in; height: 3.86458in;" /></a>
+<ul class="simple">
+<li><p><strong>- cameras:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- camera_one:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- [X].jpg/png (X -&gt; frame number)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>5- intrinsics.yaml (fx,fy,cx,cy)</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>- camera_two:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- [X].jpg/png (X -&gt; frame number)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>9- intrinsics.yaml (fx,fy,cx,cy)</strong></p>
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p><strong>- … more cameras</strong></p></li>
+<li><p><strong>- pointcloud:</strong></p></li>
+<li><p><strong>- [X].ply/pcd (X -&gt; frame number)</strong></p></li>
+<li><p><strong>- poses:</strong></p></li>
+<li><p><strong>- [X].yaml (X -&gt; frame number) (heading: [w,x,y,z], position: &gt;
+[x,y,z])</strong></p></li>
+<li><p><strong>- radar_points:</strong></p></li>
+<li><p><strong>- [X].txt (X -&gt; frame number) (each line should be a point &gt;
+following t</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>17</strong></p>
+</div></blockquote>
+<p><strong>Example Data</strong></p>
+<p>There is <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data">test
+data</a>
+provided in the Github repo if you wish to test the script out yourself
+or see the directory structure.</p>
+<a class="reference internal image-reference" href="media/image6.png"><img alt="media/image6.png" src="media/image6.png" style="width: 6.70833in;" /></a>
+<p><strong>Cameras</strong></p>
+<p>Scale’s platform expects an image for every frame from each camera.</p>
+<p>Each camera will also need an <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/extrinsics.yaml">extrinsic
+file</a>
+with the camera’s heading and position,</p>
+<a class="reference internal image-reference" href="media/image7.png"><img alt="media/image7.png" src="media/image7.png" style="width: 6.70833in; height: 2.28125in;" /></a>
+<ul class="simple">
+<li><p><strong>heading:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 0.7075208842461583</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>3 - -0.7066467485074057</strong></p>
+<p><strong>4 - -0.007058393650468786</strong></p>
+<p><strong>5 - -0.0038406065302718445</strong></p>
+<p><strong>6 position:</strong></p>
+<p><strong>7 - 0.008707550128834255</strong></p>
+<p><strong>8 - 0.46748110977387547</strong></p>
+<p><strong>9 - 1.8138725928014485</strong></p>
+</div></blockquote>
+<p>and an <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/intrinsics.yaml">intrinsics
+file</a>
+with the camera’s 2d-translation and 2d-scaling.</p>
+<a class="reference internal image-reference" href="media/image9.png"><img alt="media/image9.png" src="media/image9.png" style="width: 6.70833in; height: 2.08333in;" /></a>
+<ul class="simple">
+<li><p><strong>fx:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 1970.0131</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>3 fy:</strong></p>
+<p><strong>4 - 1970.0091</strong></p>
+<p><strong>5 cx:</strong></p>
+<p><strong>6 - 970.0002</strong></p>
+<p><strong>7 cy:</strong></p>
+<p><strong>8 - 483.2988</strong></p>
+</div></blockquote>
+<a class="reference internal image-reference" href="media/image11.png"><img alt="media/image11.png" src="media/image11.png" style="width: 6.70833in;" /></a>
+<p><strong>Point Cloud</strong></p>
+<p>Scale’s platform expects a <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/pointcloud/1.ply">point cloud
+file</a>
+for every frame. In this example, we will be using</p>
+<a class="reference internal image-reference" href="media/image12.png"><img alt="media/image12.png" src="media/image12.png" style="width: 0.45833in; height: 0.29167in;" /></a>
+<p><strong>.ply</strong> , but the toolkit is compatible other point cloud formats. Read
+more about supported point cloud formats and filetypes
+<a class="reference external" href="http://www.open3d.org/docs/release/tutorial/geometry/file_io.html">here</a>.</p>
+<p>The example point cloud file is in ego coordinates (which will be
+transformed to world coordinates later).</p>
+<a class="reference internal image-reference" href="media/image14.png"><img alt="media/image14.png" src="media/image14.png" style="width: 6.70833in;" /></a>
+<p><strong>Device Pose</strong></p>
+<p>Scale’s platform also expects a <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/poses/1.yaml">pose
+file</a>
+per frame. This file contains your device’s heading and position:</p>
+<a class="reference internal image-reference" href="media/image15.png"><img alt="media/image15.png" src="media/image15.png" style="width: 6.70833in; height: 2.28125in;" /></a>
+<ul class="simple">
+<li><p><strong>heading:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 0.9223153982060285</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 0.010172188957944597</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>4 - 0.020377226369147156</strong></p>
+<p><strong>5 - -0.3857662523463648</strong></p>
+<p><strong>6 position:</strong></p>
+<p><strong>7 - 0.5567106077665928</strong></p>
+<p><strong>8 - 0.5506659726750831</strong></p>
+<p><strong>9 - 0.008819164477798357</strong></p>
+</div></blockquote>
+<p>You can use the pose data to transform your ego scene into a world
+coordinate scene.</p>
+<p>Loading Your Data</p>
+<p><strong>Create Scene Function</strong></p>
+<a class="reference internal image-reference" href="media/image17.png"><img alt="media/image17.png" src="media/image17.png" style="width: 4.40625in; height: 0.29167in;" /></a>
+<p>The function <strong>create_scene(base_path, frames)</strong> in
+<a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">scale-example.py</a>
+loads data and creates a LidarScene object. The base_path is directory
+where all your data is stored. The frames is a list of file names that
+you wish to load/process into the lidar toolkit.</p>
+<a class="reference internal image-reference" href="media/image18.png"><img alt="media/image18.png" src="media/image18.png" style="width: 6.70833in; height: 1.48958in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><ul class="simple">
+<li></li>
+</ul>
+<p><em>3*</em></p>
+</td>
+<td><p><strong>base_path=’data/’, # &lt;– path that holds your data</strong></p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li></li>
+</ul>
+<p><em>4*</em></p>
+</td>
+<td><p><strong>frames=range(1,6) # &lt;– list of filenames for each
+frame</strong></p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li></li>
+</ul>
+<p><em>5*</em></p>
+</td>
+<td><p><strong>)</strong></p></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="media/image19.png"><img alt="media/image19.png" src="media/image19.png" style="width: 6.70833in;" /></a>
+<p><strong>Loading and Calibrating Cameras</strong></p>
+<p>Each camera’s position will be calibrated using its rotation matrix and
+translation vector. Each camera will also be calibrated using the
+K-matrix or intrinsic matrix. Read more about camera intrinsics
+<a class="reference external" href="http://ksimek.github.io/2013/08/13/intrinsic/">here</a>!</p>
+<a class="reference internal image-reference" href="media/image20.png"><img alt="media/image20.png" src="media/image20.png" style="width: 6.70833in; height: 2.875in;" /></a>
+<ul class="simple">
+<li><p><strong>camera_skew = 0</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>scene.get_camera(camera).calibrate(</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>pose=Transform().from_Rt(</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>R=Quaternion(np.array(camera_extrinsic[‘heading’])),</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>t=np.array(camera_extrinsic[‘position’])</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>),</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>K=np.array([</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>[camera_intrinsic[‘fx’][0], camera_skew, &gt;
+camera_intrinsic[‘cx’][0]</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>9[0,camera_intrinsic[‘fy’][0], camera_intrinsic[‘cy’][0]],</strong></p>
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p><strong>[0,0,1],</strong></p></li>
+<li><p><strong>])</strong></p></li>
+<li><p><strong>)</strong></p></li>
+</ol>
+<a class="reference internal image-reference" href="media/image21.png"><img alt="media/image21.png" src="media/image21.png" style="width: 6.70833in;" /></a>
+<p><strong>Setting up Device Poses</strong></p>
+<p>Use the device_pose file’s rotation matrix and translation vector to
+calibrate the device heading and position. Apply the transformation of
+the pose to the frame.</p>
+<a class="reference internal image-reference" href="media/image22.png"><img alt="media/image22.png" src="media/image22.png" style="width: 6.70833in; height: 1.6875in;" /></a>
+<ul class="simple">
+<li><p><strong>device_pose = yaml.safe_load(pose_file)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2 pose = Transform().from_Rt(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>R=Quaternion(np.array(device_pose[‘heading’])),</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>t=device_pose[‘position’]</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>scene.get_frame(frame).apply_transform(pose)</strong></p></li>
+</ul>
+<a class="reference internal image-reference" href="media/image23.png"><img alt="media/image23.png" src="media/image23.png" style="width: 6.70833in;" /></a>
+<p><strong>Loading Point Clouds</strong></p>
+<p>Scale’s lidar toolkit uses
+<a class="reference external" href="http://www.open3d.org/docs/release/index.html">Open3D</a> to read and
+load point cloud data. Read more about supported point cloud formats and
+filetypes
+<a class="reference external" href="http://www.open3d.org/docs/release/tutorial/geometry/file_io.html">here</a>.</p>
+<p>Convert the points of the point cloud into a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy
+array</a>
+before adding it to the frame.</p>
+<p><strong>Ego Coordinates</strong></p>
+<p>For ego coordinates, the process is straightforward.</p>
+<a class="reference internal image-reference" href="media/image24.png"><img alt="media/image24.png" src="media/image24.png" style="width: 6.70833in; height: 1.09375in;" /></a>
+<ul class="simple">
+<li><p><strong>pcd = o3d.io.read_point_cloud(f”./pointcloud/{frame}.ply”)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2 points = np.asarray(pcd.points)</strong></p>
+<p><strong>3 scene.get_frame(frame).add_points(points)</strong></p>
+</div></blockquote>
+<p><strong>World Coordinates</strong></p>
+<p>If your point cloud data is in world coordinates, you should transform
+the points using the pose’s inverse before adding the points to the
+frame. The inverse is subtracting the pose from the point cloud (moves
+from world to ego coordinates).</p>
+<p>The lidar toolkit expects data in ego coordinates. It will automatically
+transform the data to world coordinates later in the script before task
+creation.</p>
+<a class="reference internal image-reference" href="media/image25.png"><img alt="media/image25.png" src="media/image25.png" style="width: 6.70833in; height: 1.09375in;" /></a>
+<ul class="simple">
+<li><p><strong>pcd = o3d.io.read_point_cloud(f”./pointcloud/{frame}.ply”)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2 points = np.asarray(pcd.points)</strong></p>
+<p><strong>3 scene.get_frame(frame).add_points(points,
+transform=pose.inverse)</strong></p>
+</div></blockquote>
+<p><strong>Transform All Frames Relative to First Frame</strong></p>
+<p>After data for every frame is added to the LidarScene, make all frame
+poses relative to the first frame and set the first frame’s position as
+(0,0,0). This method is usually called outside of the loop that adds all
+the point cloud data. This method handles all of that:</p>
+<a class="reference internal image-reference" href="media/image27.png"><img alt="media/image27.png" src="media/image27.png" style="width: 6.70833in;" /></a>
+<p><strong>Radar Points</strong></p>
+<p>Scale’s platform also supports adding radar points. To add radar points
+to your lidar scene, convert radar points into a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy
+array</a>
+before adding it to the frame.</p>
+<a class="reference internal image-reference" href="media/image28.png"><img alt="media/image28.png" src="media/image28.png" style="width: 6.70833in; height: 2.47917in;" /></a>
+<ul class="simple">
+<li><p><strong># Example radar_points numpy array structure</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2 radar_points = np.array([</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>[</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>4</strong></p></td>
+<td><p><strong>[0.30694541,
+0.27853175,
+0.51152715],</strong></p></td>
+<td><p><strong>// position -
+x,y,z</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>5</strong></p></td>
+<td><p><strong>[0.80424087,
+0.24164057,
+0.45256181],</strong></p></td>
+<td><p><strong>// direction -
+x,y,z</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6</strong></p></td>
+<td><p><strong>[0.73596422]</strong></p></td>
+<td><p><strong>// size</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>],</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>…</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>9 ])</strong></p>
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p><strong>scene.get_frame(frame).add_radar_points(radar_points)</strong></p></li>
+</ol>
+<p>More about radar points here.</p>
+<p>Debugging your data</p>
+<a class="reference internal image-reference" href="media/image29.png"><img alt="media/image29.png" src="media/image29.png" style="width: 1.45833in; height: 0.29167in;" /></a>
+<p>To set up the debugger, edit the path so that it points to your data in
+<a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L81">scale-example.py</a>
+.</p>
+<p>Frames is a list that contains the names of frames you wish to load.</p>
+<a class="reference internal image-reference" href="media/image30.png"><img alt="media/image30.png" src="media/image30.png" style="width: 6.70833in; height: 1.48958in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 89%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>3</strong></p></td>
+<td><p><strong>‘data/’, # &lt;– edit this path</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>4</strong></p></td>
+<td><p><strong>frames=range(1,6) # &lt;– edit frames if necessary</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>5</strong></p></td>
+<td><p><strong>)</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Here are some things to check before you start debugging:</strong></p>
+<blockquote>
+<div><p>Validate that the camera calibration is <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L35">using all the important
+data</a>
+(for example, if you’re using a fisheye camera, add the distortion
+coeﬃcient and the camera model).</p>
+</div></blockquote>
+<img alt="media/image35.png" src="media/image35.png" />
+<p>If the data follows the data structure suggested and you finished the
+checks before debugging, you should be able to start debugging your
+data!</p>
+<a class="reference internal image-reference" href="media/image36.png"><img alt="media/image36.png" src="media/image36.png" style="width: 6.70833in;" /></a>
+<p><strong>Validate your data</strong></p>
+<p>Scale’s <a class="reference external" href="#page19">lidar debugger</a> also allows you to validate your
+data. To use the debugger, uncomment lines 8 and 9 shown below. You can
+comment out lines 12 and 14 to avoid creating a task when debugging.</p>
+<a class="reference internal image-reference" href="media/image37.png"><img alt="media/image37.png" src="media/image37.png" style="width: 6.70833in; height: 3.27083in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>‘data/’,</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>frames=range(1,6)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>6</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Debugging methods</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 41%" />
+<col style="width: 41%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><blockquote>
+<div><p><a href="#id1"><span class="problematic" id="id2">**</span></a>scene.get_frame(inde</p>
+</div></blockquote>
+<p>x=1).add_debug_lines()**</p>
+</td>
+<td><p><strong># add lines using
+the ca</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td><p><strong>scene.preview()</strong></p></td>
+<td><p><strong># preview task</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>10</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="11">
+<li><p><strong># Upload data to S3 bucket</strong></p></li>
+<li><p><strong># scene.s3_upload(S3_BUCKET, path=’test-scale’) # comment this &gt;
+line fo</strong></p></li>
+<li><p><strong># Create tasks/ Scale API request</strong></p></li>
+<li><p><strong># scene.create_task(TEMPLATE).publish() # comment this line for &gt;
+testin</strong></p></li>
+</ol>
+<p>If everything looks correct after debugging, continue to the next step
+to create your task!</p>
+<p><strong>task_type</strong></p>
+<p><strong>export SCALE_API_KEY=live_xxxx</strong></p>
+<p><strong>SCALE_API_KEY</strong></p>
+<p>Task Creation</p>
+<p>To create a task, the toolkit requires valid S3 credentials, an S3
+bucket, and a valid Scale API key.</p>
+<p><strong>S3</strong></p>
+<p>The lidar toolkit uses boto3, which will use the aws credentials stored
+in <strong>~/.aws/credentials.json</strong> (this is similar aws-cli in terminal).</p>
+<a class="reference internal image-reference" href="media/image38.png"><img alt="media/image38.png" src="media/image38.png" style="width: 2.04167in; height: 0.29167in;" /></a>
+<p>The method <strong>scene.s3_upload(bucket, path)</strong> uses boto3 to upload all
+the attachments and images of the scene into the specified bucket and
+path.</p>
+<p><strong>Scale Api Key</strong></p>
+<p>Before you can create a task on Scale’s platform, you need to define an
+environment</p>
+<p>variable called <a class="reference internal" href="media/image41.png"><img alt="image1" src="media/image41.png" style="width: 1.20833in; height: 0.13542in;" /></a> . You can do this by entering</p>
+<blockquote>
+<div><p><a class="reference internal" href="media/image42.png"><img alt="image2" src="media/image42.png" style="width: 2.625in; height: 0.15625in;" /></a> in your terminal.</p>
+</div></blockquote>
+<p>The following method is used to to create a task:</p>
+<p>With everything finally in place, you should be able to debug your data,
+upload it to S3 or your cloud provider of choice, and create tasks in
+Scale’s platform!</p>
+<p><strong>Template</strong></p>
+<p>Scene.create_task() supports a yaml template, which is used to generate
+the payload containing the task parameters from <a class="reference external" href="https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation">Scale’s
+documentation</a>
+(labels, project name, instructions, etc).</p>
+<a class="reference internal image-reference" href="media/image46.png"><img alt="media/image46.png" src="media/image46.png" style="width: 6.70833in; height: 1.09375in;" /></a>
+<ul class="simple">
+<li><p><strong># Code example of how to load a template.yml file and use it</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2 template = yaml.load(open(‘template.yml’))</strong></p>
+<p><strong>3 scene.create_task(template).publish()</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Example of a template.yml</strong></p></li>
+</ul>
+<a class="reference internal image-reference" href="media/image47.png"><img alt="media/image47.png" src="media/image47.png" style="width: 6.70833in; height: 5.58333in;" /></a>
+<ul class="simple">
+<li><p><strong>annotation_attributes:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>visibility:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>choices:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 0-25%</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 26-50%</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 51-75%</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 76-99%</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>- 100%</strong></p></li>
+</ul>
+<ol class="arabic simple" start="10">
+<li><p><strong>conditions:</strong></p></li>
+<li><p><strong>label_condition:</strong></p></li>
+<li><p><strong>label:</strong></p></li>
+<li><p><strong>- Car</strong></p></li>
+<li><p><strong>description: How much is this object visible?</strong></p></li>
+<li><p><strong>type: category</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>16</strong></p>
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p><strong>attachment_type: json</strong></p></li>
+<li><p><strong>callback_url: http://example.com/callback</strong></p></li>
+<li><p><strong>instruction: Label the cars</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>20</strong></p>
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p><strong>labels:</strong></p></li>
+<li><p><strong>- Car</strong></p></li>
+<li><p><strong>max_distance_meters: 20</strong></p></li>
+<li><p><strong>min_width: 15</strong></p></li>
+<li><p><strong>min_height: 15</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>26</strong></p>
+</div></blockquote>
+<a class="reference internal image-reference" href="media/image48.png"><img alt="media/image48.png" src="media/image48.png" style="width: 6.70833in;" /></a>
+<p><strong>Create the Task!</strong></p>
+<p>Comment out the lidar debug lines, uncomment the s3 and task creation
+lines.</p>
+<p>Add your task template and run the script to create your task!</p>
+<a class="reference internal image-reference" href="media/image49.png"><img alt="media/image49.png" src="media/image49.png" style="width: 6.70833in; height: 3.66667in;" /></a>
+<ul class="simple">
+<li><p><strong>template = yaml.load(open(‘template.yml’))</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>4scene = create_scene(</strong></p>
+</div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>5</strong></p></td>
+<td><p><strong>‘data/’,</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>6</strong></p></td>
+<td><p><strong>frames=range(1,6)</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>7</strong></p></td>
+<td><p><strong>)</strong></p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p><strong>8</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Debugging methods</strong></p></li>
+</ul>
+<ol class="arabic simple" start="10">
+<li><p><strong># scene.get_frame(index=1).add_debug_lines()</strong></p></li>
+<li><p><strong># scene.preview()</strong></p></li>
+</ol>
+<blockquote>
+<div><p><strong>12</strong></p>
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p><strong># Upload data to S3 bucket</strong></p></li>
+<li><p><strong>scene.s3_upload(S3_BUCKET, path=’test-scale’)</strong></p></li>
+<li><p><strong># Create tasks/ Scale API request</strong></p></li>
+<li><p><strong>scene.create_task(TEMPLATE).publish()</strong></p></li>
+</ol>
+<p><strong>A &#64; B and B &#64; A</strong></p>
+<p>Final Thoughts and Tips</p>
+<p>We hope that the template script and this guide will help make debugging
+lidar data and creating tasks a smoother process. Here are some more
+tips that may help.</p>
+<p><strong>Extra tips:</strong></p>
+<p><strong>Subtracting a matrix from another matrix:</strong></p>
+<a class="reference internal image-reference" href="media/image51.png"><img alt="media/image51.png" src="media/image51.png" style="width: 6.70833in; height: 1.29167in;" /></a>
+<ul class="simple">
+<li><p><strong>matrix_one = Transform(np.eye(4))</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>matrix_two = Transform(numpy.indices((4, 4)))</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>3</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>print(matrix_one &#64; matrix_two.inverse)</strong></p></li>
+</ul>
+<p><strong>The lidar toolkit’s expected input format</strong></p>
+<p>The lidar toolkit expects data in a specific format to construct the
+output json. If something errors out or does not make sense, remember to
+check how the lidar toolkit operates. There is the chance that a pose
+was applied twice, or the raw data was using a quaternion and the lidar
+toolkit was expecting a rotation matrix.</p>
+<p><strong>My Data Still Looks Bad</strong></p>
+<p>In the section <a class="reference external" href="#page29">Lidar toolkit In depth / Troubleshooting your
+data</a> we have more cases of how to debug and load your data
+into the lidar toolkit. When in doubt, reach out to your Scale
+Engagement Manager.</p>
+<p>Debugging Lidar Data</p>
+<p>Lidar Debugger</p>
+<p>How to use the lidar debugger:</p>
+<a class="reference internal image-reference" href="media/image53.png"><img alt="media/image53.png" src="media/image53.png" style="width: 6.70833in; height: 2.28125in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>‘data/’,</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>frames=range(1,6)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>6</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Debugging methods</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><blockquote>
+<div><p><a href="#id3"><span class="problematic" id="id4">**</span></a>scene.get_frame(ind</p>
+</div></blockquote>
+<p>ex=1).add_debug_lines()**</p>
+</td>
+<td><p><strong># add lines using
+the ca</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td><p><strong>scene.preview()</strong></p></td>
+<td><p><strong># preview task</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="media/image55.png"><img alt="media/image55.png" src="media/image55.png" style="width: 1.375in; height: 0.29167in;" /></a>
+<p><strong>scene.preview()</strong> will open a local lidar debugger, which allows you
+to view the point clouds for each frame or an aggregation of frames.</p>
+<p>The local lidar debugger is a new window showing the point cloud:</p>
+<a class="reference internal image-reference" href="media/image56.jpeg"><img alt="media/image56.jpeg" src="media/image56.jpeg" style="width: 6.70833in; height: 4.22917in;" /></a>
+<p>Local Lidar debugger</p>
+<p>On the terminal you will see the command to move and interact with the
+point cloud (remember that the debugger is based on open3d, so you can
+use any open3d command):</p>
+<a class="reference internal image-reference" href="media/image57.jpeg"><img alt="media/image57.jpeg" src="media/image57.jpeg" style="width: 6.70833in; height: 4.28125in;" /></a>
+<p>Local debugger commands</p>
+<p>The most useful commands (apart of the ones to move) are:</p>
+<blockquote>
+<div><p>T - top view</p>
+</div></blockquote>
+<img alt="media/image62.png" src="media/image62.png" />
+<p><strong>Aggregated view</strong></p>
+<p>Aggregated view will help you to understand if your transformation from
+ego to world coordinates is correct. Here is an example of a wrong
+transformation:</p>
+<a class="reference internal image-reference" href="media/image64.jpeg"><img alt="media/image64.jpeg" src="media/image64.jpeg" style="width: 6.70833in; height: 4.21875in;" /></a>
+<p>Each frame pointcloud is represented with a different color</p>
+<p>In the image above, the ego2world is incorrect because the points for
+stationary objects (like poles) are not the same across the aggregated
+frames. The car is not stationary, which is why that motion is fine. The
+poles should near the top and bottom are incorrect because stationary
+objects are moving.</p>
+<p>The image below is a good ego2world transformation because the parked
+cars are stationary in the aggregated frames while the moving car has
+different point positions in every frame.</p>
+<a class="reference internal image-reference" href="media/image65.jpeg"><img alt="media/image65.jpeg" src="media/image65.jpeg" style="width: 6.70833in; height: 4.53125in;" /></a>
+<p>Good ego2World transformation</p>
+<p>Camera Debugging</p>
+<p><strong>Debug Camera Extrinsic</strong></p>
+<p><strong>Lidar Debugger</strong></p>
+<a class="reference internal image-reference" href="media/image67.png"><img alt="media/image67.png" src="media/image67.png" style="width: 6.70833in; height: 2.28125in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>‘data/’,</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>frames=range(1,6)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>6</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Debugging methods</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><blockquote>
+<div><p><a href="#id5"><span class="problematic" id="id6">**</span></a>scene.get_frame(ind</p>
+</div></blockquote>
+<p>ex=1).add_debug_lines()**</p>
+</td>
+<td><p><strong># add lines using
+the ca</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td><p><strong>scene.preview()</strong></p></td>
+<td><p><strong># preview task</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="media/image68.png"><img alt="media/image68.png" src="media/image68.png" style="width: 1.625in; height: 0.29167in;" /></a>
+<p>The method <strong>.add_debug_lines()</strong> in line 8 will add lines that begin
+from the cameras’ positions and extend towards where they are directed
+(for the first frame). This will help you to validate the cameras’
+positions, and more importantly, the directions the cameras are
+pointing.</p>
+<p>Ones that is validated, you can see if the camera projection is correct.</p>
+<a class="reference internal image-reference" href="media/image69.png"><img alt="media/image69.png" src="media/image69.png" style="width: 6.70833in;" /></a>
+<p><strong>Debug Camera Intrinsic</strong></p>
+<p><strong>Image Projection</strong></p>
+<a class="reference internal image-reference" href="media/image70.png"><img alt="media/image70.png" src="media/image70.png" style="width: 6.70833in; height: 1.92708in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>‘data/’,</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>frames=range(1,6)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>6</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Debugging methods</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>scene.get_projected_image(0).save(f’{DATA_PATH}/debug_{frame_id}.png’)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong># Aggregated view for 10 frames in depth mode, default each frame &gt;
+has</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>10scene.get_projected_image(0, frames_index=range(0,10),
+color_mode=”dep</strong></p>
+</div></blockquote>
+<a class="reference internal image-reference" href="media/image71.png"><img alt="media/image71.png" src="media/image71.png" style="width: 6.70833in; height: 0.65972in;" /></a>
+<p>The <strong>.get_projected_image(camera_id, color_mode)</strong> method projects the
+point cloud onto camera images. You can project the points for multiple
+frames at once with the <strong>frames_index</strong> argument, as shown in line 10.</p>
+<a class="reference internal image-reference" href="media/image73.png"><img alt="media/image73.png" src="media/image73.png" style="width: 1.125in; height: 0.58333in;" /></a>
+<p>The <strong>.save()</strong> method, will save the image with the projected points
+from camera 0 of frame 1 into the specified path.</p>
+<p>The end result should look similar to this:</p>
+<p><strong>Manual camera calibration</strong></p>
+<a class="reference internal image-reference" href="media/image75.png"><img alt="media/image75.png" src="media/image75.png" style="width: 6.70833in; height: 1.29514in;" /></a>
+<ul class="simple">
+<li><p><strong>if __name__ == ‘__main__’:</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2scene = create_scene(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>‘data/’,</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>frames=range(1,6)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<blockquote>
+<div><a class="reference internal image-reference" href="media/image76.png"><img alt="media/image76.png" src="media/image76.png" style="width: 6.70833in; height: 0.85764in;" /></a>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong># Debugging methods</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>scene.get_frame(0).manual_calibration(0)</strong></p></li>
+</ul>
+<p>Adding this line to your code will open a matplotlib window which will
+look like this:</p>
+<a class="reference internal image-reference" href="media/image77.jpeg"><img alt="media/image77.jpeg" src="media/image77.jpeg" style="width: 6.70833in; height: 3.97917in;" /></a>
+<p>Each camera extrinsic and intrinsic value will be displayed with a bar.
+Clicking on the bars will update the camera calibration values (please
+have in mind that the tool is not instant and takes some time to refresh
+the view). In the console, you should be able to see the new values for
+later usage in your code.</p>
+<a class="reference internal image-reference" href="media/image81.png"><img alt="media/image81.png" src="media/image81.png" style="width: 6.70833in;" /></a>
+<p><strong>Additional Reading</strong></p>
+<p>Here are some useful articles that explain the concepts of camera
+extrinsic and intrinsic matrices.</p>
+<p><a class="reference external" href="http://ksimek.github.io/2012/08/22/extrinsic/">Dissecting the Camera Matrix, Part 2: The Extrinsic
+Matrix</a></p>
+<p><a class="reference external" href="http://ksimek.github.io/2013/08/13/intrinsic/">Dissecting the Camera Matrix, Part 3: The Intrinsic
+Matrix</a></p>
+<p>Lidar Toolkit in Depth / Troubleshooting Your Data</p>
+<p>Troubleshooting Your Data</p>
+<p>In this section we are going to try to show more examples of how you can
+use the lidar</p>
+<p>toolkit to load your data, exposing some possible differences in your
+data that may affect</p>
+<p>the script and how to handle them.</p>
+<p>Examples of this are:</p>
+<blockquote>
+<div><p>Instead of compressing the device calibration data into a single pose
+matrix, we will see how to handle multiple calibration files. Fixing
+camera calibration issues (extrinsic)</p>
+</div></blockquote>
+<img alt="media/image82.png" src="media/image82.png" />
+<p>While we see those examples, we are going to also explain some key
+features of the lidar toolkit and how you can use that to understand
+better your data.</p>
+<p>Troubleshooting poses/ego2world</p>
+<p><strong>Uses of extra calibration calibration files</strong></p>
+<p><strong>Imu to Lidar</strong></p>
+<a class="reference internal image-reference" href="media/image84.png"><img alt="media/image84.png" src="media/image84.png" style="width: 6.70833in; height: 5.05208in;" /></a>
+<ul class="simple">
+<li><p><strong>from pykitti.utils import read_calib_file</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>2</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>calib_imu_to_lidar = read_calib_file(‘calib_imu_to_lidar.txt’)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>4imu_to_lidar = Transform.from_Rt(</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>calib_imu_to_lidar[‘R’].reshape(3, 3),</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>calib_imu_to_lidar[‘T’],</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>8</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>for frame in frames:</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 83%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>10</strong></p></td>
+<td><p><strong># read pointcloud data in ego coordinates</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>11</strong></p></td>
+<td><p><strong># point can be a [x,3] or [x,4] shape
+(intensity)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>12</strong></p></td>
+<td><blockquote>
+<div><p><a href="#id7"><span class="problematic" id="id8">**</span></a>pcd = o3d</p>
+</div></blockquote>
+<p>.io.read_point_cloud(f”./pointcloud/{frame}.ply”)**</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>13</strong></p></td>
+<td><p><strong>with open(f”./poses/{frame}.yaml”, ‘r’) as
+pose_file: # load</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>14</strong></p></td>
+<td><p><strong>device_pose = yaml.safe_load(pose_file)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>15</strong></p></td>
+<td><p><strong>pose = Transform().from_Rt(</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>16</strong></p></td>
+<td><p><strong>R=Quaternion(np.array(device_pose[‘heading’])),</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>17</strong></p></td>
+<td><p><strong>t=device_pose[‘position’]</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>18</strong></p></td>
+<td><p><strong>)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>19</strong></p></td>
+<td><p><strong>points = np.asarray(pcd.points)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>20</strong></p></td>
+<td><p><strong>scene.get_frame(frame).add_points(points)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>21</strong></p></td>
+<td><p><strong># apply the imu_to_lidar transform to the
+poses</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>22</strong></p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>23</strong></p></td>
+<td><p><strong>scene.get_frame(frame).apply_transform(pose &#64;
+imu_to_lidar.inv</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<img alt="media/image86.png" src="media/image86.png" />
+<p><strong>Transform world coordinate pointcloud to Ego</strong></p>
+<p>Remove the poses from the pointcloud to get ego points</p>
+<a class="reference internal image-reference" href="media/image88.png"><img alt="media/image88.png" src="media/image88.png" style="width: 6.70833in; height: 3.27083in;" /></a>
+<ul class="simple">
+<li><p><strong>for frame in frames:</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 83%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>2</strong></p></td>
+<td><p><strong># read pointcloud data in ego coordinates</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>3</strong></p></td>
+<td><p><strong># point can be a [x,3] or [x,4] shape
+(intensityj)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>4</strong></p></td>
+<td><blockquote>
+<div><p><a href="#id9"><span class="problematic" id="id10">**</span></a>pcd = o3d</p>
+</div></blockquote>
+<p>.io.read_point_cloud(f”./pointcloud/{frame}.ply”)**</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>5</strong></p></td>
+<td><p><strong>with open(f”./poses/{frame}.yaml”, ‘r’) as
+pose_file: # load</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6</strong></p></td>
+<td><p><strong>device_pose = yaml.safe_load(pose_file)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>7</strong></p></td>
+<td><p><strong>pose = Transform().from_Rt(</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><p><strong>R=Quaternion(np.array(device_pose[‘heading’])),</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td><p><strong>t=device_pose[‘position’]</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>10</strong></p></td>
+<td><p><strong>)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>11</strong></p></td>
+<td><p><strong>points = np.asarray(pcd.points)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>12</strong></p></td>
+<td><p><strong># Add the points en ego coordinates</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>13</strong></p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>14</strong></p></td>
+<td><blockquote>
+<div><p><a href="#id11"><span class="problematic" id="id12">**</span></a>scen</p>
+</div></blockquote>
+<dl class="simple">
+<dt>e.get_frame(frame).add_points(np.asarray(pcd.points),</dt><dd><p>tran**</p>
+</dd>
+</dl>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="media/image89.png"><img alt="media/image89.png" src="media/image89.png" style="width: 6.70833in;" /></a>
+<p><strong>Starting at 0,0,0</strong></p>
+<p>In order to debug the data easily we recommend defining the first pose
+as 0,0,0.</p>
+<p>We accomplish that with <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L58">this
+line</a>
+(we subtract the pose 0 to all the poses), but it’s also recommended to
+have the data set in that way, in order to debug your data easily.</p>
+<p><strong>Why?</strong></p>
+<blockquote>
+<div><p>If the first pose is 0,0,0 it’s easy to see if the next poses are
+correct, it’s easy to catch if the poses and the actual car movement
+are in sync (e.g: poses defining a movement in the Y axis but the car
+is moving in the X axis)</p>
+</div></blockquote>
+<img alt="media/image92.png" src="media/image92.png" />
+<p>Troubleshooting Cameras</p>
+<p><strong>Using rosbag export</strong></p>
+<a class="reference internal image-reference" href="media/image93.png"><img alt="media/image93.png" src="media/image93.png" style="width: 6.70833in; height: 3.46875in;" /></a>
+<ul class="simple">
+<li><p><strong>from pykitti.utils import read_calib_file</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>calib_cam_to_cam = read_calib_file(‘calib_cam_to_cam.txt’)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>calib_lidar_to_cam = read_calib_file(‘calib_lidar_to_cam.txt’)</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>4</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>lidar_to_cam = Transform.from_Rt(</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 88%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>6</strong></p></td>
+<td><p><strong>calib_lidar_to_cam[‘R’].reshape(3, 3),</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7</strong></p></td>
+<td><p><strong>calib_lidar_to_cam[‘T’],</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><p><strong>)</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="10">
+<li><p><strong>scene.get_camera(0).calibrate(</strong></p></li>
+</ol>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 87%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>11</strong></p></td>
+<td><p><strong>pose=lidar_to_cam.inverse,</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>12</strong></p></td>
+<td><p><strong>K=calib_cam_to_cam[‘K_00’].reshape(3, 3)),</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>13</strong></p></td>
+<td><p><strong>D=calib_cam_to_cam[‘D_00’],</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>14</strong></p></td>
+<td><p><strong>)</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>15</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Useful Snippets</p>
+<p><strong>Load points from a .bin file</strong></p>
+<a class="reference internal image-reference" href="media/image95.png"><img alt="media/image95.png" src="media/image95.png" style="width: 6.70833in; height: 4.45833in;" /></a>
+<ul class="simple">
+<li><p><strong>“””</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>Read point cloud file, with .bin extension, usually this is &gt;
+contains a lis</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>3 “””</strong></p>
+<p><strong>4 def read_lidar(frame_id):</strong></p>
+</div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>5</strong></p></td>
+<td><p><strong>return np.fromfile(f’./pointcloud/{frame_id}.bin’,
+dtype=np.fl</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>6</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>for frame in frames:</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 83%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><p><strong># read pointcloud data in ego coordinates</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td><p><strong># point can be a [x,3] or [x,4] shape
+(intensity)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>10</strong></p></td>
+<td><p><strong>points = read_lidar(frame_id)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>11</strong></p></td>
+<td><p><strong>pose = Transform().from_Rt(</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>12</strong></p></td>
+<td><p><strong>R=Quaternion(np.array(device_pose[‘heading’])),</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>13</strong></p></td>
+<td><p><strong>t=device_pose[‘position’]</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>14</strong></p></td>
+<td><p><strong>)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>15</strong></p></td>
+<td><p><strong>points = np.asarray(pcd.points)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>16</strong></p></td>
+<td><p><strong>scene.get_frame(frame).add_points(points)</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>17</strong></p></td>
+<td><p><strong># apply the imu_to_lidar transform to the
+poses</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>18</strong></p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>19</strong></p></td>
+<td><p><strong>scene.get_frame(frame).apply_transform(pose &#64;
+imu_to_lidar.inv</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>20</strong></p></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Radar Point Deep-Dive</p>
+<p><strong>Radar points</strong></p>
+<p>Radar points are supported on the lidar toolkit, the lidar toolkit is
+expecting this data format:</p>
+<a class="reference internal image-reference" href="media/image96.png"><img alt="media/image96.png" src="media/image96.png" style="width: 6.70833in; height: 3.86458in;" /></a>
+<ul class="simple">
+<li><p><strong>radar_points = np.array([</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>[</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>3</strong></p></td>
+<td><p><strong>[0.30694541,
+0.27853175,
+0.51152715],</strong></p></td>
+<td><p><strong>// position
+- x,y,z</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>4</strong></p></td>
+<td><p><strong>[0.80424087,</strong></p></td>
+<td><p><strong>0.24164057,
+0.45256181],</strong></p></td>
+<td><p><strong>// direction
+- x,y,z</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>5</strong></p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li></li>
+</ul>
+</div></blockquote>
+<p>*[0.73596422]**</p>
+</td>
+<td><p><strong>// size</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>],</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>[</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>8</strong></p></td>
+<td><dl class="simple">
+<dt>**[0.30694541,</dt><dd><p>0.27853175,</p>
+</dd>
+</dl>
+<p>0.51152715],**</p>
+</td>
+<td><p><strong>// position
+- x,y,z</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>9</strong></p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p></p></li>
+</ul>
+</div></blockquote>
+<p><em>[0.80424087,</em>*</p>
+</td>
+<td><p><strong>0.24164057,
+0.45256181],</strong></p></td>
+<td><p><strong>//
+direction -
+x,y,z</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>10</strong></p></td>
+<td><p><strong>[0.73596422]</strong></p></td>
+<td><p><strong>// size</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="11">
+<li><p><strong>],</strong></p></li>
+<li><p><strong>[</strong></p></li>
+</ol>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>13</strong></p></td>
+<td><dl class="simple">
+<dt>**[0.30694541,</dt><dd><p>0.27853175,</p>
+</dd>
+</dl>
+<p>0.51152715],**</p>
+</td>
+<td><p><strong>// position
+- x,y,z</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>14</strong></p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p></p></li>
+</ul>
+</div></blockquote>
+<p><em>[0.80424087,</em>*</p>
+</td>
+<td><p><strong>0.24164057,
+0.45256181],</strong></p></td>
+<td><p><strong>//
+direction -
+x,y,z</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>15</strong></p></td>
+<td><p><strong>[0.73596422]</strong></p></td>
+<td><p><strong>// size</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="16">
+<li><p><strong>]</strong></p></li>
+<li><p><strong>])</strong></p></li>
+</ol>
+<p>In order to add the radar points you can add the following line to you
+code:</p>
+<a class="reference internal image-reference" href="media/image97.png"><img alt="media/image97.png" src="media/image97.png" style="width: 6.70833in; height: 1.88542in;" /></a>
+<ul class="simple">
+<li><p><strong>…</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>for frame in frames:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>…</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong># add the following lines</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>radar_points = &gt; load_radar_points(f”./radar_points/{frame}.txt”)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>scene.get_frame(frame).add_radar_points(radar_points) # adding &gt;
+rad</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>7…</strong></p>
+</div></blockquote>
+<p>Here is an example of <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data/radar_points">radar
+points</a>,
+if you store the data following that format you can use the following
+snippet to load the data:</p>
+<a class="reference internal image-reference" href="media/image98.png"><img alt="media/image98.png" src="media/image98.png" style="width: 6.70833in; height: 2.47917in;" /></a>
+<ul class="simple">
+<li><p><strong>def load_radar_points(file):</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>Lines = open(file, ‘r’).readlines()</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>3</strong></p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>points = []</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>for line in Lines:</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>point = line.split(‘,’)</strong></p></li>
+</ul>
+<!-- --><ul class="simple">
+<li><p><strong>points.append([list(map(float, point[0:3])),list(map(float, &gt;
+point[</strong></p></li>
+</ul>
+<blockquote>
+<div><p><strong>8return points</strong></p>
+</div></blockquote>
+<p><strong>9</strong></p>
+<p><strong>10</strong></p>
+<p>(this snipper is already on the
+<a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">scale-example.py</a>
+script)</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="scale_lidar_io.html" class="btn btn-neutral float-right" title="scale_lidar_io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="intro.html" class="btn btn-neutral float-left" title="Intro" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

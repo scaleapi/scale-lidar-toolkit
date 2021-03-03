@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Intro &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  <title>Scale AI Lidar Toolkit &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="scale_lidar_io" href="scale_lidar_io.html" />
+    <link rel="next" title="Preparing Your Data" href="load_raw_data/preparing.html" />
     <link rel="prev" title="Welcome to scale Lidar Toolkit’s documentation!" href="index.html" /> 
 </head>
 
@@ -85,12 +85,28 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#optional-setup">Optional Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scale-api-documentation">Scale API Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scale AI Lidar Toolkit</a></li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/structure.html">Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging/lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging/camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Python API:</span></p>
 <ul>
@@ -143,7 +159,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Intro</li>
+      <li>Scale AI Lidar Toolkit</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -160,35 +176,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="intro">
-<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<p>First things first, ensure you have Pip and Python installed.</p>
-<p>Next,</p>
-<ul class="simple">
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> (to install all the dependencies; <code class="docutils literal notranslate"><span class="pre">pip</span></code> works equally well to <code class="docutils literal notranslate"><span class="pre">pip3</span></code>)</p></li>
-<li><p>Grab your API key from your Scale Dashboard, we’ll want to set that as an enviroment variable (<code class="docutils literal notranslate"><span class="pre">SCALE_API_KEY</span></code>) in the command line or in a file</p></li>
-<li><p>That’s it, to pass in your API key and run any script, it will look something like <code class="docutils literal notranslate"><span class="pre">SCALE_API_KEY=live_xxxx</span> <span class="pre">python3</span> <span class="pre">&lt;script</span> <span class="pre">name&gt;</span></code></p></li>
-</ul>
-</div>
-<div class="section" id="optional-setup">
-<h2>Optional Setup<a class="headerlink" href="#optional-setup" title="Permalink to this headline">¶</a></h2>
-<p>We recommend using AWS S3 to host your Lidar files.</p>
-<p>If you plan to use S3, ensure you have the the AWS CLI installed by doing <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">--version</span></code> on the terminal</p>
-<p>If you need to install it still, you can check out AWS’s guide to <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html">Manual AWS-CLI installation</a></p>
-<p>The Lidar toolkit uses <a class="reference external" href="https://boto3.amazonaws.com/">boto3</a> to upload files to s3, this will use aws credentials stored in <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials.json</span></code> (profile default). Here’s an example of what this file should look like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">default</span><span class="p">]</span>
-<span class="n">aws_access_key_id</span> <span class="o">=</span> <span class="n">XFSERSDFSS</span><span class="o">...</span>
-<span class="n">aws_secret_access_key</span> <span class="o">=</span> <span class="n">Asjwje1A</span><span class="o">.....</span>
-</pre></div>
-</div>
-<p>Do ensure your AWS credentials have permissions to upload files to the <code class="docutils literal notranslate"><span class="pre">BUCKET</span></code> specified at the top of the <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/lidar_template.py#L18">script</a>.</p>
-</div>
-<div class="section" id="scale-api-documentation">
-<h2>Scale API Documentation<a class="headerlink" href="#scale-api-documentation" title="Permalink to this headline">¶</a></h2>
-<p>This toolkit aids you in getting your data from it’s raw format to submitted Scale Tasks ready to be worked on. We have the <a class="reference external" href="https://private-docs.scale.com/#sensor-fusion-lidar-annotation">Scale format documented in full in our 3d documentation</a>. We’d encourage you to use this as a reference for what’s possible and what the different options are.</p>
-</div>
+  <div class="section" id="scale-ai-lidar-toolkit">
+<h1>Scale AI Lidar Toolkit<a class="headerlink" href="#scale-ai-lidar-toolkit" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to Scale’s Lidar Toolkit</p>
+<p>This document is a step-by-step guide on how to use the Lidar Toolkit to
+convert raw lidar scenes into label-able Scale tasks.</p>
+<p>Please clone the scale-lidar-toolkit repo before proceeding: <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit">https://github.com/scaleapi/scale-lidar-toolkit</a></p>
+<p><strong>Scale Format</strong></p>
+<p>In this documentation, we will simplify the data conversion by following
+the <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format">Scale
+Format</a>.
+The format uses <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">this example
+script</a>
+to demonstrate how to load and debug your data, and create tasks on
+Scale’s platform.</p>
+<p>A step-by-step guide for
+<a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">scale-example.py</a>
+can be found in the <a class="reference external" href="#page4">Load Raw Lidar Data</a> section.</p>
+<p><a class="reference external" href="#page29">To learn more about advanced topics, please see Lidar Toolkit in Depth
+/ Troubleshooting</a> <a class="reference external" href="#page29">Your Data.</a></p>
+<p><strong>Debugging Your Data</strong></p>
+<p>The Lidar Toolkit also provides useful debugging tools to help you
+visualize and understand your data. You can learn more about them in
+<a class="reference external" href="#page11">Debugging Lidar Data.</a></p>
 </div>
 
 
@@ -197,7 +207,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="scale_lidar_io.html" class="btn btn-neutral float-right" title="scale_lidar_io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="load_raw_data/preparing.html" class="btn btn-neutral float-right" title="Preparing Your Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to scale Lidar Toolkit’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

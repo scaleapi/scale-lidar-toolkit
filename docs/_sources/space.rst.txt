@@ -1,0 +1,1909 @@
+Scale AI Lidar Toolkit
+==========================================
+
+Welcome to Scale's Lidar Toolkit
+
+This document is a step-by-step guide on how to use the Lidar Toolkit to
+convert raw lidar scenes into label-able Scale tasks.
+
+`Please clone the scale-lidar-toolkit repo before
+proceeding: <https://github.com/scaleapi/scale-lidar-toolkit>`__
+
+https://github.com/scaleapi/scale-lidar-toolkit
+
+**Scale Format**
+
+In this documentation, we will simplify the data conversion by following
+the `Scale
+Format <https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format>`__.
+The format uses `this example
+script <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+to demonstrate how to load and debug your data, and create tasks on
+Scale's platform.
+
+A step-by-step guide for
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+can be found in the `Load Raw Lidar Data <#page4>`__ section.
+
+`To learn more about advanced topics, please see Lidar Toolkit in Depth
+/ Troubleshooting <#page29>`__ `Your Data. <#page29>`__
+
+**Debugging Your Data**
+
+The Lidar Toolkit also provides useful debugging tools to help you
+visualize and understand your data. You can learn more about them in
+`Debugging Lidar Data. <#page11>`__
+
+Load raw Lidar data
+
+Preparing Your Data
+
+**Do you have your data ready?**
+
+**Point Cloud Data [Required]**
+
+Scale's platform expects at least one point cloud per frame (the full
+sweep). If you have multiple lidar sensors, you will want to combine
+those into a singular point cloud.
+
+.. image:: media/image1.png
+   :width: 1.6875in
+   :height: 0.29167in
+
+The format of these files will vary, common examples include **.pcd** ,
+**.json** , **.bin** .
+
+**Lidar Sensor Calibrations [Required]**
+
+Scale's platform expects a calibration file, which is used to calculate
+your device's heading.
+
+You will also need to provide an "ego2world" or "poses" file which is
+used to calculate your device's location in the point cloud.
+
+It is **strongly** advised that your data is submitted in a static /
+world-frame of reference such that the ego device moves throughout the
+scene, as opposed to an "ego-only" coordinate system, in which the
+device remains centered and the scene moves around the device.
+
+**Camera Images and Associated Camera Calibrations [Optional, but very
+helpful]**
+
+.. image:: media/image2.png
+   :width: 1in
+   :height: 0.29167in
+
+Scale's platform expects images to be in a browser-viewable format such
+as **jpg** or **png** .
+
+For each camera, you will need to provide the *extrinsic* and
+*intrinsic* calibration matrices, `which are used for features such as
+cuboid projections and point projections (see
+reference <https://private-docs.scale.com/#data-types-and-the-frame-objects>`__
+`docs, "Camera Image"
+object). <https://private-docs.scale.com/#data-types-and-the-frame-objects>`__
+
+**Other Calibration and Transformation Data [Optional]**
+
+.. image:: media/image3.png
+   :width: 2.01042in
+   :height: 0.29167in
+
+You may also include calibration data such as **lidar2Cam** ,
+**world2Lidar** , etc. You will need to adjust the script to include and
+use them.
+
+Data Structure
+
+In order to use the scale-example python script, you will need to store
+your data following this structure:
+
+.. image:: media/image4.png
+   :width: 6.70833in
+   :height: 3.86458in
+
+-  **- cameras:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- camera_one:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- [X].jpg/png (X -> frame number)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])**
+
+..
+
+   **5- intrinsics.yaml (fx,fy,cx,cy)**
+
+-  **- camera_two:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- [X].jpg/png (X -> frame number)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- extrinsics.yaml (heading: [w,x,y,z], position: [x,y,z])**
+
+..
+
+   **9- intrinsics.yaml (fx,fy,cx,cy)**
+
+10. **- ... more cameras**
+
+11. **- pointcloud:**
+
+12. **- [X].ply/pcd (X -> frame number)**
+
+13. **- poses:**
+
+14. **- [X].yaml (X -> frame number) (heading: [w,x,y,z], position: >
+    [x,y,z])**
+
+15. **- radar_points:**
+
+16. **- [X].txt (X -> frame number) (each line should be a point >
+    following t**
+
+..
+
+   **17**
+
+**Example Data**
+
+There is `test
+data <https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data>`__
+provided in the Github repo if you wish to test the script out yourself
+or see the directory structure.
+
+.. image:: media/image5.png
+   :width: 6.70833in
+   :height: 0.77083in
+
+   We define headings using quaternion annotations following this order:
+   w, x, y, z
+
+.. image:: media/image6.png
+   :width: 6.70833in
+
+**Cameras**
+
+Scale's platform expects an image for every frame from each camera.
+
+Each camera will also need an `extrinsic
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/extrinsics.yaml>`__
+with the camera's heading and position,
+
+.. image:: media/image7.png
+   :width: 6.70833in
+   :height: 2.28125in
+
+-  **heading:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 0.7075208842461583**
+
+..
+
+   **3 - -0.7066467485074057**
+
+   **4 - -0.007058393650468786**
+
+   **5 - -0.0038406065302718445**
+
+   **6 position:**
+
+   **7 - 0.008707550128834255**
+
+   **8 - 0.46748110977387547**
+
+   **9 - 1.8138725928014485**
+
+.. image:: media/image8.png
+   :width: 6.70833in
+   :height: 1.04167in
+
+   The camera extrinsic should be relative to the device. This means
+   that the lidar toolkit will add device position and heading to the
+   camera in each frame.
+
+and an `intrinsics
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/intrinsics.yaml>`__
+with the camera's 2d-translation and 2d-scaling.
+
+.. image:: media/image9.png
+   :width: 6.70833in
+   :height: 2.08333in
+
+-  **fx:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 1970.0131**
+
+..
+
+   **3 fy:**
+
+   **4 - 1970.0091**
+
+   **5 cx:**
+
+   **6 - 970.0002**
+
+   **7 cy:**
+
+   **8 - 483.2988**
+
+.. image:: media/image10.png
+   :width: 6.70833in
+   :height: 0.77083in
+
+   In this file you can add camera model, distortion coeﬃcients, etc.
+
+.. image:: media/image11.png
+   :width: 6.70833in
+
+**Point Cloud**
+
+Scale's platform expects a `point cloud
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/pointcloud/1.ply>`__
+for every frame. In this example, we will be using
+
+.. image:: media/image12.png
+   :width: 0.45833in
+   :height: 0.29167in
+
+**.ply** , but the toolkit is compatible other point cloud formats. Read
+more about supported point cloud formats and filetypes
+`here <http://www.open3d.org/docs/release/tutorial/geometry/file_io.html>`__.
+
+The example point cloud file is in ego coordinates (which will be
+transformed to world coordinates later).
+
+.. image:: media/image13.png
+   :width: 6.70833in
+   :height: 1.04167in
+
+   Remember to use the same file name for images, point cloud and poses
+   to make it easier to match them to each frame.
+
+.. image:: media/image14.png
+   :width: 6.70833in
+
+**Device Pose**
+
+Scale's platform also expects a `pose
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/poses/1.yaml>`__
+per frame. This file contains your device's heading and position:
+
+.. image:: media/image15.png
+   :width: 6.70833in
+   :height: 2.28125in
+
+-  **heading:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 0.9223153982060285**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 0.010172188957944597**
+
+..
+
+   **4 - 0.020377226369147156**
+
+   **5 - -0.3857662523463648**
+
+   **6 position:**
+
+   **7 - 0.5567106077665928**
+
+   **8 - 0.5506659726750831**
+
+   **9 - 0.008819164477798357**
+
+You can use the pose data to transform your ego scene into a world
+coordinate scene.
+
+.. image:: media/image16.png
+   :width: 6.70833in
+   :height: 1.04167in
+
+   A pose is a position and orientation. It is an absolute value between
+   one frame and another.
+
+Loading Your Data
+
+**Create Scene Function**
+
+.. image:: media/image17.png
+   :width: 4.40625in
+   :height: 0.29167in
+
+The function **create_scene(base_path, frames)** in
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+loads data and creates a LidarScene object. The base_path is directory
+where all your data is stored. The frames is a list of file names that
+you wish to load/process into the lidar toolkit.
+
+.. image:: media/image18.png
+   :width: 6.70833in
+   :height: 1.48958in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
++------+---------------------------------------------------------------+
+| *    |    **base_path='data/', # <-- path that holds your data**     |
+| *3** |                                                               |
++------+---------------------------------------------------------------+
+| *    |    **frames=range(1,6) # <-- list of filenames for each       |
+| *4** |    frame**                                                    |
++------+---------------------------------------------------------------+
+| *    |    **)**                                                      |
+| *5** |                                                               |
++------+---------------------------------------------------------------+
+
+.. image:: media/image19.png
+   :width: 6.70833in
+
+**Loading and Calibrating Cameras**
+
+Each camera's position will be calibrated using its rotation matrix and
+translation vector. Each camera will also be calibrated using the
+K-matrix or intrinsic matrix. Read more about camera intrinsics
+`here <http://ksimek.github.io/2013/08/13/intrinsic/>`__!
+
+.. image:: media/image20.png
+   :width: 6.70833in
+   :height: 2.875in
+
+-  **camera_skew = 0**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **scene.get_camera(camera).calibrate(**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **pose=Transform().from_Rt(**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **R=Quaternion(np.array(camera_extrinsic['heading'])),**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **t=np.array(camera_extrinsic['position'])**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **),**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **K=np.array([**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **[camera_intrinsic['fx'][0], camera_skew, >
+   camera_intrinsic['cx'][0]**
+
+..
+
+   **9[0,camera_intrinsic['fy'][0], camera_intrinsic['cy'][0]],**
+
+10. **[0,0,1],**
+
+11. **])**
+
+12. **)**
+
+.. image:: media/image21.png
+   :width: 6.70833in
+
+**Setting up Device Poses**
+
+Use the device_pose file's rotation matrix and translation vector to
+calibrate the device heading and position. Apply the transformation of
+the pose to the frame.
+
+.. image:: media/image22.png
+   :width: 6.70833in
+   :height: 1.6875in
+
+-  **device_pose = yaml.safe_load(pose_file)**
+
+..
+
+   **2 pose = Transform().from_Rt(**
+
+-  **R=Quaternion(np.array(device_pose['heading'])),**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **t=device_pose['position']**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **scene.get_frame(frame).apply_transform(pose)**
+
+.. image:: media/image23.png
+   :width: 6.70833in
+
+**Loading Point Clouds**
+
+Scale's lidar toolkit uses
+`Open3D <http://www.open3d.org/docs/release/index.html>`__ to read and
+load point cloud data. Read more about supported point cloud formats and
+filetypes
+`here <http://www.open3d.org/docs/release/tutorial/geometry/file_io.html>`__.
+
+Convert the points of the point cloud into a `numpy
+array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+before adding it to the frame.
+
+**Ego Coordinates**
+
+For ego coordinates, the process is straightforward.
+
+.. image:: media/image24.png
+   :width: 6.70833in
+   :height: 1.09375in
+
+-  **pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")**
+
+..
+
+   **2 points = np.asarray(pcd.points)**
+
+   **3 scene.get_frame(frame).add_points(points)**
+
+**World Coordinates**
+
+If your point cloud data is in world coordinates, you should transform
+the points using the pose's inverse before adding the points to the
+frame. The inverse is subtracting the pose from the point cloud (moves
+from world to ego coordinates).
+
+The lidar toolkit expects data in ego coordinates. It will automatically
+transform the data to world coordinates later in the script before task
+creation.
+
+.. image:: media/image25.png
+   :width: 6.70833in
+   :height: 1.09375in
+
+-  **pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")**
+
+..
+
+   **2 points = np.asarray(pcd.points)**
+
+   **3 scene.get_frame(frame).add_points(points,
+   transform=pose.inverse)**
+
+**Transform All Frames Relative to First Frame**
+
+After data for every frame is added to the LidarScene, make all frame
+poses relative to the first frame and set the first frame's position as
+(0,0,0). This method is usually called outside of the loop that adds all
+the point cloud data. This method handles all of that:
+
+.. image:: media/image26.png
+   :width: 6.70833in
+   :height: 0.69792in
+
+   **scene.make_transforms_relative()**
+
+.. image:: media/image27.png
+   :width: 6.70833in
+
+**Radar Points**
+
+Scale's platform also supports adding radar points. To add radar points
+to your lidar scene, convert radar points into a `numpy
+array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+before adding it to the frame.
+
+.. image:: media/image28.png
+   :width: 6.70833in
+   :height: 2.47917in
+
+-  **# Example radar_points numpy array structure**
+
+..
+
+   **2 radar_points = np.array([**
+
+-  **[**
+
++-------+---------------------------+---------------------------+---+
+| **4** |    **[0.30694541,         |    **// position -        |   |
+|       |    0.27853175,            |    x,y,z**                |   |
+|       |    0.51152715],**         |                           |   |
++-------+---------------------------+---------------------------+---+
+| **5** |    **[0.80424087,         |    **// direction -       |   |
+|       |    0.24164057,            |    x,y,z**                |   |
+|       |    0.45256181],**         |                           |   |
++-------+---------------------------+---------------------------+---+
+| **6** |    **[0.73596422]**       |    **// size**            |   |
++-------+---------------------------+---------------------------+---+
+
+-  **],**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **...**
+
+..
+
+   **9 ])**
+
+10. **scene.get_frame(frame).add_radar_points(radar_points)**
+
+More about radar points here.
+
+Debugging your data
+
+.. image:: media/image29.png
+   :width: 1.45833in
+   :height: 0.29167in
+
+To set up the debugger, edit the path so that it points to your data in
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L81>`__
+.
+
+Frames is a list that contains the names of frames you wish to load.
+
+.. image:: media/image30.png
+   :width: 6.70833in
+   :height: 1.48958in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
++-------+-----------------------------------------------------------+
+| **3** |    **'data/', # <-- edit this path**                      |
++-------+-----------------------------------------------------------+
+| **4** |    **frames=range(1,6) # <-- edit frames if necessary**   |
++-------+-----------------------------------------------------------+
+| **5** |    **)**                                                  |
++-------+-----------------------------------------------------------+
+
+**Here are some things to check before you start debugging:**
+
+   Validate that the camera calibration is `using all the important
+   data <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L35>`__
+   (for example, if you're using a fisheye camera, add the distortion
+   coeﬃcient and the camera model).
+
+.. image:: media/image31.png
+
+   `If you are using a different point cloud format like .bin , you will
+   need to change
+   how <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L42>`__
+   `the data is
+   loaded. <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L42>`__
+
+.. image:: media/image33.png
+
+   `The lidar toolkit supports point clouds with 4 values per point (x,
+   y, z, intensity),
+   you <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L41>`__
+   `may need to filter the point cloud if that is not the
+   case. <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L41>`__
+
+.. image:: media/image34.png
+
+   If the point cloud is in world coordinates, you will need to
+   `subtract the poses from
+   it <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L52>`__
+   (the lidar toolkit will transform point clouds from ego to world
+   coordinates using the poses).
+
+.. image:: media/image35.png
+
+If the data follows the data structure suggested and you finished the
+checks before debugging, you should be able to start debugging your
+data!
+
+.. image:: media/image36.png
+   :width: 6.70833in
+
+**Validate your data**
+
+Scale's `lidar debugger <#page19>`__ also allows you to validate your
+data. To use the debugger, uncomment lines 8 and 9 shown below. You can
+comment out lines 12 and 14 to avoid creating a task when debugging.
+
+.. image:: media/image37.png
+   :width: 6.70833in
+   :height: 3.27083in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
+-  **'data/',**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **frames=range(1,6)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+..
+
+   **6**
+
+-  **# Debugging methods**
+
++--------+--------------------------+--------------------------+---+
+| **8**  |                          |    **# add lines using   |   |
+|        |   **scene.get_frame(inde |    the ca**              |   |
+|        |                          |                          |   |
+|        | x=1).add_debug_lines()** |                          |   |
++--------+--------------------------+--------------------------+---+
+| **9**  |    **scene.preview()**   |    **# preview task**    |   |
++--------+--------------------------+--------------------------+---+
+| **10** |                          |                          |   |
++--------+--------------------------+--------------------------+---+
+
+11. **# Upload data to S3 bucket**
+
+12. **# scene.s3_upload(S3_BUCKET, path='test-scale') # comment this >
+    line fo**
+
+13. **# Create tasks/ Scale API request**
+
+14. **# scene.create_task(TEMPLATE).publish() # comment this line for >
+    testin**
+
+If everything looks correct after debugging, continue to the next step
+to create your task!
+
+**task_type**
+
+**export SCALE_API_KEY=live_xxxx**
+
+**SCALE_API_KEY**
+
+Task Creation
+
+To create a task, the toolkit requires valid S3 credentials, an S3
+bucket, and a valid Scale API key.
+
+**S3**
+
+The lidar toolkit uses boto3, which will use the aws credentials stored
+in **~/.aws/credentials.json** (this is similar aws-cli in terminal).
+
+.. image:: media/image38.png
+   :width: 2.04167in
+   :height: 0.29167in
+
+The method **scene.s3_upload(bucket, path)** uses boto3 to upload all
+the attachments and images of the scene into the specified bucket and
+path.
+
+.. image:: media/image40.png
+   :width: 6.70833in
+   :height: 0.69792in
+
+   **scene.s3_upload('scaleapi-sales-test', path='test/lidar-toolkit')**
+
+**Scale Api Key**
+
+Before you can create a task on Scale's platform, you need to define an
+environment
+
+variable called |image1| . You can do this by entering
+
+   |image2| in your terminal.
+
+The following method is used to to create a task:
+
+.. image:: media/image43.png
+   :width: 6.70833in
+   :height: 0.69792in
+
+   **scene.create_task().publish()**
+
+With everything finally in place, you should be able to debug your data,
+upload it to S3 or your cloud provider of choice, and create tasks in
+Scale's platform!
+
+.. image:: media/image44.png
+   :width: 6.70833in
+   :height: 1.04514in
+
+   You can create different task types with the same method by changing
+   the
+
+   parameter:
+
+   .. image:: media/image45.png
+      :width: 6.70833in
+      :height: 1.09722in
+
+   The available task types are: **lidarannotation** *(default)*,
+   **lidartopdown**, and **lidarsegmentation**
+
+**Template**
+
+Scene.create_task() supports a yaml template, which is used to generate
+the payload containing the task parameters from `Scale's
+documentation <https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation>`__
+(labels, project name, instructions, etc).
+
+.. image:: media/image46.png
+   :width: 6.70833in
+   :height: 1.09375in
+
+-  **# Code example of how to load a template.yml file and use it**
+
+..
+
+   **2 template = yaml.load(open('template.yml'))**
+
+   **3 scene.create_task(template).publish()**
+
+-  **# Example of a template.yml**
+
+.. image:: media/image47.png
+   :width: 6.70833in
+   :height: 5.58333in
+
+-  **annotation_attributes:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **visibility:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **choices:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 0-25%**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 26-50%**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 51-75%**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 76-99%**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **- 100%**
+
+10. **conditions:**
+
+11. **label_condition:**
+
+12. **label:**
+
+13. **- Car**
+
+14. **description: How much is this object visible?**
+
+15. **type: category**
+
+..
+
+   **16**
+
+17. **attachment_type: json**
+
+18. **callback_url: http://example.com/callback**
+
+19. **instruction: Label the cars**
+
+..
+
+   **20**
+
+21. **labels:**
+
+22. **- Car**
+
+23. **max_distance_meters: 20**
+
+24. **min_width: 15**
+
+25. **min_height: 15**
+
+..
+
+   **26**
+
+.. image:: media/image48.png
+   :width: 6.70833in
+
+**Create the Task!**
+
+Comment out the lidar debug lines, uncomment the s3 and task creation
+lines.
+
+Add your task template and run the script to create your task!
+
+.. image:: media/image49.png
+   :width: 6.70833in
+   :height: 3.66667in
+
+-  **template = yaml.load(open('template.yml'))**
+
+..
+
+   **2**
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **4scene = create_scene(**
+
++-------+-------------------------+
+| **5** |    **'data/',**         |
++-------+-------------------------+
+| **6** |                         |
+|       |   **frames=range(1,6)** |
++-------+-------------------------+
+| **7** |    **)**                |
++-------+-------------------------+
+
+..
+
+   **8**
+
+-  **# Debugging methods**
+
+10. **# scene.get_frame(index=1).add_debug_lines()**
+
+11. **# scene.preview()**
+
+..
+
+   **12**
+
+13. **# Upload data to S3 bucket**
+
+14. **scene.s3_upload(S3_BUCKET, path='test-scale')**
+
+15. **# Create tasks/ Scale API request**
+
+16. **scene.create_task(TEMPLATE).publish()**
+
+**A @ B and B @ A**
+
+Final Thoughts and Tips
+
+We hope that the template script and this guide will help make debugging
+lidar data and creating tasks a smoother process. Here are some more
+tips that may help.
+
+.. image:: media/image50.png
+   :width: 6.70833in
+   :height: 1.85417in
+
+   Remember to check the object **Transform** from **scale_lidar_io**,
+   this will help you with all the algebraic operation (matrix
+   multiplication, subtraction, etc.). Also you can create a Transform
+   object using different type of data, not only matrixes. Transforms
+   prints translate your matrixes into simple components to help you
+   understand your data.
+
+**Extra tips:**
+
+**Subtracting a matrix from another matrix:**
+
+.. image:: media/image51.png
+   :width: 6.70833in
+   :height: 1.29167in
+
+-  **matrix_one = Transform(np.eye(4))**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **matrix_two = Transform(numpy.indices((4, 4)))**
+
+..
+
+   **3**
+
+-  **print(matrix_one @ matrix_two.inverse)**
+
+.. image:: media/image52.png
+   :width: 6.70833in
+   :height: 1.0625in
+
+   Remember that the order of the element matters in matrix
+   multiplication, it is not the same
+
+**The lidar toolkit's expected input format**
+
+The lidar toolkit expects data in a specific format to construct the
+output json. If something errors out or does not make sense, remember to
+check how the lidar toolkit operates. There is the chance that a pose
+was applied twice, or the raw data was using a quaternion and the lidar
+toolkit was expecting a rotation matrix.
+
+**My Data Still Looks Bad**
+
+In the section `Lidar toolkit In depth / Troubleshooting your
+data <#page29>`__ we have more cases of how to debug and load your data
+into the lidar toolkit. When in doubt, reach out to your Scale
+Engagement Manager.
+
+Debugging Lidar Data
+
+Lidar Debugger
+
+How to use the lidar debugger:
+
+.. image:: media/image53.png
+   :width: 6.70833in
+   :height: 2.28125in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
+-  **'data/',**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **frames=range(1,6)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+..
+
+   **6**
+
+-  **# Debugging methods**
+
++-------+---------------------------+---------------------------+---+
+| **8** |    **scene.get_frame(ind  |    **# add lines using    |   |
+|       |                           |    the ca**               |   |
+|       | ex=1).add_debug_lines()** |                           |   |
++-------+---------------------------+---------------------------+---+
+| **9** |    **scene.preview()**    |    **# preview task**     |   |
++-------+---------------------------+---------------------------+---+
+
+.. image:: media/image54.png
+   :width: 6.70833in
+   :height: 1.0625in
+
+   **scene.get_frame(index=1).add_debug_lines()** is optional, it is
+   useful to help debug extrinsic camera values.
+
+.. image:: media/image55.png
+   :width: 1.375in
+   :height: 0.29167in
+
+**scene.preview()** will open a local lidar debugger, which allows you
+to view the point clouds for each frame or an aggregation of frames.
+
+The local lidar debugger is a new window showing the point cloud:
+
+.. image:: media/image56.jpeg
+   :width: 6.70833in
+   :height: 4.22917in
+
+Local Lidar debugger
+
+On the terminal you will see the command to move and interact with the
+point cloud (remember that the debugger is based on open3d, so you can
+use any open3d command):
+
+.. image:: media/image57.jpeg
+   :width: 6.70833in
+   :height: 4.28125in
+
+Local debugger commands
+
+The most useful commands (apart of the ones to move) are:
+
+   T - top view
+
+.. image:: media/image58.png
+
+   S - Side view
+
+.. image:: media/image59.png
+
+   N - Move to the next frame
+
+.. image:: media/image60.png
+
+   P - Previous frame
+
+.. image:: media/image61.png
+
+   A - Aggregated view
+
+.. image:: media/image62.png
+
+**Aggregated view**
+
+Aggregated view will help you to understand if your transformation from
+ego to world coordinates is correct. Here is an example of a wrong
+transformation:
+
+.. image:: media/image63.png
+   :width: 6.70833in
+   :height: 1.3125in
+
+   Using the aggregated view you are able to visualize the point cloud
+   in multiple consecutive frames (up to 10 frames). Each frame points
+   are going to be visualized with different colors.
+
+.. image:: media/image64.jpeg
+   :width: 6.70833in
+   :height: 4.21875in
+
+Each frame pointcloud is represented with a different color
+
+In the image above, the ego2world is incorrect because the points for
+stationary objects (like poles) are not the same across the aggregated
+frames. The car is not stationary, which is why that motion is fine. The
+poles should near the top and bottom are incorrect because stationary
+objects are moving.
+
+The image below is a good ego2world transformation because the parked
+cars are stationary in the aggregated frames while the moving car has
+different point positions in every frame.
+
+.. image:: media/image65.jpeg
+   :width: 6.70833in
+   :height: 4.53125in
+
+Good ego2World transformation
+
+.. image:: media/image66.png
+   :width: 6.70833in
+   :height: 1.58333in
+
+   The green sphere is always placed always at 0,0,0 . If the point
+   cloud is not at the position you will need to move to see it. To fix
+   that you can normalize the poses to the first frame (this will set
+   the first frame position to 0,0,0) , if that's the case probably
+   `this line is
+   commented <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L58>`__.
+
+Camera Debugging
+
+**Debug Camera Extrinsic**
+
+**Lidar Debugger**
+
+.. image:: media/image67.png
+   :width: 6.70833in
+   :height: 2.28125in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
+-  **'data/',**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **frames=range(1,6)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+..
+
+   **6**
+
+-  **# Debugging methods**
+
++-------+---------------------------+---------------------------+---+
+| **8** |    **scene.get_frame(ind  |    **# add lines using    |   |
+|       |                           |    the ca**               |   |
+|       | ex=1).add_debug_lines()** |                           |   |
++-------+---------------------------+---------------------------+---+
+| **9** |    **scene.preview()**    |    **# preview task**     |   |
++-------+---------------------------+---------------------------+---+
+
+.. image:: media/image68.png
+   :width: 1.625in
+   :height: 0.29167in
+
+The method **.add_debug_lines()** in line 8 will add lines that begin
+from the cameras' positions and extend towards where they are directed
+(for the first frame). This will help you to validate the cameras'
+positions, and more importantly, the directions the cameras are
+pointing.
+
+Ones that is validated, you can see if the camera projection is correct.
+
+.. image:: media/image69.png
+   :width: 6.70833in
+
+**Debug Camera Intrinsic**
+
+**Image Projection**
+
+.. image:: media/image70.png
+   :width: 6.70833in
+   :height: 1.92708in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
+-  **'data/',**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **frames=range(1,6)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+..
+
+   **6**
+
+-  **# Debugging methods**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **scene.get_projected_image(0).save(f'{DATA_PATH}/debug_{frame_id}.png')**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **# Aggregated view for 10 frames in depth mode, default each frame >
+   has**
+
+..
+
+   **10scene.get_projected_image(0, frames_index=range(0,10),
+   color_mode="dep**
+
+.. image:: media/image71.png
+   :width: 6.70833in
+   :height: 0.65972in
+
+The **.get_projected_image(camera_id, color_mode)** method projects the
+point cloud onto camera images. You can project the points for multiple
+frames at once with the **frames_index** argument, as shown in line 10.
+
+.. image:: media/image73.png
+   :width: 1.125in
+   :height: 0.58333in
+
+The **.save()** method, will save the image with the projected points
+from camera 0 of frame 1 into the specified path.
+
+The end result should look similar to this:
+
+.. image:: media/image74.png
+   :width: 6.70833in
+   :height: 4.875in
+
+   Projected_images support only **Brown-Conrady** and **Cylindrical**
+   distortion
+
+**Manual camera calibration**
+
+.. image:: media/image75.png
+   :width: 6.70833in
+   :height: 1.29514in
+
+-  **if \__name_\_ == '__main__':**
+
+..
+
+   **2scene = create_scene(**
+
+-  **'data/',**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **frames=range(1,6)**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+..
+
+   .. image:: media/image76.png
+      :width: 6.70833in
+      :height: 0.85764in
+
+-  **# Debugging methods**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **scene.get_frame(0).manual_calibration(0)**
+
+Adding this line to your code will open a matplotlib window which will
+look like this:
+
+.. image:: media/image77.jpeg
+   :width: 6.70833in
+   :height: 3.97917in
+
+Each camera extrinsic and intrinsic value will be displayed with a bar.
+Clicking on the bars will update the camera calibration values (please
+have in mind that the tool is not instant and takes some time to refresh
+the view). In the console, you should be able to see the new values for
+later usage in your code.
+
+.. image:: media/image78.jpeg
+   :width: 4.08333in
+   :height: 1.08333in
+
+   Please try to use this as last option, since you're going to ended up
+   hardcoding the camera values instead of use the system values.
+   Although this could be
+
+   .. image:: media/image80.png
+      :width: 6.70833in
+      :height: 0.53472in
+
+.. image:: media/image81.png
+   :width: 6.70833in
+
+**Additional Reading**
+
+Here are some useful articles that explain the concepts of camera
+extrinsic and intrinsic matrices.
+
+`Dissecting the Camera Matrix, Part 2: The Extrinsic
+Matrix <http://ksimek.github.io/2012/08/22/extrinsic/>`__
+
+`Dissecting the Camera Matrix, Part 3: The Intrinsic
+Matrix <http://ksimek.github.io/2013/08/13/intrinsic/>`__
+
+Lidar Toolkit in Depth / Troubleshooting Your Data
+
+Troubleshooting Your Data
+
+In this section we are going to try to show more examples of how you can
+use the lidar
+
+toolkit to load your data, exposing some possible differences in your
+data that may affect
+
+the script and how to handle them.
+
+Examples of this are:
+
+   Instead of compressing the device calibration data into a single pose
+   matrix, we will see how to handle multiple calibration files. Fixing
+   camera calibration issues (extrinsic)
+
+.. image:: media/image82.png
+
+While we see those examples, we are going to also explain some key
+features of the lidar toolkit and how you can use that to understand
+better your data.
+
+Troubleshooting poses/ego2world
+
+**Uses of extra calibration calibration files**
+
+**Imu to Lidar**
+
+.. image:: media/image84.png
+   :width: 6.70833in
+   :height: 5.05208in
+
+-  **from pykitti.utils import read_calib_file**
+
+..
+
+   **2**
+
+-  **calib_imu_to_lidar = read_calib_file('calib_imu_to_lidar.txt')**
+
+..
+
+   **4imu_to_lidar = Transform.from_Rt(**
+
+-  **calib_imu_to_lidar['R'].reshape(3, 3),**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **calib_imu_to_lidar['T'],**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **)**
+
+..
+
+   **8**
+
+-  **for frame in frames:**
+
++--------+-------------------------------------------------------+---+
+| **10** |    **# read pointcloud data in ego coordinates**      |   |
++--------+-------------------------------------------------------+---+
+| **11** |    **# point can be a [x,3] or [x,4] shape            |   |
+|        |    (intensity)**                                      |   |
++--------+-------------------------------------------------------+---+
+| **12** |    **pcd = o3d                                        |   |
+|        |                                                       |   |
+|        |   .io.read_point_cloud(f"./pointcloud/{frame}.ply")** |   |
++--------+-------------------------------------------------------+---+
+| **13** |    **with open(f"./poses/{frame}.yaml", 'r') as       |   |
+|        |    pose_file: # load**                                |   |
++--------+-------------------------------------------------------+---+
+| **14** |    **device_pose = yaml.safe_load(pose_file)**        |   |
++--------+-------------------------------------------------------+---+
+| **15** |    **pose = Transform().from_Rt(**                    |   |
++--------+-------------------------------------------------------+---+
+| **16** |                                                       |   |
+|        |   **R=Quaternion(np.array(device_pose['heading'])),** |   |
++--------+-------------------------------------------------------+---+
+| **17** |    **t=device_pose['position']**                      |   |
++--------+-------------------------------------------------------+---+
+| **18** |    **)**                                              |   |
++--------+-------------------------------------------------------+---+
+| **19** |    **points = np.asarray(pcd.points)**                |   |
++--------+-------------------------------------------------------+---+
+| **20** |    **scene.get_frame(frame).add_points(points)**      |   |
++--------+-------------------------------------------------------+---+
+| **21** |    **# apply the imu_to_lidar transform to the        |   |
+|        |    poses**                                            |   |
++--------+-------------------------------------------------------+---+
+| **22** |                                                       |   |
++--------+-------------------------------------------------------+---+
+| **23** |    **scene.get_frame(frame).apply_transform(pose @    |   |
+|        |    imu_to_lidar.inv**                                 |   |
++--------+-------------------------------------------------------+---+
+
+.. image:: media/image85.png
+   :width: 6.70833in
+   :height: 1.58333in
+
+   An **inertial measurement unit** (**IMU**) is an electronic device
+   that measures and reports a body's specific force, angular rate, and
+   sometimes the orientation of the body, using a combination of
+   accelerometers, gyroscopes, and sometimes magnetometers. (similar to
+   a GPS)
+
+   Line 5 - we apply the inverse of the IMU to each pose.
+
+.. image:: media/image86.png
+
+**Transform world coordinate pointcloud to Ego**
+
+Remove the poses from the pointcloud to get ego points
+
+.. image:: media/image88.png
+   :width: 6.70833in
+   :height: 3.27083in
+
+-  **for frame in frames:**
+
++--------+-------------------------------------------------------+---+
+| **2**  |    **# read pointcloud data in ego coordinates**      |   |
++--------+-------------------------------------------------------+---+
+| **3**  |    **# point can be a [x,3] or [x,4] shape            |   |
+|        |    (intensityj)**                                     |   |
++--------+-------------------------------------------------------+---+
+| **4**  |    **pcd = o3d                                        |   |
+|        |                                                       |   |
+|        |   .io.read_point_cloud(f"./pointcloud/{frame}.ply")** |   |
++--------+-------------------------------------------------------+---+
+| **5**  |    **with open(f"./poses/{frame}.yaml", 'r') as       |   |
+|        |    pose_file: # load**                                |   |
++--------+-------------------------------------------------------+---+
+| **6**  |    **device_pose = yaml.safe_load(pose_file)**        |   |
++--------+-------------------------------------------------------+---+
+| **7**  |    **pose = Transform().from_Rt(**                    |   |
++--------+-------------------------------------------------------+---+
+| **8**  |                                                       |   |
+|        |   **R=Quaternion(np.array(device_pose['heading'])),** |   |
++--------+-------------------------------------------------------+---+
+| **9**  |    **t=device_pose['position']**                      |   |
++--------+-------------------------------------------------------+---+
+| **10** |    **)**                                              |   |
++--------+-------------------------------------------------------+---+
+| **11** |    **points = np.asarray(pcd.points)**                |   |
++--------+-------------------------------------------------------+---+
+| **12** |    **# Add the points en ego coordinates**            |   |
++--------+-------------------------------------------------------+---+
+| **13** |                                                       |   |
++--------+-------------------------------------------------------+---+
+| **14** |    **scen                                             |   |
+|        |                                                       |   |
+|        | e.get_frame(frame).add_points(np.asarray(pcd.points), |   |
+|        |    tran**                                             |   |
++--------+-------------------------------------------------------+---+
+
+.. image:: media/image89.png
+   :width: 6.70833in
+
+**Starting at 0,0,0**
+
+In order to debug the data easily we recommend defining the first pose
+as 0,0,0.
+
+We accomplish that with `this
+line <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L58>`__
+(we subtract the pose 0 to all the poses), but it's also recommended to
+have the data set in that way, in order to debug your data easily.
+
+**Why?**
+
+   If the first pose is 0,0,0 it's easy to see if the next poses are
+   correct, it's easy to catch if the poses and the actual car movement
+   are in sync (e.g: poses defining a movement in the Y axis but the car
+   is moving in the X axis)
+
+.. image:: media/image90.png
+
+   It's easy to see if the cameras extrinsic are wrong. The lidar
+   toolkit apply the poses to the cameras in each frame, in this case
+   since the pose is 0,0,0, the camera position in the first frame is
+   going to be the relative position of the camera to the vehicle (Eg.:
+   the camera is at 1.5 mts from the ground in the real world, this
+   means that the camera position should be 1.5 in the Y axis in the
+   frame 0)
+
+.. image:: media/image91.png
+
+   Easy to see in the lidar debugger (the green sphere .will match with
+   the device position )
+
+.. image:: media/image92.png
+
+Troubleshooting Cameras
+
+**Using rosbag export**
+
+.. image:: media/image93.png
+   :width: 6.70833in
+   :height: 3.46875in
+
+-  **from pykitti.utils import read_calib_file**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **calib_cam_to_cam = read_calib_file('calib_cam_to_cam.txt')**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **calib_lidar_to_cam = read_calib_file('calib_lidar_to_cam.txt')**
+
+..
+
+   **4**
+
+-  **lidar_to_cam = Transform.from_Rt(**
+
++-------+--------------------------------------------------+
+| **6** |    **calib_lidar_to_cam['R'].reshape(3, 3),**    |
++-------+--------------------------------------------------+
+| **7** |    **calib_lidar_to_cam['T'],**                  |
++-------+--------------------------------------------------+
+| **8** |    **)**                                         |
++-------+--------------------------------------------------+
+| **9** |                                                  |
++-------+--------------------------------------------------+
+
+10. **scene.get_camera(0).calibrate(**
+
++--------+------------------------------------------------------+
+| **11** |    **pose=lidar_to_cam.inverse,**                    |
++--------+------------------------------------------------------+
+| **12** |    **K=calib_cam_to_cam['K_00'].reshape(3, 3)),**    |
++--------+------------------------------------------------------+
+| **13** |    **D=calib_cam_to_cam['D_00'],**                   |
++--------+------------------------------------------------------+
+| **14** |    **)**                                             |
++--------+------------------------------------------------------+
+| **15** |                                                      |
++--------+------------------------------------------------------+
+
+.. image:: media/image94.png
+   :width: 6.70833in
+   :height: 3.45833in
+
+   camera.\ **calibrate** has many different params alternatives, you
+   may need to use different params depending on the raw data.
+
+   position: Camera position [x, y, z]
+
+   rotation: Camera rotation/heading
+
+   pose: Camera pose (position + rotation)
+
+   extrinsic_matrix: extrinsic 4x4 matrix (world to camera transform)
+
+   projection_matrix: 3x4 projection matrix
+
+   K: intrinsic 3x3 matrix
+
+   D: distortion values
+
+   model: camera model
+
+Useful Snippets
+
+**Load points from a .bin file**
+
+.. image:: media/image95.png
+   :width: 6.70833in
+   :height: 4.45833in
+
+-  **"""**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **Read point cloud file, with .bin extension, usually this is >
+   contains a lis**
+
+..
+
+   **3 """**
+
+   **4 def read_lidar(frame_id):**
+
++-------+-------------------------------------------------------------+
+| **5** |    **return np.fromfile(f'./pointcloud/{frame_id}.bin',     |
+|       |    dtype=np.fl**                                            |
++-------+-------------------------------------------------------------+
+| **6** |                                                             |
++-------+-------------------------------------------------------------+
+
+-  **for frame in frames:**
+
++--------+-------------------------------------------------------+---+
+| **8**  |    **# read pointcloud data in ego coordinates**      |   |
++--------+-------------------------------------------------------+---+
+| **9**  |    **# point can be a [x,3] or [x,4] shape            |   |
+|        |    (intensity)**                                      |   |
++--------+-------------------------------------------------------+---+
+| **10** |    **points = read_lidar(frame_id)**                  |   |
++--------+-------------------------------------------------------+---+
+| **11** |    **pose = Transform().from_Rt(**                    |   |
++--------+-------------------------------------------------------+---+
+| **12** |                                                       |   |
+|        |   **R=Quaternion(np.array(device_pose['heading'])),** |   |
++--------+-------------------------------------------------------+---+
+| **13** |    **t=device_pose['position']**                      |   |
++--------+-------------------------------------------------------+---+
+| **14** |    **)**                                              |   |
++--------+-------------------------------------------------------+---+
+| **15** |    **points = np.asarray(pcd.points)**                |   |
++--------+-------------------------------------------------------+---+
+| **16** |    **scene.get_frame(frame).add_points(points)**      |   |
++--------+-------------------------------------------------------+---+
+| **17** |    **# apply the imu_to_lidar transform to the        |   |
+|        |    poses**                                            |   |
++--------+-------------------------------------------------------+---+
+| **18** |                                                       |   |
++--------+-------------------------------------------------------+---+
+| **19** |    **scene.get_frame(frame).apply_transform(pose @    |   |
+|        |    imu_to_lidar.inv**                                 |   |
++--------+-------------------------------------------------------+---+
+| **20** |                                                       |   |
++--------+-------------------------------------------------------+---+
+
+Radar Point Deep-Dive
+
+**Radar points**
+
+Radar points are supported on the lidar toolkit, the lidar toolkit is
+expecting this data format:
+
+.. image:: media/image96.png
+   :width: 6.70833in
+   :height: 3.86458in
+
+-  **radar_points = np.array([**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **[**
+
++-------+-------------------+-------------------+-------------------+
+| **3** |    **[0.30694541, |    **// position  |                   |
+|       |    0.27853175,    |    - x,y,z**      |                   |
+|       |    0.51152715],** |                   |                   |
++-------+-------------------+-------------------+-------------------+
+| **4** |                   | **0.24164057,     |    **// direction |
+|       |  **[0.80424087,** | 0.45256181],**    |    - x,y,z**      |
++-------+-------------------+-------------------+-------------------+
+| **5** |    -              | **// size**       |                   |
+|       | \*[0.73596422]*\* |                   |                   |
++-------+-------------------+-------------------+-------------------+
+
+-  **],**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **[**
+
++--------+------------------+------------------+------------------+
+| **8**  |                  |    **// position |                  |
+|        |  \**[0.30694541, |    - x,y,z**     |                  |
+|        |    0.27853175,   |                  |                  |
+|        |                  |                  |                  |
+|        |                  |                  |                  |
+|        |  0.51152715],*\* |                  |                  |
++--------+------------------+------------------+------------------+
+| **9**  |    -  \          | **0.24164057,    |    **//          |
+|        | *[0.80424087,*\* | 0.45256181],**   |    direction -   |
+|        |                  |                  |    x,y,z**       |
++--------+------------------+------------------+------------------+
+| **10** |                  | **// size**      |                  |
+|        | **[0.73596422]** |                  |                  |
++--------+------------------+------------------+------------------+
+
+11. **],**
+
+12. **[**
+
++--------+------------------+------------------+------------------+
+| **13** |                  |    **// position |                  |
+|        |  \**[0.30694541, |    - x,y,z**     |                  |
+|        |    0.27853175,   |                  |                  |
+|        |                  |                  |                  |
+|        |                  |                  |                  |
+|        |  0.51152715],*\* |                  |                  |
++--------+------------------+------------------+------------------+
+| **14** |    -  \          | **0.24164057,    |    **//          |
+|        | *[0.80424087,*\* | 0.45256181],**   |    direction -   |
+|        |                  |                  |    x,y,z**       |
++--------+------------------+------------------+------------------+
+| **15** |                  | **// size**      |                  |
+|        | **[0.73596422]** |                  |                  |
++--------+------------------+------------------+------------------+
+
+16. **]**
+
+17. **])**
+
+In order to add the radar points you can add the following line to you
+code:
+
+.. image:: media/image97.png
+   :width: 6.70833in
+   :height: 1.88542in
+
+-  **...**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **for frame in frames:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **...**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **# add the following lines**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **radar_points = > load_radar_points(f"./radar_points/{frame}.txt")**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **scene.get_frame(frame).add_radar_points(radar_points) # adding >
+   rad**
+
+..
+
+   **7...**
+
+Here is an example of `radar
+points <https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data/radar_points>`__,
+if you store the data following that format you can use the following
+snippet to load the data:
+
+.. image:: media/image98.png
+   :width: 6.70833in
+   :height: 2.47917in
+
+-  **def load_radar_points(file):**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **Lines = open(file, 'r').readlines()**
+
+..
+
+   **3**
+
+-  **points = []**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **for line in Lines:**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **point = line.split(',')**
+
+.. raw:: html
+
+   <!-- -->
+
+-  **points.append([list(map(float, point[0:3])),list(map(float, >
+   point[**
+
+..
+
+   **8return points**
+
+**9**
+
+**10**
+
+(this snipper is already on the
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+script)
+
+.. |image1| image:: media/image41.png
+   :width: 1.20833in
+   :height: 0.13542in
+.. |image2| image:: media/image42.png
+   :width: 2.625in
+   :height: 0.15625in

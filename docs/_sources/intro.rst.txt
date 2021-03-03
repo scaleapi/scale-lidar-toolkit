@@ -1,41 +1,33 @@
-Intro
+Scale AI Lidar Toolkit
 ==========================================
 
-=================
-Setup
-=================
+Welcome to Scale's Lidar Toolkit
 
-First things first, ensure you have Pip and Python installed.
+This document is a step-by-step guide on how to use the Lidar Toolkit to
+convert raw lidar scenes into label-able Scale tasks.
 
-Next,
+Please clone the scale-lidar-toolkit repo before proceeding: `https://github.com/scaleapi/scale-lidar-toolkit <https://github.com/scaleapi/scale-lidar-toolkit>`__
 
-* Run ``pip3 install -r requirements.txt`` (to install all the dependencies; ``pip`` works equally well to ``pip3``)
+**Scale Format**
 
-* Grab your API key from your Scale Dashboard, we'll want to set that as an enviroment variable (``SCALE_API_KEY``) in the command line or in a file
+In this documentation, we will simplify the data conversion by following
+the `Scale
+Format <https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format>`__.
+The format uses `this example
+script <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+to demonstrate how to load and debug your data, and create tasks on
+Scale's platform.
 
-* That's it, to pass in your API key and run any script, it will look something like ``SCALE_API_KEY=live_xxxx python3 <script name>``
+A step-by-step guide for
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py>`__
+can be found in the `Load Raw Lidar Data <#page4>`__ section.
 
+`To learn more about advanced topics, please see Lidar Toolkit in Depth
+/ Troubleshooting <#page29>`__ `Your Data. <#page29>`__
 
-=================
-Optional Setup
-=================
+**Debugging Your Data**
 
-We recommend using AWS S3 to host your Lidar files.
+The Lidar Toolkit also provides useful debugging tools to help you
+visualize and understand your data. You can learn more about them in
+`Debugging Lidar Data. <#page11>`__
 
-If you plan to use S3, ensure you have the the AWS CLI installed by doing ``aws --version`` on the terminal
-
-If you need to install it still, you can check out AWS's guide to `Manual AWS-CLI installation <https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html>`_
-
-The Lidar toolkit uses `boto3 <https://boto3.amazonaws.com/>`_ to upload files to s3, this will use aws credentials stored in ``~/.aws/credentials.json`` (profile default). Here's an example of what this file should look like::
-
-  [default]
-  aws_access_key_id = XFSERSDFSS...
-  aws_secret_access_key = Asjwje1A.....
-
-Do ensure your AWS credentials have permissions to upload files to the ``BUCKET`` specified at the top of the `script <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/lidar_template.py#L18>`_.
-
-==================================
-Scale API Documentation
-==================================
-
-This toolkit aids you in getting your data from it's raw format to submitted Scale Tasks ready to be worked on. We have the `Scale format documented in full in our 3d documentation <https://private-docs.scale.com/#sensor-fusion-lidar-annotation>`_. We'd encourage you to use this as a reference for what's possible and what the different options are.

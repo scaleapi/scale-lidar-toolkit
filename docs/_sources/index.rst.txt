@@ -4,10 +4,35 @@
    contain the root `toctree` directive.
 
 Welcome to scale Lidar Toolkit's documentation!
-==========================================
+=================================================
 .. toctree::
 
    intro
+
+.. toctree::
+   :caption: Load raw lidar data
+
+   load_raw_data/preparing
+   load_raw_data/structure
+   load_raw_data/loading
+   load_raw_data/debugging
+   load_raw_data/task_creation
+   load_raw_data/final
+
+
+.. toctree::
+   :caption: Debugging lidar data
+
+   debugging/lidar
+   debugging/camera
+
+.. toctree::
+   :caption: Lidar Toolkit in Depth
+
+   in_depth/intro
+   in_depth/poses
+   in_depth/cameras
+   in_depth/radar_points
 
 .. toctree::
    :caption: Python API:

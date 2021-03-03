@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Loading Your Data &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Debugging your data" href="debugging.html" />
+    <link rel="prev" title="Data Structure" href="structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Data Structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Loading Your Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-scene-function">Create Scene Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-and-calibrating-cameras">Loading and Calibrating Cameras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-device-poses">Setting up Device Poses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-point-clouds">Loading Point Clouds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ego-coordinates">Ego Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#world-coordinates">World Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transform-all-frames-relative-to-first-frame">Transform All Frames Relative to First Frame</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#radar-points">Radar Points</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../debugging/lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging/camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Loading Your Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="loading-your-data">
+<h1>Loading Your Data<a class="headerlink" href="#loading-your-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="create-scene-function">
+<h2>Create Scene Function<a class="headerlink" href="#create-scene-function" title="Permalink to this headline">¶</a></h2>
+<p>The function <strong>create_scene(base_path, frames)</strong> in
+<a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py">scale-example.py</a>
+loads data and creates a LidarScene object. The base_path is directory
+where all your data is stored. The frames is a list of file names that
+you wish to load/process into the lidar toolkit.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+            <span class="n">base_path</span><span class="o">=</span><span class="s1">&#39;data/&#39;</span><span class="p">,</span> <span class="c1"># &lt;-- path that holds your data</span>
+            <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># &lt;-- list of filenames for each frame</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-and-calibrating-cameras">
+<h2>Loading and Calibrating Cameras<a class="headerlink" href="#loading-and-calibrating-cameras" title="Permalink to this headline">¶</a></h2>
+<p>Each camera’s position will be calibrated using its rotation matrix and
+translation vector. Each camera will also be calibrated using the
+K-matrix or intrinsic matrix. Read more about camera intrinsics
+<a class="reference external" href="http://ksimek.github.io/2013/08/13/intrinsic/">here</a>!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">camera_skew</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">get_camera</span><span class="p">(</span><span class="n">camera</span><span class="p">)</span><span class="o">.</span><span class="n">calibrate</span><span class="p">(</span>
+    <span class="n">pose</span><span class="o">=</span><span class="n">Transform</span><span class="p">()</span><span class="o">.</span><span class="n">from_Rt</span><span class="p">(</span>
+        <span class="n">R</span><span class="o">=</span><span class="n">Quaternion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera_extrinsic</span><span class="p">[</span><span class="s1">&#39;heading&#39;</span><span class="p">])),</span>
+        <span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera_extrinsic</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">])</span>
+        <span class="p">),</span>
+    <span class="n">K</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="n">camera_intrinsic</span><span class="p">[</span><span class="s1">&#39;fx&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">camera_skew</span><span class="p">,</span> <span class="n">camera_intrinsic</span><span class="p">[</span><span class="s1">&#39;cx&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">camera_intrinsic</span><span class="p">[</span><span class="s1">&#39;fy&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">camera_intrinsic</span><span class="p">[</span><span class="s1">&#39;cy&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-device-poses">
+<h2>Setting up Device Poses<a class="headerlink" href="#setting-up-device-poses" title="Permalink to this headline">¶</a></h2>
+<p>Use the device_pose file’s rotation matrix and translation vector to
+calibrate the device heading and position. Apply the transformation of
+the pose to the frame.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./poses/</span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pose_file</span><span class="p">:</span>   <span class="c1"># load frame pose</span>
+    <span class="n">device_pose</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pose_file</span><span class="p">)</span>
+    <span class="n">pose</span> <span class="o">=</span> <span class="n">Transform</span><span class="p">()</span><span class="o">.</span><span class="n">from_Rt</span><span class="p">(</span>
+        <span class="n">R</span><span class="o">=</span><span class="n">Quaternion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">device_pose</span><span class="p">[</span><span class="s1">&#39;heading&#39;</span><span class="p">])),</span>
+        <span class="n">t</span><span class="o">=</span><span class="n">device_pose</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-point-clouds">
+<h2>Loading Point Clouds<a class="headerlink" href="#loading-point-clouds" title="Permalink to this headline">¶</a></h2>
+<p>Scale’s lidar toolkit uses
+<a class="reference external" href="http://www.open3d.org/docs/release/index.html">Open3D</a> to read and
+load point cloud data. Read more about supported point cloud formats and
+filetypes
+<a class="reference external" href="http://www.open3d.org/docs/release/tutorial/geometry/file_io.html">here</a>.</p>
+<p>Convert the points of the point cloud into a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy
+array</a>
+before adding it to the frame.</p>
+<div class="section" id="ego-coordinates">
+<h3>Ego Coordinates<a class="headerlink" href="#ego-coordinates" title="Permalink to this headline">¶</a></h3>
+<p>For ego coordinates, the process is straightforward.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./pointcloud/</span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">.ply&quot;</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="world-coordinates">
+<h3>World Coordinates<a class="headerlink" href="#world-coordinates" title="Permalink to this headline">¶</a></h3>
+<p>If your point cloud data is in world coordinates, you should transform
+the points using the pose’s inverse before adding the points to the
+frame. The inverse is subtracting the pose from the point cloud (moves
+from world to ego coordinates).</p>
+<p>The lidar toolkit expects data in ego coordinates. It will automatically
+transform the data to world coordinates later in the script before task
+creation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./pointcloud/</span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">.ply&quot;</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">pose</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="transform-all-frames-relative-to-first-frame">
+<h3>Transform All Frames Relative to First Frame<a class="headerlink" href="#transform-all-frames-relative-to-first-frame" title="Permalink to this headline">¶</a></h3>
+<p>After data for every frame is added to the LidarScene, make all frame
+poses relative to the first frame and set the first frame’s position as
+(0,0,0). This method is usually called outside of the loop that adds all
+the point cloud data. This method handles all of that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">make_transforms_relative</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="radar-points">
+<h2>Radar Points<a class="headerlink" href="#radar-points" title="Permalink to this headline">¶</a></h2>
+<p>Scale’s platform also supports adding radar points. To add radar points
+to your lidar scene, convert radar points into a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy
+array</a>
+before adding it to the frame.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example radar_points numpy array structure</span>
+<span class="n">radar_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+  <span class="p">[</span>
+  <span class="p">[</span><span class="mf">0.30694541</span><span class="p">,</span> <span class="mf">0.27853175</span><span class="p">,</span> <span class="mf">0.51152715</span><span class="p">],</span>    <span class="o">//</span> <span class="n">position</span> <span class="o">-</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span>
+  <span class="p">[</span><span class="mf">0.80424087</span><span class="p">,</span> <span class="mf">0.24164057</span><span class="p">,</span> <span class="mf">0.45256181</span><span class="p">],</span>    <span class="o">//</span> <span class="n">direction</span> <span class="o">-</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span>
+  <span class="p">[</span><span class="mf">0.73596422</span><span class="p">]</span>    <span class="o">//</span> <span class="n">size</span>
+  <span class="p">],</span>
+  <span class="o">...</span>
+<span class="p">])</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="o">.</span><span class="n">add_radar_points</span><span class="p">(</span><span class="n">radar_points</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>More about <a class="reference external" href="radar_points.rst">radar points here.</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="debugging.html" class="btn btn-neutral float-right" title="Debugging your data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="structure.html" class="btn btn-neutral float-left" title="Data Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

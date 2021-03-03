@@ -1,0 +1,11 @@
+Troubleshooting Your Data
+===========================
+
+In this section we are going to try to show more examples of how you can use the lidar toolkit to load your data, exposing some possible differences in your data that may affect the script and how to handle them.
+Examples of this are:
+
+* Instead of compressing the device calibration data into a single pose matrix, we will see how to handle multiple calibration files.
+* Fixing camera calibration issues (extrinsic)
+
+While we see those examples, we are going to also explain some key features of the lidar toolkit and how you can use that to understand better your data.
+

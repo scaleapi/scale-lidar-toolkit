@@ -1,0 +1,50 @@
+Radar Point Deep-Dive
+======================
+
+Radar points are supported on the lidar toolkit, the lidar toolkit is expecting this data format:
+
+.. code-block:: python
+
+  radar_points = np.array([
+      [
+          [0.30694541, 0.27853175, 0.51152715],    // position - x,y,z
+          [0.80424087, 0.24164057, 0.45256181],    // direction - x,y,z
+          [0.73596422]    // size
+      ],
+      [
+          [0.30694541, 0.27853175, 0.51152715],    // position - x,y,z
+          [0.80424087, 0.24164057, 0.45256181],    // direction - x,y,z
+          [0.73596422]    // size
+      ],
+      [
+          [0.30694541, 0.27853175, 0.51152715],    // position - x,y,z
+          [0.80424087, 0.24164057, 0.45256181],    // direction - x,y,z
+          [0.73596422]    // size
+      ]
+  ])
+
+In order to add the radar points you can add the following line to you code:
+
+.. code-block:: python
+
+    ...
+    for frame in frames:
+        ...
+        # add the following lines
+        radar_points = load_radar_points(f"./radar_points/{frame}.txt")
+        scene.get_frame(frame).add_radar_points(radar_points) # adding radar_points to each frame
+        ...
+
+Here is an example of `radar points <https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data/radar_points>`__, if you store the data following that format you can use the following snippet to load the data:
+
+.. code-block:: python
+
+  def load_radar_points(file):
+      Lines = open(file, 'r').readlines()
+
+      points = []
+      for line in Lines:
+          point = line.split(',')
+          points.append([list(map(float, point[0:3])),list(map(float, point[3:6])),list(map(float, [point[6]]))])
+      return points
+

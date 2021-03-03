@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>LidarScene &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/structure.html">Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging/lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging/camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>LidarScene</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-scale_lidar_io.scene">
+<span id="lidarscene"></span><h1>LidarScene<a class="headerlink" href="#module-scale_lidar_io.scene" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="scale_lidar_io.scene.LidarScene">
+<em class="property">class </em><code class="sig-name descname">LidarScene</code><a class="headerlink" href="#scale_lidar_io.scene.LidarScene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>LidarScene object represent all frames in a scene.</p>
+<dl class="simple">
+<dt>Scene properties:</dt><dd><ul class="simple">
+<li><p>cameras: List of cameras</p></li>
+<li><p>frames: List of frames</p></li>
+<li><p>public_url: Url used to host the data in S3</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.get_camera">
+<code class="sig-name descname">get_camera</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">camera_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.camera.LidarCamera" title="scale_lidar_io.camera.LidarCamera">scale_lidar_io.camera.LidarCamera</a><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.get_camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a camera by id (or index) and creates one if It doesn’t exists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera_id</strong> (<em>str</em><em>, </em><em>int</em>) – The camera id</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – The camera index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LidarCamera</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.camera.LidarCamera" title="scale_lidar_io.camera.LidarCamera">LidarCamera</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.frame.LidarFrame" title="scale_lidar_io.frame.LidarFrame">scale_lidar_io.frame.LidarFrame</a><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a frame by id (or index) or creates one if It doesn’t exists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame_id</strong> (<em>str</em><em>, </em><em>int</em>) – The frame id</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – The frame index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LidarFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.apply_transforms">
+<code class="sig-name descname">apply_transforms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">world_transforms</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform">scale_lidar_io.transform.Transform</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.apply_transforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply transformations to all the frames (the number of Transformation should be the same as the number of frames)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>world_transforms</strong> (<em>list</em><em>(</em><a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a><em>)</em>) – List of Transform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.filter_points">
+<code class="sig-name descname">filter_points</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_intensity</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_intensity_percentile</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.filter_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter points based on their intensity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_intensity</strong> (<em>int</em>) – Minimun intensity allowed</p></li>
+<li><p><strong>min_intensity_percentile</strong> (<em>int</em>) – Minimun percentile allowed (use np.percentile)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.get_projected_image">
+<code class="sig-name descname">get_projected_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">camera_id</span></em>, <em class="sig-param"><span class="n">color_mode</span><span class="o">=</span><span class="default_value">'intensity'</span></em>, <em class="sig-param"><span class="n">frames_index</span><span class="o">=</span><span class="default_value">range(0, 1)</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.get_projected_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get camera_id image with projected points, (<strong>Legacy method</strong>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera_id</strong> (<em>str</em><em>, </em><em>int</em>) – Camera id/Name/Identifier</p></li>
+<li><p><strong>color_mode</strong> (<em>str</em>) – Color mode, default <code class="docutils literal notranslate"><span class="pre">default</span></code>, modes are: ‘depth’, ‘intensity’ and ‘default’</p></li>
+<li><p><strong>frames_index</strong> (<em>range</em>) – Project points for a range of frames, default <cite>first frame</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image with points projected</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.apply_transform">
+<code class="sig-name descname">apply_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">world_transform</span><span class="p">:</span> <span class="n"><a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform">scale_lidar_io.transform.Transform</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.apply_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a Transformation to all the frames</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>world_transform</strong> (<a class="reference internal" href="scale_lidar_io.html#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a>) – Transform to apply to all the frames</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.make_transforms_relative">
+<code class="sig-name descname">make_transforms_relative</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.make_transforms_relative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make all the frame transform relative to the first transform/frame. This will set the first transform to position (0,0,0) and heading (1,0,0,0)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_url</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#scale_lidar_io.scene.LidarScene.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary with the frames urls using the public_url as base.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>public_url</strong> (<em>str</em>) – This url will be concatenated with the frames name, e.g.: <cite>‘%s/frame-%s.json’ % (public_url, frame.id)</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with the frame urls data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.s3_upload">
+<code class="sig-name descname">s3_upload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bucket</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mock_upload</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">use_threads</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.s3_upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save scene in S3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bucket</strong> (<em>str</em>) – S3 Bucket name</p></li>
+<li><p><strong>path</strong> – Path where store the data</p></li>
+<li><p><strong>mock_upload</strong> (<em>float</em>) – To avoid upload the data to S3  (defualt <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>use_threads</strong> (<em>float</em>) – In order to upload multiple files at the same time using threads  (defualt <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scene S3 url</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.save_task">
+<code class="sig-name descname">save_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">template</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.save_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the entire scene (with frame and images) into filepath in zipfile format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – File name and path in which the scene should be saved</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scale_lidar_io.scene.LidarScene.create_task">
+<code class="sig-name descname">create_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">task_type</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'lidarannotation'</span></em><span class="sig-paren">)</span> &#x2192; scaleapi.tasks.Task<a class="headerlink" href="#scale_lidar_io.scene.LidarScene.create_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Scale platform task from the configured scene</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>template</strong> (<em>dict</em>) – Dictionary of payload for task creation (<a class="reference external" href="https://private-docs.scale.com/?python#parameters">https://private-docs.scale.com/?python#parameters</a>), attachments data will be filled automatically.</p></li>
+<li><p><strong>task_type</strong> (<em>str</em>) – Select a Scale API endpoint top upload data to, currently supports ‘lidarannotation’ and ‘lidartopdown’. Defaults to ‘lidarannotation’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Task object with related information. Inherited from <cite>scaleapi.Task</cite> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Task</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

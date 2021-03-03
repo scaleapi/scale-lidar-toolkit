@@ -1,0 +1,23 @@
+Troubleshooting Cameras
+========================
+
+**Using rosbag export**
+
+.. code-block:: python
+
+  from pykitti.utils import read_calib_file
+    calib_cam_to_cam = read_calib_file('calib_cam_to_cam.txt')
+    calib_lidar_to_cam = read_calib_file('calib_lidar_to_cam.txt')
+    
+    lidar_to_cam = Transform.from_Rt(
+            calib_lidar_to_cam['R'].reshape(3, 3),
+            calib_lidar_to_cam['T'],
+            )
+            
+    scene.get_camera(0).calibrate(
+            pose=lidar_to_cam.inverse,
+            K=calib_cam_to_cam['K_00'].reshape(3, 3)),
+            D=calib_cam_to_cam['D_00'],
+            )
+
+.. seealso:: ``camera.calibrate`` has different params alternatives, you can see the `camera.calibrate definition here <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale-lidar-io-camera-lidarcamera>`__ 

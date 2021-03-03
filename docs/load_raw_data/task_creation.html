@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Task Creation &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Final Thoughts and Tips" href="final.html" />
+    <link rel="prev" title="Debugging your data" href="debugging.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging your data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Task Creation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#s3">S3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scale-api-key">Scale Api Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-the-task">Create the Task</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../debugging/lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging/camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Task Creation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="task-creation">
+<h1>Task Creation<a class="headerlink" href="#task-creation" title="Permalink to this headline">¶</a></h1>
+<p>To create a task, the toolkit requires valid S3 credentials, an S3
+bucket, and a valid Scale API key.</p>
+<div class="section" id="s3">
+<h2>S3<a class="headerlink" href="#s3" title="Permalink to this headline">¶</a></h2>
+<p>The lidar toolkit uses boto3, which will use the aws credentials stored
+in <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials.json</span></code> (this is similar aws-cli in terminal).</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">scene.s3_upload(bucket,</span> <span class="pre">path)</span></code> uses boto3 to upload all
+the attachments and images of the scene into the specified bucket and
+path.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">s3_upload</span><span class="p">(</span><span class="s1">&#39;scaleapi-sales-test&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;test/lidar-toolkit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scale-api-key">
+<h2>Scale Api Key<a class="headerlink" href="#scale-api-key" title="Permalink to this headline">¶</a></h2>
+<p>Before you can create a task on Scale’s platform, you need to define an environment variable called <code class="docutils literal notranslate"><span class="pre">SCALE_API_KEY</span></code> . You can do this by entering export <code class="docutils literal notranslate"><span class="pre">SCALE_API_KEY=live_xxxx</span></code> in your terminal.</p>
+<p>The following method is used to to create a task:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">create_task</span><span class="p">()</span><span class="o">.</span><span class="n">publish</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>With everything finally in place, you should be able to debug your data,
+upload it to S3 or your cloud provider of choice, and create tasks in
+Scale’s platform!</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>You can create different task types with the same method by changing the <code class="docutils literal notranslate"><span class="pre">task_type</span></code> parameter:<code class="docutils literal notranslate"><span class="pre">scene.create_task().publish(task_type='[TASK</span> <span class="pre">TYPE]')</span></code>. The available task types are: <code class="docutils literal notranslate"><span class="pre">lidarannotation</span></code> <em>(default)</em>, <code class="docutils literal notranslate"><span class="pre">lidartopdown</span></code>, and <code class="docutils literal notranslate"><span class="pre">lidarsegmentation</span></code></p>
+</div>
+</div>
+<div class="section" id="template">
+<h2>Template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h2>
+<p>Scene.create_task() supports a yaml template, which is used to generate
+the payload containing the task parameters from <a class="reference external" href="https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation">Scale’s
+documentation</a>
+(labels, project name, instructions, etc).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code example of how to load a template.json file and use it</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;template.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+    <span class="n">TEMPLATE</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">template</span><span class="p">)</span><span class="o">.</span><span class="n">publish</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Example of template.json:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;attachment_  type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;callback_ur  l&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/callback&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;project&quot;</span><span class="p">:</span> <span class="s2">&quot; default_project&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;instruction&quot;</span><span class="p">:</span> <span class="s2">&quot;Please label the objects on the scene&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;car&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;truck&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bus&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bicycle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;motorbike&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;towed_object&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;person&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;max_distance_meters&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="nt">&quot;meters_per_unit&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-task">
+<h2>Create the Task<a class="headerlink" href="#create-the-task" title="Permalink to this headline">¶</a></h2>
+<p>Comment out the lidar debug lines, uncomment the s3 and task creation
+lines.</p>
+<p>Add your task template and run the script to create your task!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;template.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+    <span class="n">TEMPLATE</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+            <span class="s1">&#39;data/&#39;</span><span class="p">,</span>
+            <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Debugging methods</span>
+    <span class="c1">#  scene.get_frame(index=1).add_debug_lines()</span>
+    <span class="c1">#  scene.preview()</span>
+
+    <span class="c1"># Upload data to S3 bucket</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">s3_upload</span><span class="p">(</span><span class="n">S3_BUCKET</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;test-scale&#39;</span><span class="p">)</span>
+    <span class="c1"># Create tasks/ Scale API request</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">)</span><span class="o">.</span><span class="n">publish</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="final.html" class="btn btn-neutral float-right" title="Final Thoughts and Tips" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="debugging.html" class="btn btn-neutral float-left" title="Debugging your data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

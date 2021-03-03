@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Debugging Lidar Data &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Camera Debugging" href="camera.html" />
+    <link rel="prev" title="Final Thoughts and Tips" href="../load_raw_data/final.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/structure.html">Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging Lidar Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-the-lidar-debugger">How to use the lidar debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregated-view">Aggregated view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Debugging Lidar Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="debugging-lidar-data">
+<h1>Debugging Lidar Data<a class="headerlink" href="#debugging-lidar-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-to-use-the-lidar-debugger">
+<h2>How to use the lidar debugger<a class="headerlink" href="#how-to-use-the-lidar-debugger" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+        <span class="s1">&#39;data/&#39;</span><span class="p">,</span>
+        <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Debugging methods</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">add_debug_lines</span><span class="p">()</span>    <span class="c1"># add lines using the camera position and heading</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">preview</span><span class="p">()</span>     <span class="c1"># preview task</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.get_frame(index=1).add_debug_lines()</span></code> is optional, it is useful to help debug extrinsic camera values.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">scene.preview()</span></code> will open a local lidar debugger, which allows you to view the point clouds for each frame or an aggregation of frames.
+The local lidar debugger is a new window showing the point cloud:</p>
+<img alt="Lidar debugger view" src="../_images/lidar-debugger.png" />
+<p>On the terminal you will see the command to move and interact with the
+point cloud (remember that the debugger is based on open3d, so you can
+use any open3d command):</p>
+<img alt="Lidar debugger commands" src="../_images/debugger-commands.png" />
+<p>The most useful commands (apart of the ones to move) are:</p>
+<ul class="simple">
+<li><p>T - top view</p></li>
+<li><p>S - Side view</p></li>
+<li><p>N - Move to the next frame</p></li>
+<li><p>P - Previous frame</p></li>
+<li><p>A - Aggregated view</p></li>
+</ul>
+</div>
+<div class="section" id="aggregated-view">
+<h2>Aggregated view<a class="headerlink" href="#aggregated-view" title="Permalink to this headline">¶</a></h2>
+<p>Aggregated view will help you to understand if your transformation from
+ego to world coordinates is correct. Here is an example of a wrong
+transformation:</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Using the aggregated view you are able to visualize the point cloud in multiple consecutive frames (up to 10 frames). Each frame points are going to be visualized with different colors.</p>
+</div>
+<img alt="Lidar debugger aggregated view" src="../_images/aggregated-view.png" />
+<p>In the image above, the ego2world is incorrect because the points for
+stationary objects (like poles) are not the same across the aggregated
+frames. The car is not stationary, which is why that motion is fine. The
+poles should near the top and bottom are incorrect because stationary
+objects are moving.</p>
+<p>The image below is a good ego2world transformation because the parked
+cars are stationary in the aggregated frames while the moving car has
+different point positions in every frame.</p>
+<img alt="Good ego to world conversion" src="../_images/good-ego2world.png" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The green sphere is always placed always at 0,0,0 . If the point cloud is not at the position you will need to move to see it. To fix that you can normalize the poses to the first frame (this will set the first frame position to 0,0,0) , if that’s the case probably <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L58">this line is commented</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="camera.html" class="btn btn-neutral float-right" title="Camera Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../load_raw_data/final.html" class="btn btn-neutral float-left" title="Final Thoughts and Tips" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

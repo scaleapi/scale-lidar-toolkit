@@ -1,0 +1,122 @@
+Data Structure
+==========================================
+
+In order to use the scale-example python script, you will need to store
+your data following this structure:
+
+.. code-block:: python
+
+  - cameras:
+      - camera_one:
+          - [X].jpg/png (X -> frame number)
+          - extrinsics.json (heading: [w,x,y,z], position: [x,y,z])
+          - intrinsics.json (fx,fy,cx,cy)
+      - camera_two:
+          - [X].jpg/png (X -> frame number)
+          - extrinsics.json (heading: [w,x,y,z], position: [x,y,z])
+          - intrinsics.json (fx,fy,cx,cy)
+      - ... more cameras
+  - pointcloud:
+      - [X].ply/pcd (X -> frame number)
+  - poses:
+      - [X].json (X -> frame number) (heading: [w,x,y,z], position: [x,y,z])
+  - radar_points:
+      - [X].txt (X -> frame number) (each line should be a point following this format position_x, position_y, position_z, direction_x, direction_y, direction_z, size)
+
+
+**Example Data**
+
+There is `test
+data <https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data>`__
+provided in the Github repo if you wish to test the script out yourself
+or see the directory structure.
+
+
+.. seealso:: We define headings using quaternion annotations following this order: w, x, y, z
+
+Cameras
+################
+
+Scale's platform expects an image for every frame from each camera.
+
+Each camera will also need an `extrinsic
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/extrinsics.json>`__
+with the camera's heading and position,
+
+.. code-block:: json
+
+  {
+    "heading": [
+      0.009023107680662246,
+      -0.011674247389688907,
+      0.7045302329449326,
+      -0.7095205749956979
+    ],
+    "position": [
+      0.046516221916763065,
+      -1.0212984653087003,
+      1.6668216814750108
+    ]
+  }
+
+.. seealso:: The camera extrinsic should be relative to the device. This means that the lidar toolkit will add device position and heading to the camera in each frame.
+
+and an `intrinsics
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/intrinsics.json>`__
+with the camera's 2d-translation and 2d-scaling.
+
+.. code-block:: json
+
+  {
+    "fx": 933.4667,
+    "fy": 934.6754,
+    "cx": 896.4692,
+    "cy": 507.3557
+  }
+
+.. seealso:: In this file you can add camera model, distortion coeﬃcients, etc.
+
+
+Point Cloud
+############
+
+Scale's platform expects a `point cloud
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/pointcloud/1.ply>`__
+for every frame. In this example, we will be using ``.ply`` , but the toolkit is compatible other point cloud formats. Read
+more about supported point cloud formats and filetypes
+`here <http://www.open3d.org/docs/release/tutorial/geometry/file_io.html>`__.
+
+The example point cloud file is in ego coordinates (which will be
+transformed to world coordinates later).
+
+.. seealso:: Remember to use the same file name for images, point cloud and poses
+   to make it easier to match them to each frame.
+
+Device Pose
+###########
+
+Scale's platform also expects a `pose
+file <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/poses/1.json>`__
+per frame. This file contains your device's heading and position:
+
+.. code-block:: json
+
+  {
+    "heading": [
+      0.9223153982060285,
+      0.010172188957944597,
+      0.020377226369147156,
+      -0.3857662523463648
+    ],
+    "position": [
+      0.5567106077665928,
+      0.5506659726750831,
+      0.008819164477798357
+    ]
+  }
+
+You can use the pose data to transform your ego scene into a world
+coordinate scene.
+
+.. seealso:: A pose is a position and orientation. It is an absolute value between one frame and another.
+

@@ -1,0 +1,8 @@
+LidarScene 
+-----------------------------
+
+.. automodule:: scale_lidar_io.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

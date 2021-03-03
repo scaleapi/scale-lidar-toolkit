@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Intro" href="intro.html" /> 
+    <link rel="next" title="Scale AI Lidar Toolkit" href="intro.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,7 +84,28 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/structure.html">Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging/lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging/camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Python API:</span></p>
 <ul>
@@ -158,12 +179,88 @@
 <h1>Welcome to scale Lidar Toolkit’s documentation!<a class="headerlink" href="#welcome-to-scale-lidar-toolkit-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#setup">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#optional-setup">Optional Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#scale-api-documentation">Scale API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/preparing.html">Preparing Your Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/preparing.html#do-you-have-your-data-ready">Do you have your data ready?</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/structure.html">Data Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/structure.html#cameras">Cameras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/structure.html#point-cloud">Point Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/structure.html#device-pose">Device Pose</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/loading.html">Loading Your Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/loading.html#create-scene-function">Create Scene Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/loading.html#loading-and-calibrating-cameras">Loading and Calibrating Cameras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/loading.html#setting-up-device-poses">Setting up Device Poses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/loading.html#loading-point-clouds">Loading Point Clouds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="load_raw_data/loading.html#ego-coordinates">Ego Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="load_raw_data/loading.html#world-coordinates">World Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="load_raw_data/loading.html#transform-all-frames-relative-to-first-frame">Transform All Frames Relative to First Frame</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/loading.html#radar-points">Radar Points</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/debugging.html">Debugging your data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/debugging.html#validate-your-data">Validate your data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/task_creation.html">Task Creation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/task_creation.html#s3">S3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/task_creation.html#scale-api-key">Scale Api Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/task_creation.html#template">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/task_creation.html#create-the-task">Create the Task</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="load_raw_data/final.html">Final Thoughts and Tips</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/final.html#extra-tips">Extra tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_raw_data/final.html#my-data-still-looks-bad">My Data Still Looks Bad</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging/lidar.html">Debugging Lidar Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging/lidar.html#how-to-use-the-lidar-debugger">How to use the lidar debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging/lidar.html#aggregated-view">Aggregated view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debugging/camera.html">Camera Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging/camera.html#debug-camera-extrinsic">Debug Camera Extrinsic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="debugging/camera.html#lidar-debugger">Lidar Debugger</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debugging/camera.html#debug-camera-intrinsic">Debug Camera Intrinsic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="debugging/camera.html#image-projection">Image Projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging/camera.html#manual-camera-calibration">Manual camera calibration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debugging/camera.html#additional-reading">Additional Reading</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/poses.html">Troubleshooting poses/ego2world</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="in_depth/poses.html#uses-of-extra-calibration-calibration-matrices">Uses of extra calibration calibration matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_depth/poses.html#transform-world-coordinate-pointcloud-to-ego">Transform world coordinate pointcloud to Ego</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_depth/poses.html#starting-at-0-0-0">Starting at 0,0,0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -189,7 +286,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="intro.html" class="btn btn-neutral float-right" title="Intro" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="intro.html" class="btn btn-neutral float-right" title="Scale AI Lidar Toolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

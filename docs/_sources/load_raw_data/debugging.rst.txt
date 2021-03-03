@@ -1,0 +1,54 @@
+Debugging your data
+===================
+
+
+To set up the debugger, edit the path so that it points to your data in
+`scale-example.py <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L81>`__
+
+.. code-block:: python
+
+  if __name__ == '__main__':
+      scene = create_scene(
+              'data/', # <-- edit this path
+              frames=range(1,6) # <-- edit frames if necessary
+              )
+
+**Here are some things to check before you start debugging:**
+
+* Validate that the camera calibration is `using all the important data <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L35>`__ (for example, if you're using a fisheye camera, add the distortion coeﬃcient and the camera model).
+* If you are using a different point cloud format like ``.bin`` , `you will need to change how the data is loaded. <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L42>`__
+* The lidar toolkit supports point clouds with 4 values per point (x, y, z, intensity), `you may need to filter the point cloud if that is not the case. <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L41>`__
+* If the point cloud is in world coordinates, you will need to `subtract the poses from it <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L52>`__ (the lidar toolkit will transform point clouds from ego to world coordinates using the poses).
+
+
+If the data follows the data structure suggested and you finished the
+checks before debugging, you should be able to start debugging your
+data!
+
+Validate your data
+###################
+
+Scale's `lidar debugger <debugging/lidar.rst>`__ also allows you to validate your
+data. To use the debugger, uncomment lines 8 and 9 shown below. You can
+comment out lines 12 and 14 to avoid creating a task when debugging.
+
+.. code-block:: python
+
+  if __name__ == '__main__':
+      scene = create_scene(
+          'data/',
+          frames=range(1,6)
+          )
+
+      # Debugging methods
+      scene.get_frame(index=1).add_debug_lines()    # add lines using the camera position and heading
+      scene.preview()     # preview task
+
+      # Upload data to S3 bucket
+      # scene.s3_upload(S3_BUCKET, path='test-scale') # comment this line for testing
+      # Create tasks/ Scale API request
+      # scene.create_task(TEMPLATE).publish() # comment this line for testing
+
+If everything looks correct after debugging, continue to the next step
+to create your task!
+

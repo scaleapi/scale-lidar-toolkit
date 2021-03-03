@@ -1,0 +1,77 @@
+Troubleshooting poses/ego2world
+================================
+
+Uses of extra calibration calibration matrices
+###############################################
+
+**Imu to Lidar:**
+
+.. code-block:: python
+
+  from pykitti.utils import read_calib_file
+
+      calib_imu_to_lidar = read_calib_file('calib_imu_to_lidar.txt') 
+      imu_to_lidar = Transform.from_Rt(
+          calib_imu_to_lidar['R'].reshape(3, 3),
+          calib_imu_to_lidar['T'],
+      )
+
+      for frame in frames:
+              # read pointcloud data in ego coordinates
+              # point can be a [x,3] or [x,4] shape (intensity)
+              pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")
+              with open(f"./poses/{frame}.yaml", 'r') as pose_file:   # load frame pose
+              device_pose = yaml.safe_load(pose_file)
+              pose = Transform().from_Rt(
+                          R=Quaternion(np.array(device_pose['heading'])),
+                          t=device_pose['position']
+                          )
+              points = np.asarray(pcd.points)
+              scene.get_frame(frame).add_points(points)
+
+              # apply the imu_to_lidar transform to the poses
+              scene.get_frame(frame).apply_transform(pose @ imu_to_lidar.inverse)    # set the pose as frame pose
+
+
+.. seealso:: An **inertial measurement unit (IMU)** is an electronic device that measures and reports a body's specific force, angular rate, and sometimes the orientation of the body, using a combination of accelerometers, gyroscopes, and sometimes magnetometers. (similar to a GPS)
+
+Transform world coordinate pointcloud to Ego
+#############################################
+
+Remove the poses from the pointcloud to get ego points
+
+.. code-block:: python
+
+  for frame in frames:
+    # read pointcloud data in ego coordinates
+    # point can be a [x,3] or [x,4] shape (intensityj)
+    pcd = o3d.io.read_point_cloud(f"./pointcloud/{frame}.ply")
+    with open(f"./poses/{frame}.yaml", 'r') as pose_file:   # load frame pose
+    device_pose = yaml.safe_load(pose_file)
+    pose = Transform().from_Rt(
+                R=Quaternion(np.array(device_pose['heading'])),
+                t=device_pose['position']
+                )
+    points = np.asarray(pcd.points)
+
+    # Add the points en ego coordinates
+    scene.get_frame(frame).add_points(np.asarray(pcd.points), transform=pose.inverse)
+
+Starting at 0,0,0 
+####################
+
+
+In order to debug the data easily we recommend defining the first pose
+as 0,0,0.
+
+We accomplish that with `this
+line <https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py#L58>`__
+(we subtract the pose 0 to all the poses), but it's also recommended to
+have the data set in that way, in order to debug your data easily.
+
+**Why?**
+
+* If the first pose is 0,0,0 it's easy to see if the next poses are correct, it's easy to catch if the poses and the actual car movement are in sync (e.g: poses defining a movement in the Y axis but the car is moving in the X axis)
+* It's easy to see if the cameras extrinsic are wrong. The lidar toolkit apply the poses to the cameras in each frame, in this case since the pose is 0,0,0, the camera position in the first frame is going to be the relative position of the camera to the vehicle (Eg.: the camera is at 1.5 mts from the ground in the real world, this means that the camera position should be 1.5 in the Y axis in the frame 0)
+* Easy to see in the lidar debugger (the green sphere .will match with the device position )
+

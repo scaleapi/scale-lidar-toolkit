@@ -1,0 +1,39 @@
+Final Thoughts and Tips
+=======================
+
+We hope that the template script and this guide will help make debugging
+lidar data and creating tasks a smoother process. Here are some more
+tips that may help.
+
+.. seealso:: Remember to check the object **Transform** from **scale_lidar_io**, this will help you with all the algebraic operation (matrix multiplication, subtraction, etc.). Also you can create a Transform object using different type of data, not only matrixes. Transforms prints translate your matrixes into simple components to help you understand your data.
+
+Extra tips
+****************
+
+**Subtracting a matrix from another matrix:**
+
+.. code-block:: python
+
+  matrix_one = Transform(np.eye(4))
+  matrix_two = Transform(numpy.indices((4, 4)))
+
+  print(matrix_one @ matrix_two.inverse)
+
+.. seealso::   Remember that the order of the element matters in matrix multiplication, it is not the same
+
+**The lidar toolkit's expected input format**
+
+The lidar toolkit expects data in a specific format to construct the
+output json. If something errors out or does not make sense, remember to
+check how the lidar toolkit operates. There is the chance that a pose
+was applied twice, or the raw data was using a quaternion and the lidar
+toolkit was expecting a rotation matrix.
+
+My Data Still Looks Bad
+****************************
+
+In the section `Lidar toolkit In depth / Troubleshooting your
+data <#page29>`__ we have more cases of how to debug and load your data
+into the lidar toolkit. When in doubt, reach out to your Scale
+Engagement Manager.
+

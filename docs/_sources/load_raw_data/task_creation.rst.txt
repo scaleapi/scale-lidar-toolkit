@@ -1,0 +1,104 @@
+Task Creation
+=============
+
+To create a task, the toolkit requires valid S3 credentials, an S3
+bucket, and a valid Scale API key.
+
+S3
+****
+
+The lidar toolkit uses boto3, which will use the aws credentials stored
+in ``~/.aws/credentials.json`` (this is similar aws-cli in terminal).
+
+
+The method ``scene.s3_upload(bucket, path)`` uses boto3 to upload all
+the attachments and images of the scene into the specified bucket and
+path.
+
+.. code-block:: python
+
+  scene.s3_upload('scaleapi-sales-test', path='test/lidar-toolkit')
+
+Scale Api Key
+****************
+
+Before you can create a task on Scale's platform, you need to define an environment variable called ``SCALE_API_KEY`` . You can do this by entering export ``SCALE_API_KEY=live_xxxx`` in your terminal.
+
+The following method is used to to create a task:
+
+.. code-block:: python
+
+  scene.create_task().publish()
+
+With everything finally in place, you should be able to debug your data,
+upload it to S3 or your cloud provider of choice, and create tasks in
+Scale's platform!
+
+
+.. seealso:: You can create different task types with the same method by changing the ``task_type`` parameter:``scene.create_task().publish(task_type='[TASK TYPE]')``. The available task types are: ``lidarannotation`` *(default)*, ``lidartopdown``, and ``lidarsegmentation``
+
+Template
+*********
+
+Scene.create_task() supports a yaml template, which is used to generate
+the payload containing the task parameters from `Scale's
+documentation <https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation>`__
+(labels, project name, instructions, etc).
+
+.. code-block:: python
+
+  # Code example of how to load a template.json file and use it
+  with open('template.json') as json_file:
+      TEMPLATE = json.load(json_file)
+  scene.create_task(template).publish()
+
+Example of template.json:
+
+.. code-block:: json
+
+  {
+    "attachment_  type": "json",
+    "callback_ur  l": "http://example.com/callback",
+    "project": " default_project",
+    "instruction": "Please label the objects on the scene",
+    "labels": [
+      "car",
+      "truck",
+      "bus",
+      "bicycle",
+      "motorbike",
+      "towed_object",
+      "person"
+    ],
+    "max_distance_meters": 20,
+    "meters_per_unit": 1
+  }
+
+Create the Task
+*****************
+
+Comment out the lidar debug lines, uncomment the s3 and task creation
+lines.
+
+Add your task template and run the script to create your task!
+
+.. code-block:: python
+
+  with open('template.json') as json_file:
+      TEMPLATE = json.load(json_file)
+
+  if __name__ == '__main__':
+      scene = create_scene(
+              'data/', 
+              frames=range(1,6)
+              )
+
+      # Debugging methods
+      #  scene.get_frame(index=1).add_debug_lines()
+      #  scene.preview()
+
+      # Upload data to S3 bucket
+      scene.s3_upload(S3_BUCKET, path='test-scale')
+      # Create tasks/ Scale API request 
+      scene.create_task(TEMPLATE).publish()
+

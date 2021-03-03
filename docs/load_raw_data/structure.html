@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Data Structure &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Loading Your Data" href="loading.html" />
+    <link rel="prev" title="Preparing Your Data" href="preparing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cameras">Cameras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#point-cloud">Point Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#device-pose">Device Pose</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../debugging/lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging/camera.html">Camera Debugging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data Structure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-structure">
+<h1>Data Structure<a class="headerlink" href="#data-structure" title="Permalink to this headline">¶</a></h1>
+<p>In order to use the scale-example python script, you will need to store
+your data following this structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">cameras</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">camera_one</span><span class="p">:</span>
+        <span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span><span class="o">.</span><span class="n">jpg</span><span class="o">/</span><span class="n">png</span> <span class="p">(</span><span class="n">X</span> <span class="o">-&gt;</span> <span class="n">frame</span> <span class="n">number</span><span class="p">)</span>
+        <span class="o">-</span> <span class="n">extrinsics</span><span class="o">.</span><span class="n">json</span> <span class="p">(</span><span class="n">heading</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">],</span> <span class="n">position</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+        <span class="o">-</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">json</span> <span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="n">fy</span><span class="p">,</span><span class="n">cx</span><span class="p">,</span><span class="n">cy</span><span class="p">)</span>
+    <span class="o">-</span> <span class="n">camera_two</span><span class="p">:</span>
+        <span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span><span class="o">.</span><span class="n">jpg</span><span class="o">/</span><span class="n">png</span> <span class="p">(</span><span class="n">X</span> <span class="o">-&gt;</span> <span class="n">frame</span> <span class="n">number</span><span class="p">)</span>
+        <span class="o">-</span> <span class="n">extrinsics</span><span class="o">.</span><span class="n">json</span> <span class="p">(</span><span class="n">heading</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">],</span> <span class="n">position</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+        <span class="o">-</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">json</span> <span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="n">fy</span><span class="p">,</span><span class="n">cx</span><span class="p">,</span><span class="n">cy</span><span class="p">)</span>
+    <span class="o">-</span> <span class="o">...</span> <span class="n">more</span> <span class="n">cameras</span>
+<span class="o">-</span> <span class="n">pointcloud</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span><span class="o">.</span><span class="n">ply</span><span class="o">/</span><span class="n">pcd</span> <span class="p">(</span><span class="n">X</span> <span class="o">-&gt;</span> <span class="n">frame</span> <span class="n">number</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">poses</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span><span class="o">.</span><span class="n">json</span> <span class="p">(</span><span class="n">X</span> <span class="o">-&gt;</span> <span class="n">frame</span> <span class="n">number</span><span class="p">)</span> <span class="p">(</span><span class="n">heading</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">],</span> <span class="n">position</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+<span class="o">-</span> <span class="n">radar_points</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span><span class="o">.</span><span class="n">txt</span> <span class="p">(</span><span class="n">X</span> <span class="o">-&gt;</span> <span class="n">frame</span> <span class="n">number</span><span class="p">)</span> <span class="p">(</span><span class="n">each</span> <span class="n">line</span> <span class="n">should</span> <span class="n">be</span> <span class="n">a</span> <span class="n">point</span> <span class="n">following</span> <span class="n">this</span> <span class="nb">format</span> <span class="n">position_x</span><span class="p">,</span> <span class="n">position_y</span><span class="p">,</span> <span class="n">position_z</span><span class="p">,</span> <span class="n">direction_x</span><span class="p">,</span> <span class="n">direction_y</span><span class="p">,</span> <span class="n">direction_z</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Example Data</strong></p>
+<p>There is <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/tree/master/scale_format/data">test
+data</a>
+provided in the Github repo if you wish to test the script out yourself
+or see the directory structure.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>We define headings using quaternion annotations following this order: w, x, y, z</p>
+</div>
+<div class="section" id="cameras">
+<h2>Cameras<a class="headerlink" href="#cameras" title="Permalink to this headline">¶</a></h2>
+<p>Scale’s platform expects an image for every frame from each camera.</p>
+<p>Each camera will also need an <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/extrinsics.json">extrinsic
+file</a>
+with the camera’s heading and position,</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;heading&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mf">0.009023107680662246</span><span class="p">,</span>
+    <span class="mf">-0.011674247389688907</span><span class="p">,</span>
+    <span class="mf">0.7045302329449326</span><span class="p">,</span>
+    <span class="mf">-0.7095205749956979</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;position&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mf">0.046516221916763065</span><span class="p">,</span>
+    <span class="mf">-1.0212984653087003</span><span class="p">,</span>
+    <span class="mf">1.6668216814750108</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The camera extrinsic should be relative to the device. This means that the lidar toolkit will add device position and heading to the camera in each frame.</p>
+</div>
+<p>and an <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/cameras/front_camera/intrinsics.json">intrinsics
+file</a>
+with the camera’s 2d-translation and 2d-scaling.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;fx&quot;</span><span class="p">:</span> <span class="mf">933.4667</span><span class="p">,</span>
+  <span class="nt">&quot;fy&quot;</span><span class="p">:</span> <span class="mf">934.6754</span><span class="p">,</span>
+  <span class="nt">&quot;cx&quot;</span><span class="p">:</span> <span class="mf">896.4692</span><span class="p">,</span>
+  <span class="nt">&quot;cy&quot;</span><span class="p">:</span> <span class="mf">507.3557</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>In this file you can add camera model, distortion coeﬃcients, etc.</p>
+</div>
+</div>
+<div class="section" id="point-cloud">
+<h2>Point Cloud<a class="headerlink" href="#point-cloud" title="Permalink to this headline">¶</a></h2>
+<p>Scale’s platform expects a <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/pointcloud/1.ply">point cloud
+file</a>
+for every frame. In this example, we will be using <code class="docutils literal notranslate"><span class="pre">.ply</span></code> , but the toolkit is compatible other point cloud formats. Read
+more about supported point cloud formats and filetypes
+<a class="reference external" href="http://www.open3d.org/docs/release/tutorial/geometry/file_io.html">here</a>.</p>
+<p>The example point cloud file is in ego coordinates (which will be
+transformed to world coordinates later).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Remember to use the same file name for images, point cloud and poses
+to make it easier to match them to each frame.</p>
+</div>
+</div>
+<div class="section" id="device-pose">
+<h2>Device Pose<a class="headerlink" href="#device-pose" title="Permalink to this headline">¶</a></h2>
+<p>Scale’s platform also expects a <a class="reference external" href="https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/data/poses/1.json">pose
+file</a>
+per frame. This file contains your device’s heading and position:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;heading&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mf">0.9223153982060285</span><span class="p">,</span>
+    <span class="mf">0.010172188957944597</span><span class="p">,</span>
+    <span class="mf">0.020377226369147156</span><span class="p">,</span>
+    <span class="mf">-0.3857662523463648</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;position&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mf">0.5567106077665928</span><span class="p">,</span>
+    <span class="mf">0.5506659726750831</span><span class="p">,</span>
+    <span class="mf">0.008819164477798357</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can use the pose data to transform your ego scene into a world
+coordinate scene.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>A pose is a position and orientation. It is an absolute value between one frame and another.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="loading.html" class="btn btn-neutral float-right" title="Loading Your Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="preparing.html" class="btn btn-neutral float-left" title="Preparing Your Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

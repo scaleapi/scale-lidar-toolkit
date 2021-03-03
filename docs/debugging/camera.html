@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Camera Debugging &mdash; Scale Lidar Toolkit 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Troubleshooting Your Data" href="../in_depth/intro.html" />
+    <link rel="prev" title="Debugging Lidar Data" href="lidar.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Scale Lidar Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Scale AI Lidar Toolkit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Load raw lidar data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/preparing.html">Preparing Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/structure.html">Data Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/loading.html">Loading Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/debugging.html">Debugging your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/task_creation.html">Task Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../load_raw_data/final.html">Final Thoughts and Tips</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Debugging lidar data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lidar.html">Debugging Lidar Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Camera Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#debug-camera-extrinsic">Debug Camera Extrinsic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lidar-debugger">Lidar Debugger</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#debug-camera-intrinsic">Debug Camera Intrinsic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#image-projection">Image Projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-camera-calibration">Manual camera calibration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-reading">Additional Reading</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Lidar Toolkit in Depth</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/intro.html">Troubleshooting Your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/poses.html">Troubleshooting poses/ego2world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/cameras.html">Troubleshooting Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../in_depth/radar_points.html">Radar Point Deep-Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scale_lidar_io.html">scale_lidar_io</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scale Lidar Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Camera Debugging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="camera-debugging">
+<h1>Camera Debugging<a class="headerlink" href="#camera-debugging" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="debug-camera-extrinsic">
+<h2>Debug Camera Extrinsic<a class="headerlink" href="#debug-camera-extrinsic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lidar-debugger">
+<h3>Lidar Debugger<a class="headerlink" href="#lidar-debugger" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+        <span class="s1">&#39;data/&#39;</span><span class="p">,</span>
+        <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Debugging methods</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">add_debug_lines</span><span class="p">()</span>    <span class="c1"># add lines using the camera position and heading</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">preview</span><span class="p">()</span>     <span class="c1"># preview task</span>
+</pre></div>
+</div>
+<p>The method <code class="docutils literal notranslate"><span class="pre">.add_debug_lines()</span></code> in line 8 will add lines that begin
+from the cameras’ positions and extend towards where they are directed
+(for the first frame). This will help you to validate the cameras’
+positions, and more importantly, the directions the cameras are
+pointing.</p>
+<p>Ones that is validated, you can see if the camera projection is correct.</p>
+</div>
+</div>
+<div class="section" id="debug-camera-intrinsic">
+<h2>Debug Camera Intrinsic<a class="headerlink" href="#debug-camera-intrinsic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="image-projection">
+<h3>Image Projection<a class="headerlink" href="#image-projection" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+        <span class="s1">&#39;data/&#39;</span><span class="p">,</span>
+        <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Debugging methods</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">get_projected_image</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s1">/debug_</span><span class="si">{</span><span class="n">frame_id</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
+    <span class="c1"># Aggregated view for 10 frames in depth mode, default each frame has a different color</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">get_projected_image</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">frames_index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color_mode</span><span class="o">=</span><span class="s2">&quot;depth&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s1">/debug_</span><span class="si">{</span><span class="n">frame_id</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.get_projected_image(camera_id,</span> <span class="pre">color_mode)</span></code> method projects the
+point cloud onto camera images. You can project the points for multiple
+frames at once with the <code class="docutils literal notranslate"><span class="pre">frames_index</span></code> argument, as shown in line 10.</p>
+<p>The <a href="#id1"><span class="problematic" id="id2">``</span></a>.save()``method, will save the image with the projected points
+from camera 0 of frame 1 into the specified path.</p>
+<p>The end result should look similar to this:</p>
+<img alt="../_images/projected-points.png" src="../_images/projected-points.png" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Projected_images support only <strong>Brown-Conrady</strong> and <strong>Cylindrical</strong> distortion</p>
+</div>
+</div>
+<div class="section" id="manual-camera-calibration">
+<h3>Manual camera calibration<a class="headerlink" href="#manual-camera-calibration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+    <span class="s1">&#39;data/&#39;</span><span class="p">,</span>
+    <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="c1"># Debugging methods</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">manual_calibration</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Adding this line to your code will open a matplotlib window which will
+look like this:</p>
+<img alt="Manual calibration view" src="../_images/manual-calibration.png" />
+<p>Each camera extrinsic and intrinsic value will be displayed with a bar.
+Clicking on the bars will update the camera calibration values (please
+have in mind that the tool is not instant and takes some time to refresh
+the view). In the console, you should be able to see the new values for
+later usage in your code.</p>
+<img alt="Manual calibration output" class="align-center" src="../_images/calibration-output.png" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please try to use this as last option, since you’re going to ended up hardcoding the camera  values instead of use the system values. Although this could be useful to validate the camera intrinsic before creating a task.</p>
+</div>
+</div>
+</div>
+<div class="section" id="additional-reading">
+<h2>Additional Reading<a class="headerlink" href="#additional-reading" title="Permalink to this headline">¶</a></h2>
+<p>Here are some useful articles that explain the concepts of camera
+extrinsic and intrinsic matrices.</p>
+<p><a class="reference external" href="http://ksimek.github.io/2012/08/22/extrinsic/">Dissecting the Camera Matrix, Part 2: The Extrinsic
+Matrix</a></p>
+<p><a class="reference external" href="http://ksimek.github.io/2013/08/13/intrinsic/">Dissecting the Camera Matrix, Part 3: The Intrinsic
+Matrix</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../in_depth/intro.html" class="btn btn-neutral float-right" title="Troubleshooting Your Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lidar.html" class="btn btn-neutral float-left" title="Debugging Lidar Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Scale AI, Inc. All rights reserved..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

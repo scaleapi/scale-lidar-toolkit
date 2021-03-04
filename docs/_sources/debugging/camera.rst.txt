@@ -51,7 +51,7 @@ The ``.get_projected_image(camera_id, color_mode)`` method projects the
 point cloud onto camera images. You can project the points for multiple
 frames at once with the ``frames_index`` argument, as shown in line 10.
 
-The ``.save()``method, will save the image with the projected points
+The `.save() <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.image.LidarImage.save>`__ method, will save the image with the projected points
 from camera 0 of frame 1 into the specified path.
 
 The end result should look similar to this:

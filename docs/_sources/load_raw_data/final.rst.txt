@@ -5,7 +5,7 @@ We hope that the template script and this guide will help make debugging
 lidar data and creating tasks a smoother process. Here are some more
 tips that may help.
 
-.. seealso:: Remember to check the object **Transform** from **scale_lidar_io**, this will help you with all the algebraic operation (matrix multiplication, subtraction, etc.). Also you can create a Transform object using different type of data, not only matrixes. Transforms prints translate your matrixes into simple components to help you understand your data.
+.. seealso:: Remember to check the object `**Transform** <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale-lidar-io-transform-transform>`__ from **scale_lidar_io**, this will help you with all the algebraic operation (matrix multiplication, subtraction, etc.). Also you can create a Transform object using different type of data, not only matrixes. Transforms prints translate your matrixes into simple components to help you understand your data.
 
 Extra tips
 ****************

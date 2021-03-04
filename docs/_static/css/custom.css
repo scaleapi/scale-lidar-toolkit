@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Plex';
+  font-display: auto;
+  src: url('../fonts/plex/IBMPlexSans-Regular.eot?#iefix');
+  src: url('../fonts/plex/IBMPlexSans-Regular.eot?#iefix') format('eot'),
+    url('https://fonts.gstatic.com/s/ibmplexsans/v7/zYXgKVElMYYaJe8bpLHnCwDKhdHeFaxOedc.woff2')
+      format('woff2'),
+    url('../fonts/plex/IBMPlexSans-Regular.woff') format('woff'),
+    url('../fonts/plex/IBMPlexSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Plex';
+  font-display: auto;
+  src: url('../fonts/plex/IBMPlexSans-Medium.eot?#iefix');
+  src: url('../fonts/plex/IBMPlexSans-Medium.eot?#iefix') format('eot'),
+    url('https://fonts.gstatic.com/s/ibmplexsans/v7/zYX9KVElMYYaJe8bpLHnCwDKjSL9AIFsdP3pBms.woff2')
+      format('woff2'),
+    url('../fonts/plex/IBMPlexSans-Medium.woff') format('woff'),
+    url('../fonts/plex/IBMPlexSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Plex';
+  font-display: auto;
+  src: url('../fonts/plex/IBMPlexSans-SemiBold.eot?#iefix');
+  src: url('../fonts/plex/IBMPlexSans-SemiBold.eot?#iefix') format('eot'),
+    url('https://fonts.gstatic.com/s/ibmplexsans/v7/zYX9KVElMYYaJe8bpLHnCwDKjQ76AIFsdP3pBms.woff2')
+      format('woff2'),
+    url('../fonts/plex/IBMPlexSans-SemiBold.woff') format('woff'),
+    url('../fonts/plex/IBMPlexSans-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Plex';
+  font-display: auto;
+  src: url('../fonts/plex/IBMPlexSans-Italic.eot?#iefix');
+  src: url('../fonts/plex/IBMPlexSans-Italic.eot?#iefix') format('eot'),
+    url('https://fonts.gstatic.com/s/ibmplexsans/v7/zYX-KVElMYYaJe8bpLHnCwDKhdTuF6ZJW9XjDg.woff2')
+      format('woff2'),
+    url('../fonts/plex/IBMPlexSans-Italic.woff') format('woff'),
+    url('../fonts/plex/IBMPlexSans-Italic.ttf') format('truetype');
+  font-style: italic;
+}
+
+body {
+  font-family: 'Plex',-apple-system,Arial,Sans-Serif;
+}
+
+body.wy-body-for-nav {
+  background-color: #3d434a;
+}
+
+body div.wy-side-nav-search {
+  background-color: #3d434a;
+}
+
+body .rst-content .toctree-wrapper>p.caption, h1, h2, h3, h4, h5, h6, legend {
+  font-family: 'Plex',-apple-system,Arial,Sans-Serif;
+  color: #384248;
+  font-weight: 600;
+}
+
+body .rst-content .toctree-wrapper>p.caption p {
+  font-family: 'Plex',-apple-system,Arial,Sans-Serif;
+  color: #384248;
+}
+
+body .wy-nav-side {
+  background: #f6f7f8;
+}
+
+body a {
+  color: #933cff;
+}
+
+body a:hover {
+  color: #5f00d5;
+}
+
+body .wy-nav-side a {
+  color: #666666;
+}
+
+body .wy-nav-side a:hover, .wy-menu-vertical li.current a:hover, .wy-menu-vertical li.toctree-l2.current>a, .wy-menu-vertical li.toctree-l2.current li.toctree-l3>a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+
+body .wy-nav-side a.icon-home {
+  color: #fff;
+}
+
+body .wy-nav-side a.icon-home:hover {
+  background-color: #666666;
+}
+
+
+body .wy-menu-vertical header, .wy-menu-vertical p.caption {
+  color: #666666;
+}
+
+html.writer-html4 .rst-content dl:not(.docutils)>dt, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple)>dt {
+  color: #5f00d5;
+  background: #f0f0f0;
+  border-top: 3px solid black;}

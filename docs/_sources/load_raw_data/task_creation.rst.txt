@@ -35,12 +35,12 @@ upload it to S3 or your cloud provider of choice, and create tasks in
 Scale's platform!
 
 
-.. seealso:: You can create different task types with the same method by changing the ``task_type`` parameter:``scene.create_task().publish(task_type='[TASK TYPE]')``. The available task types are: ``lidarannotation`` *(default)*, ``lidartopdown``, and ``lidarsegmentation``
+.. seealso:: You can create different task types with the same method by changing the `task_type <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#module-scale_lidar_io.task>`__ parameter:``scene.create_task().publish(task_type='[TASK TYPE]')``. The available task types are: ``lidarannotation`` *(default)*, ``lidartopdown``, and ``lidarsegmentation``
 
 Template
 *********
 
-Scene.create_task() supports a yaml template, which is used to generate
+`Scene.create_task() <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.scene.LidarScene.create_task>`__ supports a yaml template, which is used to generate
 the payload containing the task parameters from `Scale's
 documentation <https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation>`__
 (labels, project name, instructions, etc).

@@ -212,12 +212,12 @@ upload it to S3 or your cloud provider of choice, and create tasks in
 Scale’s platform!</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>You can create different task types with the same method by changing the <code class="docutils literal notranslate"><span class="pre">task_type</span></code> parameter:<code class="docutils literal notranslate"><span class="pre">scene.create_task().publish(task_type='[TASK</span> <span class="pre">TYPE]')</span></code>. The available task types are: <code class="docutils literal notranslate"><span class="pre">lidarannotation</span></code> <em>(default)</em>, <code class="docutils literal notranslate"><span class="pre">lidartopdown</span></code>, and <code class="docutils literal notranslate"><span class="pre">lidarsegmentation</span></code></p>
+<p>You can create different task types with the same method by changing the <a class="reference external" href="https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#module-scale_lidar_io.task">task_type</a> parameter:<code class="docutils literal notranslate"><span class="pre">scene.create_task().publish(task_type='[TASK</span> <span class="pre">TYPE]')</span></code>. The available task types are: <code class="docutils literal notranslate"><span class="pre">lidarannotation</span></code> <em>(default)</em>, <code class="docutils literal notranslate"><span class="pre">lidartopdown</span></code>, and <code class="docutils literal notranslate"><span class="pre">lidarsegmentation</span></code></p>
 </div>
 </div>
 <div class="section" id="template">
 <h2>Template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h2>
-<p>Scene.create_task() supports a yaml template, which is used to generate
+<p><a class="reference external" href="https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.scene.LidarScene.create_task">Scene.create_task()</a> supports a yaml template, which is used to generate
 the payload containing the task parameters from <a class="reference external" href="https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation">Scale’s
 documentation</a>
 (labels, project name, instructions, etc).</p>

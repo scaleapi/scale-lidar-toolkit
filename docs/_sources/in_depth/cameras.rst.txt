@@ -20,4 +20,4 @@ Troubleshooting Cameras
             D=calib_cam_to_cam['D_00'],
             )
 
-.. seealso:: ``camera.calibrate`` has different params alternatives, you can see the `camera.calibrate definition here <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.camera.LidarCamera.calibrate>`__ 
+.. seealso:: ``camera.calibrate`` has different params alternatives, you can see the camera.calibrate definition `here <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.camera.LidarCamera.calibrate>`__ 

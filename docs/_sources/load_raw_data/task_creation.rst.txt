@@ -40,7 +40,7 @@ Scale's platform!
 Template
 *********
 
-`Scene.create_task() <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.scene.LidarScene.create_task>`__ supports a yaml template, which is used to generate
+`Scene.create_task() <https://scaleapi.github.io/scale-lidar-toolkit/scale_lidar_io.html#scale_lidar_io.scene.LidarScene.create_task>`__ supports a json template, which is used to generate
 the payload containing the task parameters from `Scale's
 documentation <https://private-docs.scale.com/?python#sensor-fusion-lidar-annotation>`__
 (labels, project name, instructions, etc).

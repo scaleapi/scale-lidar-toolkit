@@ -2,6 +2,12 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.12] - 2021-03-08
+
+### Fixed
+
+- LidarImage calibrate issue
+
 ## [0.1.1] - 2021-03-05
 
 ### Fixed

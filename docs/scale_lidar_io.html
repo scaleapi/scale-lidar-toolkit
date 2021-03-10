@@ -195,7 +195,7 @@
 <dt id="scale_lidar_io.scene.LidarScene">
 <em class="property">class </em><code class="sig-name descname">LidarScene</code><a class="headerlink" href="#scale_lidar_io.scene.LidarScene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>LidarScene object represent all frames in a scene.</p>
+<p>LidarScene object representing all frames in a scene.</p>
 <dl class="simple">
 <dt>Scene properties:</dt><dd><ul class="simple">
 <li><p>cameras: List of cameras</p></li>
@@ -212,7 +212,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.get_camera">
 <code class="sig-name descname">get_camera</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">camera_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#scale_lidar_io.camera.LidarCamera" title="scale_lidar_io.camera.LidarCamera">scale_lidar_io.camera.LidarCamera</a><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.get_camera" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a camera by id (or index) and creates one if It doesn’t exists</p>
+<dd><p>Get a camera by id (or index) or create one if it does not exist</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -232,7 +232,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.get_frame">
 <code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#scale_lidar_io.frame.LidarFrame" title="scale_lidar_io.frame.LidarFrame">scale_lidar_io.frame.LidarFrame</a><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.get_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a frame by id (or index) or creates one if It doesn’t exists</p>
+<dd><p>Get a frame by id (or index) or create one if it does not exist</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -243,13 +243,16 @@
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>LidarFrame</p>
 </dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#scale_lidar_io.frame.LidarFrame" title="scale_lidar_io.frame.LidarFrame">LidarFrame</a></p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.apply_transforms">
 <code class="sig-name descname">apply_transforms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">world_transforms</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform">scale_lidar_io.transform.Transform</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.apply_transforms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply transformations to all the frames (the number of Transformation should be the same as the number of frames)</p>
+<dd><p>Apply transformations to all the frames (the number of Transformation should match the number of frames)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>world_transforms</strong> (<em>list</em><em>(</em><a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a><em>)</em>) – List of Transform</p>
@@ -260,7 +263,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.filter_points">
 <code class="sig-name descname">filter_points</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_intensity</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_intensity_percentile</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.filter_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Filter points based on their intensity</p>
+<dd><p>Filter points based on intensity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -312,7 +315,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.to_dict">
 <code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">public_url</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#scale_lidar_io.scene.LidarScene.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dictionary with the frames urls using the public_url as base.</p>
+<dd><p>Return a dictionary with the frame urls using the public_url as base.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>public_url</strong> (<em>str</em>) – This url will be concatenated with the frames name, e.g.: <cite>‘%s/frame-%s.json’ % (public_url, frame.id)</cite></p>
@@ -334,7 +337,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>bucket</strong> (<em>str</em>) – S3 Bucket name</p></li>
-<li><p><strong>path</strong> – Path where store the data</p></li>
+<li><p><strong>path</strong> – Path to store data</p></li>
 <li><p><strong>mock_upload</strong> (<em>float</em>) – To avoid upload the data to S3  (defualt <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
 <li><p><strong>use_threads</strong> (<em>float</em>) – In order to upload multiple files at the same time using threads  (defualt <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
 </ul>
@@ -351,7 +354,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.save_task">
 <code class="sig-name descname">save_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">template</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.scene.LidarScene.save_task" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save the entire scene (with frame and images) into filepath in zipfile format</p>
+<dd><p>Save the entire scene (with frame and images) in zipfile format to local filepath</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – File name and path in which the scene should be saved</p>
@@ -362,12 +365,12 @@
 <dl class="py method">
 <dt id="scale_lidar_io.scene.LidarScene.create_task">
 <code class="sig-name descname">create_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">task_type</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'lidarannotation'</span></em><span class="sig-paren">)</span> &#x2192; scaleapi.tasks.Task<a class="headerlink" href="#scale_lidar_io.scene.LidarScene.create_task" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a Scale platform task from the configured scene</p>
+<dd><p>Create a Scale platform task from the configured scene</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>template</strong> (<em>dict</em>) – Dictionary of payload for task creation (<a class="reference external" href="https://private-docs.scale.com/?python#parameters">https://private-docs.scale.com/?python#parameters</a>), attachments data will be filled automatically.</p></li>
-<li><p><strong>task_type</strong> (<em>str</em>) – Select a Scale API endpoint top upload data to, currently supports ‘lidarannotation’ and ‘lidartopdown’. Defaults to ‘lidarannotation’.</p></li>
+<li><p><strong>task_type</strong> (<em>str</em>) – Select a Scale API endpoint top upload data to, currently supports ‘lidarannotation’, ‘lidarsegmentation’, and ‘lidartopdown’. Defaults to ‘lidarannotation’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -388,7 +391,7 @@
 <dt id="scale_lidar_io.frame.LidarFrame">
 <em class="property">class </em><code class="sig-name descname">LidarFrame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">cameras</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.frame.LidarFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Frame objects represent all the point cloud, image and calibration data contained in a single frame</p>
+<p>Frame object represents the point cloud, image and calibration data contained in a single frame</p>
 <dl class="simple">
 <dt>Frame properties:</dt><dd><ul class="simple">
 <li><p>id: Frame id, used to identify the frame</p></li>
@@ -404,7 +407,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.frame.LidarFrame.get_image">
 <code class="sig-name descname">get_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">camera_id</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#scale_lidar_io.image.LidarImage" title="scale_lidar_io.image.LidarImage">scale_lidar_io.image.LidarImage</a><a class="headerlink" href="#scale_lidar_io.frame.LidarFrame.get_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get image by camera_id or creates one if It doesn’t exist.</p>
+<dd><p>Get image by camera_id or create one if it does not exist</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>camera_id</strong> (<em>str</em><em>, </em><em>int</em>) – Camera id</p>
@@ -427,7 +430,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>connector</strong> (<a class="reference internal" href="#scale_lidar_io.connectors.Importer" title="scale_lidar_io.connectors.Importer"><em>Importer</em></a>) – Importer used to load the points</p></li>
 <li><p><strong>transform</strong> (<a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a>) – Transform that should be applied to the points</p></li>
-<li><p><strong>intensity</strong> (<em>int</em>) – If the points list doesn’t include intensity, this value will be used as intensity for all the points (default <code class="docutils literal notranslate"><span class="pre">1</span></code>)</p></li>
+<li><p><strong>intensity</strong> (<em>int</em>) – If the points list does not include intensity, this value will be used as intensity for all the points (default <code class="docutils literal notranslate"><span class="pre">1</span></code>)</p></li>
 <li><p><strong>sensor_id</strong> (<em>int</em>) – Sensor id, used in case that you have more than one lidar sensor. (Default <code class="docutils literal notranslate"><span class="pre">0</span></code>)</p></li>
 </ul>
 </dd>
@@ -491,7 +494,7 @@
 <dt id="scale_lidar_io.frame.LidarFrame.add_colors">
 <code class="sig-name descname">add_colors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">colors</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.frame.LidarFrame.add_colors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add colors to the pointcloud. This list should follow the same order as the point list.</p>
-<p>Each color should be in RGB order with values between 0 and 255.</p>
+<p>Each color should be in RGB with values between 0 and 255.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
   <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">230</span><span class="p">],</span>
   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">],</span>
@@ -510,7 +513,7 @@
 <dt id="scale_lidar_io.frame.LidarFrame.add_debug_lines">
 <code class="sig-name descname">add_debug_lines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intensity</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.frame.LidarFrame.add_debug_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add debug lines.</p>
-<p>This will add a line made of points from where each camera is to the direction that it’s looking at. This will use the camera position in this frame.</p>
+<p>This will add a line starting from each camera position to the direction it is facing. This will use the camera position in this frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -588,7 +591,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.frame.LidarFrame.apply_transform">
 <code class="sig-name descname">apply_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform">scale_lidar_io.transform.Transform</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.frame.LidarFrame.apply_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define the frame transformation. This will be used to define the device position and applied to cameras and points.</p>
+<dd><p>Apply the frame transformation. This will be used to define the device position and applied to cameras and points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>T</strong> (<a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform"><em>Transform</em></a>) – Transform for this frame</p>
@@ -650,7 +653,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>bucket</strong> (<em>str</em>) – S3 Bucket name</p></li>
-<li><p><strong>path</strong> – Path where store the data</p></li>
+<li><p><strong>path</strong> – Path to store data</p></li>
 </ul>
 </dd>
 </dl>
@@ -939,7 +942,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.camera.LidarCamera.get_projected_image">
 <code class="sig-name descname">get_projected_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">points</span></em>, <em class="sig-param"><span class="n">frame_transform</span></em>, <em class="sig-param"><span class="n">color_mode</span><span class="o">=</span><span class="default_value">'default'</span></em>, <em class="sig-param"><span class="n">oversample</span><span class="o">=</span><span class="default_value">3</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.camera.LidarCamera.get_projected_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return image with points projected on it</p>
+<dd><p>Return image with points projected onto it</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1030,7 +1033,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.image.LidarImage.set_scale">
 <code class="sig-name descname">set_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale_factor</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.image.LidarImage.set_scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change image scale and save it in image_path</p>
+<dd><p>Change image scale and save in image_path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>scale_factor</strong> (<em>float</em>) – Scale factor</p>
@@ -1041,7 +1044,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.image.LidarImage.set_brightness">
 <code class="sig-name descname">set_brightness</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">factor</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.image.LidarImage.set_brightness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change image brightness and save it in image_path
+<dd><p>Change image brightness and save in image_path
 (will use PIL.ImageEnhance.Brightness)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1086,7 +1089,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Transform object represent a rigid transformation matrix (rotation and translation).</p>
 <p>Transform is a 4x4 matrix, although it could be instance using (16,1), (3,4), (3,3) or (3,1) matrixes.
-(Have in mind that not all the method from Transform will work using scaled/small matrixes)</p>
+<strong>Note</strong>: not all the methods from Transform will work using scaled/small matrixes</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">[</span> <span class="n">r00</span><span class="p">,</span> <span class="n">r01</span><span class="p">,</span> <span class="n">r02</span><span class="p">,</span> <span class="n">t0</span><span class="p">],</span>
   <span class="p">[</span> <span class="n">r10</span><span class="p">,</span> <span class="n">r11</span><span class="p">,</span> <span class="n">r12</span><span class="p">,</span> <span class="n">t1</span><span class="p">],</span>
@@ -1118,7 +1121,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.transform.Transform.from_euler">
 <em class="property">static </em><code class="sig-name descname">from_euler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angles</span></em>, <em class="sig-param"><span class="n">axes</span><span class="o">=</span><span class="default_value">'sxyz'</span></em>, <em class="sig-param"><span class="n">degrees</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.transform.Transform.from_euler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a transform based on euler angles</p>
+<dd><p>Create a transform from euler angles</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1128,7 +1131,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Transform created based on the angles</p>
+<dd class="field-even"><p>Transform created from euler angles</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform">Transform</a></p>
@@ -1139,7 +1142,7 @@
 <dl class="py method">
 <dt id="scale_lidar_io.transform.Transform.from_transformed_points">
 <em class="property">static </em><code class="sig-name descname">from_transformed_points</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scale_lidar_io.transform.Transform.from_transformed_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a transform based on two points</p>
+<dd><p>Create a transform from two points</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1148,7 +1151,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Transform created based on the angles</p>
+<dd class="field-even"><p>Transform created from the angles</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#scale_lidar_io.transform.Transform" title="scale_lidar_io.transform.Transform">Transform</a></p>

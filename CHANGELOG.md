@@ -2,6 +2,12 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.13] - 2021-04-28
+
+### Fixed
+
+- Support Scale SDK +2.0
+
 ## [0.1.12] - 2021-03-08
 
 ### Fixed

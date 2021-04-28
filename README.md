@@ -45,8 +45,8 @@ Do ensure your AWS credentials have permissions to upload files to the `BUCKET` 
 
 ### New release
 
-## [0.1.12] - 2021-03-08
+## [0.1.13] - 2021-04-28
 
 ### Fixed
 
-- LidarImage calibrate issue
+- Support Scale SDK +2.0

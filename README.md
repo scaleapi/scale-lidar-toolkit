@@ -43,6 +43,17 @@ aws_secret_access_key = Asjwje1A.....
 ```
 Do ensure your AWS credentials have permissions to upload files to the `BUCKET` specified at the top of the [script](https://github.com/scaleapi/scale-lidar-toolkit/blob/master/lidar_template.py#L18).
 
+### Scale File Upload:
+
+Now the lidar toolkit support the new feature Scale File Upload.
+
+More information about [Scale File Upload](https://docs.scale.com/reference/file-overview)
+
+Usage:
+```
+scene.scale_file_upload('project_name')
+```
+
 ### New release
 
 ## [0.1.14] - 2021-06-17

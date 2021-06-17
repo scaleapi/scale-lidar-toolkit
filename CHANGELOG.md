@@ -2,6 +2,12 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.14] - 2021-06-17
+
+### Fixed
+
+- Support Scale File Upload (alternative to S3)
+
 ## [0.1.13] - 2021-04-28
 
 ### Fixed

@@ -45,8 +45,8 @@ Do ensure your AWS credentials have permissions to upload files to the `BUCKET` 
 
 ### New release
 
-## [0.1.13] - 2021-04-28
+## [0.1.14] - 2021-06-17
 
 ### Fixed
 
-- Support Scale SDK +2.0
+- Support Scale File Upload (alternative to S3)

@@ -56,8 +56,9 @@ scene.scale_file_upload('project_name')
 
 ### New release
 
-## [0.1.14] - 2021-06-17
+## [0.1.15] - 2021-09-13
 
 ### Fixed
 
-- Support Scale File Upload (alternative to S3)
+- No longer require S3/AWS configuration when you are not using it.
+- Renamed `public_url` to `base_url`

@@ -2,6 +2,13 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.15] - 2021-09-13
+
+### Fixed
+
+- No longer require S3/AWS configuration when you are not using it.
+- Renamed `public_url` to `base_url`
+
 ## [0.1.14] - 2021-06-17
 
 ### Fixed

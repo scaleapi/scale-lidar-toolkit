@@ -2,6 +2,12 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.2] - 2021-10-06 - scale-lidar-io-debug
+
+### Added
+
+- Add param `aggregated_frames` to `preview`
+
 ## [0.1.15] - 2021-09-13
 
 ### Fixed

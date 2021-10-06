@@ -56,9 +56,8 @@ scene.scale_file_upload('project_name')
 
 ### New release
 
-## [0.1.15] - 2021-09-13
+## [0.1.2] - 2021-10-06 - scale-lidar-io-debug
 
-### Fixed
+### Added
 
-- No longer require S3/AWS configuration when you are not using it.
-- Renamed `public_url` to `base_url`
+- Add param `aggregated_frames` to `preview`

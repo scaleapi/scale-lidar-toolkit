@@ -136,7 +136,11 @@ ego to world coordinates is correct. Here is an example of a wrong
 transformation:</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>Using the aggregated view you are able to visualize the point cloud in multiple consecutive frames (up to 10 frames). Each frame points are going to be visualized with different colors.</p>
+<p>Using the aggregated view you are able to visualize the point cloud in multiple consecutive frames (default 10 frames). Each frame points are going to be visualized with different colors.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>You can define how many frames you want to see on the aggregated view, e.g: <code class="docutils literal notranslate"><span class="pre">scene.preview(aggregated_frames=20)</span></code> to show 20 frames</p>
 </div>
 <img alt="Lidar debugger aggregated view" src="../_images/aggregated-view.png" />
 <p>In the image above, the ego2world is incorrect because the points for

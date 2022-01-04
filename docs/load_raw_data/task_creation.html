@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging your data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Task Creation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#s3">S3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scale-file-upload">Scale File Upload</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scale-api-key">Scale Api Key</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#template">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-the-task">Create the Task</a></li>
@@ -98,8 +99,9 @@
              
   <div class="section" id="task-creation">
 <h1>Task Creation<a class="headerlink" href="#task-creation" title="Permalink to this headline"></a></h1>
-<p>To create a task, the toolkit requires valid S3 credentials, an S3
-bucket, and a valid Scale API key.</p>
+<p>To create a task, the toolkit requires to upload the infomation into a server that Scale has access to. (Usually this implies a valid S3 credentials, an S3 bucket).
+The uploaded files are a list of json files that holds data such as device position, images, camera positions, points, and any other data that’s relevant.</p>
+<p>And a valid Scale API key to create the task.</p>
 <div class="section" id="s3">
 <h2>S3<a class="headerlink" href="#s3" title="Permalink to this headline"></a></h2>
 <p>The lidar toolkit uses boto3, which will use the aws credentials stored
@@ -108,6 +110,39 @@ in <code class="docutils literal notranslate"><span class="pre">~/.aws/credentia
 the attachments and images of the scene into the specified bucket and
 path.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">s3_upload</span><span class="p">(</span><span class="s1">&#39;scaleapi-sales-test&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;test/lidar-toolkit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scale-file-upload">
+<h2>Scale File Upload<a class="headerlink" href="#scale-file-upload" title="Permalink to this headline"></a></h2>
+<p>As an alternative you can use the new feature Scale File upload, more info <a class="reference external" href="https://docs.scale.com/reference/file-overview">here</a>. In order to use Scale File Upload replace the following line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">s3_upload</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">attachments</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">scale_file_upload</span><span class="p">(</span><span class="s1">&#39;project_name&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">project_name</span></code> with which project these files should be associated with.</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">scale_file_upload</span></code> returns a list of URL of the scene’s frame. This is what should be included in your lidar task’s attachments field (as part of the payload).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;template.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+    <span class="n">TEMPLATE</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">create_scene</span><span class="p">(</span>
+            <span class="s1">&#39;data/&#39;</span><span class="p">,</span>
+            <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Debugging methods</span>
+    <span class="c1">#  scene.get_frame(index=1).add_debug_lines()</span>
+    <span class="c1">#  scene.preview()</span>
+
+    <span class="c1"># Upload data to S3 bucket</span>
+    <span class="n">attachments</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">scale_file_upload</span><span class="p">(</span><span class="s1">&#39;test_project&#39;</span><span class="p">)</span>
+    <span class="n">TEMPLATE</span><span class="p">[</span><span class="s1">&#39;attachments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">attachments</span>
+    <span class="c1"># Create tasks/ Scale API request</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">)</span><span class="o">.</span><span class="n">publish</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

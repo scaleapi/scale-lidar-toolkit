@@ -2,6 +2,13 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.162] - 2022-01-06 - scale-lidar-io
+
+### Added
+
+- Add threads to `scale_file_upload` scene method
+- Add param to `scale_file_upload` to hide the progress bar
+
 ## [0.1.2] - 2021-10-06 - scale-lidar-io-debug
 
 ### Added

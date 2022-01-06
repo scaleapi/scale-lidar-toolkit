@@ -8,11 +8,13 @@ The goal of this repository is to provide you with a set of helper functions, ex
 
 **Toolkit Documentation:**
 
+[Documentation](https://scaleapi.github.io/scale-lidar-toolkit/intro.html).
+
 We've documented the [step by step process of using this toolkit with pictures and extensive explations](https://scaleapi.github.io/scale-lidar-toolkit/intro.html), using the file [`lidar_template.py`](https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py) as a base.
 
 **Scale API Documentation:**
 
-This toolkit aids you in getting your data from it's raw format to submitted Scale Tasks ready to be worked on. We have the [Scale format documented in full in our 3d documentation](https://private-docs.scale.com/#sensor-fusion-lidar-annotation). We'd encourage you to use this as a reference for what's possible and what the different options are.
+This toolkit aids you in getting your data from it's raw format to submitted Scale Tasks ready to be worked on. We have the [Scale format documented in full in our 3d documentation](https://docs.scale.com/reference/lidar-annotation-annotation). We'd encourage you to use this as a reference for what's possible and what the different options are.
 
 ## Setup
 
@@ -56,8 +58,9 @@ scene.scale_file_upload('project_name')
 
 ### New release
 
-## [0.1.2] - 2021-10-06 - scale-lidar-io-debug
+## [0.1.162] - 2022-01-06 - scale-lidar-io
 
 ### Added
 
-- Add param `aggregated_frames` to `preview`
+- Add threads to `scale_file_upload` scene method
+- Add param to `scale_file_upload` to hide the progress bar

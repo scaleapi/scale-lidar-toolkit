@@ -6,8 +6,7 @@ The goal of this repository is to provide you with a set of helper functions, ex
 
 ## Documentation:
 
-**Toolkit Documentation:**
-[Link to the documentation](https://scaleapi.github.io/scale-lidar-toolkit/intro.html).
+**Toolkit Documentation:** [documentation here](https://scaleapi.github.io/scale-lidar-toolkit/intro.html).
 
 We've documented the [step by step process of using this toolkit with pictures and extensive explations](https://scaleapi.github.io/scale-lidar-toolkit/intro.html), using the file [`lidar_template.py`](https://github.com/scaleapi/scale-lidar-toolkit/blob/master/scale_format/scale-example.py) as a base.
 

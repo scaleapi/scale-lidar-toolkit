@@ -2,6 +2,13 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.1.163] - 2022-02-04 - scale-lidar-io
+
+### Fix
+
+- Update threads in `scale_file_upload` scene method
+- Update threads in `scale_s3_upload` scene method
+
 ## [0.1.162] - 2022-01-06 - scale-lidar-io
 
 ### Added

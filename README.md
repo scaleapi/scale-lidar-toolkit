@@ -56,9 +56,8 @@ scene.scale_file_upload('project_name')
 
 ### New release
 
-## [0.1.162] - 2022-01-06 - scale-lidar-io
+## [0.1.4] - 2022-05-04 - scale-lidar-io-debug
 
 ### Added
 
-- Add threads to `scale_file_upload` scene method
-- Add param to `scale_file_upload` to hide the progress bar
+- Add support for bs4 and fix fisheye manual camera calibration 

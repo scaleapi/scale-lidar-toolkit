@@ -2,11 +2,17 @@
 
 All notable changes to packages scale-lidar-io-debug and scale-lidar-io will be documented in this file.
 
+## [0.2.0] - 2022-07-04 - scale-lidar-io-debug
+
+### Added
+
+- Add support for reading bs4 files
+
 ## [0.1.4] - 2022-05-04 - scale-lidar-io-debug
 
 ### Added
 
-- Add support for bs4 and fix fisheye manual camera calibration 
+- Add support for bs4 and fix fisheye manual camera calibration
 
 ## [0.1.163] - 2022-02-04 - scale-lidar-io
 
